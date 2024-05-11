@@ -1,5 +1,6 @@
 import Client from '../models/client.js'
 import bcrypt from 'bcryptjs'
+// import { createAccessToken } from '../libs/jwt.js'
 
 export const createClient = async (req, res) => {
   // Obtengo los datos del cliente a guardar
