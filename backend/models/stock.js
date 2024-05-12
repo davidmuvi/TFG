@@ -1,10 +1,11 @@
 import mongoose from 'mongoose'
 
 const stockSchema = new mongoose.Schema({
-  product_id: {
+  productId: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'Product',
-    required: true
+    required: true,
+    unique: true
   },
   quantity: {
     type: Number,
