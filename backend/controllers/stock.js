@@ -39,3 +39,17 @@ export const updateStockById = async (req, res) => {
     res.status(404).json({ message: 'Stock not found' })
   }
 }
+
+export const substractQuantity = async (req, res) => {
+  try {
+    const stock = await Stock.findById(req.params.id)
+    if (stock.quantity < req.body.quantity) {
+      res.status(404).json({ message: 'Not enough stock' })
+    }
+    stock.quantity = stock.quantity - req.body.quantity
+    await stock.save()
+    res.status(200).json(stock)
+  } catch (error) {
+    res.status(404).json({ message: 'Stock not found' })
+  }
+}
