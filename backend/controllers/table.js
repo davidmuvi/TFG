@@ -7,7 +7,7 @@ export const createTable = async (req, res) => {
     const tableSaved = await newTable.save()
     res.status(201).json(tableSaved)
   } catch (err) {
-    res.status(404).json({ message: 'Error creating table' })
+    res.status(404).json({ message: err.message })
   }
 }
 

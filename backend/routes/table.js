@@ -8,6 +8,6 @@ const router = Router()
 router.get('/', getAllTables)
 router.get('/:id', getTableById)
 router.post('/', validateSchema(createTableSchema), createTable)
-router.put('/:id', validateSchema(createTableSchema), updateTableById)
+router.patch('/:id', updateTableById)
 
 export default router
