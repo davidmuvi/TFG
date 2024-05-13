@@ -39,3 +39,12 @@ export const updateBookingById = async (req, res) => {
     res.status(404).json({ message: 'Booking not found' })
   }
 }
+
+export const deleteBookingById = async (req, res) => {
+  try {
+    const bookingDeleted = await Booking.findByIdAndDelete(req.params.id)
+    res.status(200).json(bookingDeleted)
+  } catch (err) {
+    res.status(404).json({ message: 'Booking not found' })
+  }
+}

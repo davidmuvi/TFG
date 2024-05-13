@@ -40,3 +40,12 @@ export const updateProduct = async (req, res) => {
     res.status(404).json({ message: 'Product not found' })
   }
 }
+
+export const deleteProduct = async (req, res) => {
+  try {
+    const product = await Product.findByIdAndDelete(req.params.id)
+    res.status(200).json(product)
+  } catch (err) {
+    res.status(404).json({ message: 'Product not found' })
+  }
+}

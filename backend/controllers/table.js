@@ -39,3 +39,12 @@ export const updateTableById = async (req, res) => {
     res.status(404).json({ message: 'Table not found' })
   }
 }
+
+export const deleteTableById = async (req, res) => {
+  try {
+    const table = await Table.findByIdAndDelete(req.params.id)
+    res.status(200).json(table)
+  } catch (err) {
+    res.status(404).json({ message: 'Table not found' })
+  }
+}

@@ -39,3 +39,12 @@ export const updateProvider = async (req, res) => {
     res.status(404).json({ message: 'Provider not found' })
   }
 }
+
+export const deleteProviderById = async (req, res) => {
+  try {
+    const providerDeleted = await Provider.findByIdAndDelete(req.params.id)
+    res.status(200).json(providerDeleted)
+  } catch (error) {
+    res.status(404).json({ message: 'Provider not found' })
+  }
+}

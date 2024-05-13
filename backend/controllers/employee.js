@@ -43,3 +43,12 @@ export const updateEmployeeById = async (req, res) => {
     res.status(404).json({ message: 'Employee not found' })
   }
 }
+
+export const deleteEmployeeById = async (req, res) => {
+  try {
+    await Employee.findByIdAndDelete(req.params.id)
+    res.status(200).json({ message: 'Employee deleted' })
+  } catch (error) {
+    res.status(404).json({ message: 'Employee not found' })
+  }
+}
