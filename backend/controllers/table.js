@@ -1,9 +1,9 @@
 import Table from '../models/table.js'
 
 export const createTable = async (req, res) => {
-  const { capacity } = req.body
+  const { tableNumber, capacity } = req.body
   try {
-    const newTable = new Table({ capacity })
+    const newTable = new Table({ tableNumber, capacity })
     const tableSaved = await newTable.save()
     res.status(201).json(tableSaved)
   } catch (err) {
