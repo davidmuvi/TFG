@@ -1,5 +1,5 @@
 import { createContext, useState, useContext, useEffect } from 'react'
-import { loginRequest } from '../api/auth'
+import { authService } from '../services/auth.service.js'
 
 export const AuthContext = createContext()
 
@@ -11,34 +11,48 @@ export const useAuth = () => {
     return context
 }
 
-export const AuthProvider = ({ children }) => { 
-    const [user, setUser] = useState(null)
-    const [isAuthenticated, setIsAuthenticated] = useState(false)
-    const [errors, setErrors] = useState([])
+export const AuthProvider = ({ children }) => {
+    const [user, setUser] = useState()
+    const [loading, setLoading] = useState(true)
 
-    const signin = async (user) => {
-        try {
-            const response = await loginRequest(user)
-            console.log(response)
-        } catch (error) {
-            setErrors(error.response.data.message)
+    useEffect(() => {
+        authUser()
+    }, [])
+
+    const storeToken = (token) => {
+        localStorage.setItem('ACCESS_TOKEN', token)
+    }    
+
+    const removeToken = () => { 
+        localStorage.removeItem('ACCESS_TOKEN')
+    }
+
+    const logout = () => { 
+        setLoading(false)
+        setUser(null)
+        removeToken()
+    }
+
+    const authUser = () => {
+        const token = localStorage.getItem('ACCESS_TOKEN')
+        if (token) {
+            authService
+            .verifyToken(token)
+            .then(
+                ({data}) => {
+                    setUser(data)
+                    setLoading(false)
+                }
+            )
+            .catch(err => console.log(err))
+        }
+        else {
+            logout()
         }
     }
 
-    // Si se ha mostrado un error, lo borra después de 3 segundos
-    useEffect(() => { 
-        if (errors.length > 0) { 
-            const timer = setTimeout(() => {
-                setErrors([])
-            }, 3000)
-            // Cuando el usuario cambia de página, se elimina el timer
-            return () => clearTimeout(timer)
-        }
-    }, [errors])
-
-
     return (
-        <AuthContext.Provider value={{signin, user, isAuthenticated, errors}}>
+        <AuthContext.Provider value={{user, loading, authUser, storeToken}}>
             {children}
         </AuthContext.Provider>
     )

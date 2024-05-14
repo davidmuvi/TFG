@@ -1,9 +1,11 @@
 function EmployeePage() {
-
     return (
         <div className="w-screen h-screen grid grid-cols-4">
             <aside className="bg-indigo-600 col-span-1 p-6 text-white">
-                <img src="" alt="Logo" />
+                <div className='flex justify-between'>
+                    <img src="" alt="Logo" />
+                    <button className='bg-red-500 rounded-lg p-2 text-white w-26'>Logout</button>
+                </div>
                 <button className="w-full flex col mt-10 opacity-60 p-2 rounded-xl hover:bg-indigo-800 hover:opacity-100 focus:bg-indigo-800 focus:opacity-100">
                     <div className="flex gap-3">
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="w-6 h-6">
@@ -40,7 +42,7 @@ function EmployeePage() {
                 <nav className="row-span-1 border-b-2 p-5 grid grid-cols-6">
                     <div className="col-span-5"></div>
                     <div className="col-span-1 flex items-center justify-center border-l-2"> 
-                        <p className="font-bold"> Username </p>
+                        <p className="font-bold"> Gustavo </p>
                     </div>
                 </nav>
                 <section className="row-span-7 bg-slate-200 rounded-xl m-4 grid grid-cols-3 pt-4 text-center">
