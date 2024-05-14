@@ -1,12 +1,12 @@
 import jwt from 'jsonwebtoken'
 
-export function createAccessToken (payLoad) {
+export function createAccessToken (payload) {
   return new Promise((resolve, reject) => {
     jwt.sign(
-      payLoad,
+      payload,
       'pruebatoken',
       {
-        expiresIn: '1d'
+        algorithm: 'HS256', expiresIn: '1d'
       },
       (err, token) => {
         if (err) reject(err)
