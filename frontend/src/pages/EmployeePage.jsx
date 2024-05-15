@@ -1,39 +1,30 @@
-import Layout from '../layouts/LayoutPages'
+import { useAuth } from '../context/AuthContext'
+import { Typography } from "@material-tailwind/react";
+import { EmployeePageCard } from '../components/employeePageCard';
+import { BookOpenIcon } from '@heroicons/react/24/solid';
 function EmployeePage() {
+    const { user } = useAuth()
+
     return (
-        <Layout>
-            <section className="bg-white w-full h-5/6 grid grid-rows-8">
-                <section className="row-span-7 bg-slate-200 rounded-xl m-4 grid grid-cols-3 pt-4 text-center h-full">
-                    <div className="col-span-1 grid">
-                        <h2 className="font-bold"> Número de mesa </h2>
-                        <p className="border-b-2 border-b-slate-300 h-1/3">1</p>
-                        <p className="border-b-2 border-b-slate-300 h-1/3">2</p>
-                        <p className="border-b-2 border-b-slate-300 h-1/3">3</p>
-                        <p className="border-b-2 border-b-slate-300 h-1/3">4</p>
-                        <p className="border-b-2 border-b-slate-300 h-1/3">5</p>
-                        <p className="border-b-2 border-b-slate-300 h-1/3">6</p>
-                    </div>
-                    <div className="col-span-1 grid">
-                        <h2 className="font-bold"> Capacidad </h2>
-                        <p className="border-b-2 border-b-slate-300 h-1/3">10</p>
-                        <p className="border-b-2 border-b-slate-300 h-1/3">8</p>
-                        <p className="border-b-2 border-b-slate-300 h-1/3">4</p>
-                        <p className="border-b-2 border-b-slate-300 h-1/3">2</p>
-                        <p className="border-b-2 border-b-slate-300 h-1/3">6</p>
-                        <p className="border-b-2 border-b-slate-300 h-1/3">2</p>
-                    </div>
-                    <div className="col-span-1 grid">
-                        <h2 className="font-bold"> Disponibilidad </h2>
-                        <p className="border-b-2 border-b-slate-300 h-1/3">Libre</p>
-                        <p className="border-b-2 border-b-slate-300 h-1/3">Libre</p>
-                        <p className="border-b-2 border-b-slate-300 h-1/3">Libre</p>
-                        <p className="border-b-2 border-b-slate-300 h-1/3">Libre</p>
-                        <p className="border-b-2 border-b-slate-300 h-1/3">Libre</p>
-                        <p className="border-b-2 border-b-slate-300 h-1/3">Libre</p>
-                    </div>
-                </section> 
-            </section>
-        </Layout>
+        <div className='bg-gray-200 h-screen w-screen flex flex-col items-center justify-center'>
+            <Typography variant="h1" className='mb-10'> Bienvenido {user.username}!</Typography>
+            <div className='flex items-center justify-center gap-10 w-full'>
+                <EmployeePageCard redirection='/bookings' icon={ <BookOpenIcon className='w-12 h-12'/> }>
+                    <Typography variant="h5">Reservas</Typography>
+                </EmployeePageCard>
+                <EmployeePageCard redirection='/bookings' icon={ <BookOpenIcon className='w-12 h-12'/> }>
+                    <Typography variant="h5">Productos</Typography>
+                </EmployeePageCard>
+                <EmployeePageCard redirection='/bookings' icon={ <BookOpenIcon className='w-12 h-12'/> }>
+                    <Typography variant="h5">Mesas</Typography>
+                </EmployeePageCard>
+                <EmployeePageCard redirection='/bookings' icon={ <BookOpenIcon className='w-12 h-12'/> }>
+                    <Typography variant="h5">Proveedores</Typography>
+                </EmployeePageCard>
+            </div>
+            
+        </div>
+        
     )
 }
 

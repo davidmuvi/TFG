@@ -32,7 +32,10 @@ function LoginPage() {
     const {username, password} = loginData
 
     return (
-        <form onSubmit={handleSubmitt} className="w-2/5 h-96 flex flex-col justify-center items-center gap-10 text-white">
+      <div className='h-screen w-screen bg-indigo-900 flex items-center justify-center'>
+        <form onSubmit={handleSubmitt} 
+        className="w-2/5 h-96 flex flex-col justify-center items-center gap-10 text-white bg-indigo-400 rounded-xl"
+        >
           <div className="w-2/3 flex flex-col gap-8">
               <div className="flex flex-col gap-2">
                 <label className="text-sm">Username</label>
@@ -50,12 +53,13 @@ function LoginPage() {
               </div>
           </div>
               <button type="submit" 
-              className="flex w-2/3 justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500"
+              className="flex w-2/3 justify-center rounded-md bg-indigo-800 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500"
               >
                 Log In
               </button>
         </form>
-      ) 
+      </div>
+    ) 
 }
 
 export default LoginPage;
