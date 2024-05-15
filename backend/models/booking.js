@@ -7,8 +7,7 @@ const bookingSchema = new mongoose.Schema({
   },
   tableId: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: 'Table',
-    required: true
+    ref: 'Table'
   },
   clientId: {
     type: mongoose.Schema.Types.ObjectId,

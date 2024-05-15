@@ -48,3 +48,12 @@ export const deleteBookingById = async (req, res) => {
     res.status(404).json({ message: 'Booking not found' })
   }
 }
+
+export const getAllBookingsWithTable = async (req, res) => {
+  try {
+    const bookings = await Booking.find({ tableId: { $exists: true, $ne: null } })
+    res.status(200).json(bookings)
+  } catch (error) {
+    res.status(404).json({ message: 'No bookings with table assigned' })
+  }
+}
