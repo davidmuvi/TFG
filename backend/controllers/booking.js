@@ -15,7 +15,7 @@ export const createBooking = async (req, res) => {
 
 export const getAllBookings = async (req, res) => {
   try {
-    const bookings = await Booking.find()
+    const bookings = await Booking.find().populate('clientId')
     res.status(200).json(bookings)
   } catch (error) {
     res.status(404).json({ message: 'Bookings not found' })
