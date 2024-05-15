@@ -15,6 +15,24 @@ class TableService {
             console.log(error)
         }
     }
+
+    async deleteTable(id){
+        try {
+            const response = await this.api.delete(`/tables/${id}`)
+            return response.data
+        } catch (error) {
+            console.log(error)
+        }
+    }
+
+    async getTablesWithoutAvailability(){
+        try {
+            const response = await this.api.get('/bookings/tables/with-assignments')
+            return response.data
+        } catch (error) {
+            console.log(error)
+        }
+    }
 }
 
 export const tableService = new TableService()

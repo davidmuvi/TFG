@@ -37,14 +37,14 @@ function LoginPage() {
               <div className="flex flex-col gap-2">
                 <label className="text-sm">Username</label>
                 <input type="text" name="username" value={username} onChange={handleInputChange}
-                className="rounded-md bg-slate-700 leading-8 border-2 border-slate-600"
+                className="rounded-md px-2 py-1 leading-8 text-black"
                 />
                 {errors.username && (<p className="text-red-500">Username required</p>)}
               </div>
               <div className="flex flex-col gap-2">
                 <label className="text-sm">Password</label>
                 <input type="password" name="password" value={password} onChange={handleInputChange}
-                className="rounded-md bg-slate-700 leading-8 border-2 border-slate-600"
+                className="rounded-md px-2 py-1 leading-8 text-black"
                 />
                 {errors.username && (<p className="text-red-500">Password required</p>)}
               </div>

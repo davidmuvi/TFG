@@ -1,11 +1,14 @@
 import { useAuth } from '../context/AuthContext'
 import { Link } from 'react-router-dom'
+
 const Navbar = () => {
     const { user } = useAuth()
     return (
         <>
         <nav className="bg-indigo-600 h-1/6 p-6 text-white flex items-center justify-between">
+            <Link to='/employees'>
             <img src="" alt="Logo" />
+            </Link>
 
             <Link to='/bookings' className="flex items-center mt-10 opacity-60 p-2 rounded-xl hover:bg-indigo-800 hover:opacity-100 focus:bg-indigo-800 focus:opacity-100">
                 <div className="flex gap-3">
