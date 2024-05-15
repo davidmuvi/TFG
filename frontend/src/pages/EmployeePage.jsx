@@ -1,8 +1,7 @@
-import Navbar from '../components/navbar'
+import Layout from '../layouts/LayoutPages'
 function EmployeePage() {
     return (
-        <div className="w-screen h-screen">
-            <Navbar />
+        <Layout>
             <section className="bg-white w-full h-5/6 grid grid-rows-8">
                 <section className="row-span-7 bg-slate-200 rounded-xl m-4 grid grid-cols-3 pt-4 text-center h-full">
                     <div className="col-span-1 grid">
@@ -34,7 +33,7 @@ function EmployeePage() {
                     </div>
                 </section> 
             </section>
-        </div>
+        </Layout>
     )
 }
 
