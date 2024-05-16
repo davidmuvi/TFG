@@ -10,7 +10,7 @@ import { Link } from 'react-router-dom'
   export function MenuDefault({redirection, menuName, items = []}) {
     return (
       <Menu>
-        <div className="flex items-center gap-2 mt-10 opacity-60 p-2 rounded-xl hover:bg-indigo-800 hover:opacity-100">
+        <div className="flex items-center gap-2 mt-10 p-2 rounded-xl hover:bg-blue-500">
             <Link to={redirection}>
             <p>{menuName}</p>
             </Link>

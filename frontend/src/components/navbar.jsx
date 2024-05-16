@@ -3,9 +3,9 @@ import { Link } from 'react-router-dom'
 import { MenuDefault } from './Menu'
 
 const Navbar = () => {
-    const { user } = useAuth()
+    const { user, logout } = useAuth()
     return (
-        <nav className="bg-indigo-600 h-1/6 p-6 text-white flex items-center justify-between">
+        <nav className="bg-blue-400 h-1/6 p-6 text-white flex items-center justify-between">
             <Link to='/employees'>
             <img src="" alt="Logo" />
             </Link>
@@ -18,7 +18,9 @@ const Navbar = () => {
             <div className='gap-3 h-full w-48'>
                 <p className='absolute right-3 top-20 font-bold text-lg'> {user.email} </p>
                 <button 
-                className='absolute right-3 top-3 bg-red-500 rounded-lg p-2 text-white w-26 h-8 text-sm flex items-center justify-center'>
+                className='absolute right-3 top-3 bg-red-500 rounded-lg p-2 text-white w-26 h-8 text-sm flex items-center justify-center'
+                onClick={logout}
+                >
                     Logout
                 </button>
 

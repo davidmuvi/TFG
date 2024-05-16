@@ -1,9 +1,9 @@
 import { useAuth } from '../context/AuthContext'
-import { Typography } from "@material-tailwind/react";
+import { Typography, Button } from "@material-tailwind/react";
 import { EmployeePageCard } from '../components/EmployeePageCard';
 import { BookOpenIcon } from '@heroicons/react/24/solid';
 function EmployeePage() {
-    const { user } = useAuth()
+    const { user, logout } = useAuth()
 
     return (
         <div className='bg-gray-200 h-screen w-screen flex flex-col items-center justify-center'>
@@ -22,6 +22,7 @@ function EmployeePage() {
                     <Typography variant="h5">Proveedores</Typography>
                 </EmployeePageCard>
             </div>
+            <Button color="red" className='mt-10' onClick={logout}>Logout</Button>
         </div>
     )
 }
