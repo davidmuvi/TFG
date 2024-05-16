@@ -12,19 +12,17 @@ function EmployeePage() {
                 <EmployeePageCard redirection='/bookings' icon={ <BookOpenIcon className='w-12 h-12'/> }>
                     <Typography variant="h5">Reservas</Typography>
                 </EmployeePageCard>
-                <EmployeePageCard redirection='/bookings' icon={ <BookOpenIcon className='w-12 h-12'/> }>
+                <EmployeePageCard redirection='/products' icon={ <BookOpenIcon className='w-12 h-12'/> }>
                     <Typography variant="h5">Productos</Typography>
                 </EmployeePageCard>
-                <EmployeePageCard redirection='/bookings' icon={ <BookOpenIcon className='w-12 h-12'/> }>
+                <EmployeePageCard redirection='/tables' icon={ <BookOpenIcon className='w-12 h-12'/> }>
                     <Typography variant="h5">Mesas</Typography>
                 </EmployeePageCard>
-                <EmployeePageCard redirection='/bookings' icon={ <BookOpenIcon className='w-12 h-12'/> }>
+                <EmployeePageCard redirection='/providers' icon={ <BookOpenIcon className='w-12 h-12'/> }>
                     <Typography variant="h5">Proveedores</Typography>
                 </EmployeePageCard>
             </div>
-            
         </div>
-        
     )
 }
 
