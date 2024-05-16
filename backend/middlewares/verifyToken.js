@@ -1,8 +1,9 @@
 import { expressjwt } from 'express-jwt'
+import 'dotenv/config'
 
 const isAuthenticated = expressjwt({
-  secret: 'pruebatoken',
-  algorithms: ["HS256"],
+  secret: process.env.TOKEN_SECRET,
+  algorithms: ['HS256'],
   requestProperty: 'payload',
   getToken: getTokenFromHeaders
 })

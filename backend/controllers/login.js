@@ -2,7 +2,6 @@ import Admin from '../models/admin.js'
 import Employee from '../models/employee.js'
 import bcrypt from 'bcryptjs'
 import { createAccessToken } from '../libs/jwt.js'
-import jwt from 'jsonwebtoken'
 
 export const login = async (req, res, next) => {
   const { username, password } = req.body
@@ -20,9 +19,9 @@ export const login = async (req, res, next) => {
         return res.status(404).json({ message: 'Password or user incorrect' })
       }
 
-      const token = await createAccessToken({ username: adminFound.username, email: adminFound.email})
+      const token = await createAccessToken({ username: adminFound.username, email: adminFound.email })
       res.json({
-        token: token
+        token
       })
     } else {
       const passwordCorrect = await bcrypt.compare(password, employeeFound.password)
@@ -32,7 +31,7 @@ export const login = async (req, res, next) => {
 
       const token = await createAccessToken({ username: employeeFound.username, email: employeeFound.email })
       res.json({
-        token: token
+        token
       })
     }
 
@@ -45,20 +44,4 @@ export const login = async (req, res, next) => {
 export const verifyToken = async (req, res) => {
   console.log(req.payload)
   res.status(200).json(req.payload)
-  // const { ACCESS_TOKEN } = req.cookies
-
-  // if (!ACCESS_TOKEN) return res.status(401).json({ message: 'Unauthorized' })
-
-  // jwt.verify(ACCESS_TOKEN, 'pruebatoken', async (err, employee) => {
-  //   if (err) return res.status(401).json({ message: 'Unauthorized' })
-
-  //   const employeeFound = await Employee.findById(employee.id)
-  //   if (!employeeFound) return res.status(401).json({ message: 'Unauthorized' })
-
-  //   return res.json({
-  //     id: employeeFound._id,
-  //     username: employeeFound.username,
-  //     role: employeeFound.role
-  //   })
-  // })
 }
