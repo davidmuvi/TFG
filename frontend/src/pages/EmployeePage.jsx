@@ -1,6 +1,6 @@
 import { useAuth } from '../context/AuthContext'
 import { Typography } from "@material-tailwind/react";
-import { EmployeePageCard } from '../components/employeePageCard';
+import { EmployeePageCard } from '../components/EmployeePageCard';
 import { BookOpenIcon } from '@heroicons/react/24/solid';
 function EmployeePage() {
     const { user } = useAuth()

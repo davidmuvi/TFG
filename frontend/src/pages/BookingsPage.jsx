@@ -25,7 +25,7 @@ function BookingsPage() {
     }
 
     const deleteBooking = (bookingId) => { 
-        bookingService.deleteTable(bookingId)
+        bookingService.deleteBooking(bookingId)
         .then(() => {
             getBookings()
         })
@@ -39,7 +39,7 @@ function BookingsPage() {
 
     return (
         <Layout>
-        <Card className="h-5/6 max-h-full">
+        <Card className="flex-1 w-screen">
             <table className="w-full h-full min-w-max table-auto text-left">
                 <thead>
                 <tr>
