@@ -24,6 +24,15 @@ class BookingService {
             console.log(error)
         }
     }
+
+    async createBooking(booking){ 
+        try {
+            const response = await this.api.post('/bookings', booking)
+            return response.data
+        } catch (error) {
+            return error
+        }
+    }
 }
 
 export const bookingService = new BookingService()
