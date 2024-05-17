@@ -10,10 +10,41 @@ const Navbar = () => {
             <img src="" alt="Logo" />
             </Link>
 
-            <MenuDefault redirection='/bookings' menuName='Bookings' items={['Añadir reserva', 'Modificar reserva']} />
-            <MenuDefault redirection='/products' menuName='Products' items={['Añadir producto', 'Modificar producto']} />
-            <MenuDefault redirection='/providers' menuName='Providers' items={['Añadir proveedor', 'Modificar proveedor']} />
-            <MenuDefault redirection='/tables' menuName='Tables' items={['Añadir mesa', 'Modificar mesa']} />
+            <MenuDefault 
+                redirection='/bookings' 
+                menuName='Bookings' 
+                items={[
+                    {name:'Añadir reserva', redirection: '/bookings/add'}, 
+                    {name:'Modificar reserva', redirection: '/bookings/edit'}
+                ]} 
+            />
+
+            <MenuDefault 
+                redirection='/products' 
+                menuName='Products' 
+                items={[
+                    {name:'Añadir producto', redirection: '/products/add'}, 
+                    {name:'Modificar producto', redirection: '/products/edit'}
+                ]} 
+            />
+
+            <MenuDefault 
+                redirection='/providers' 
+                menuName='Providers' 
+                items={[
+                    {name:'Añadir proveedor', redirection:'/providers/add'}, 
+                    {name:'Modificar proveedor', redirection:'/providers/edit'}
+                ]} 
+            />
+
+            <MenuDefault 
+                redirection='/tables' 
+                menuName='Tables' 
+                items={[
+                    {name:'Añadir mesa', redirection: '/tables/add'}, 
+                    {name:'Modificar mesa', redirection: '/tables/edit'}
+                ]} 
+            />
 
             <div className='gap-3 h-full w-48'>
                 <p className='absolute right-3 top-20 font-bold text-lg'> {user.email} </p>

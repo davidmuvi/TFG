@@ -20,7 +20,11 @@ import { Link } from 'react-router-dom'
         </div>
         <MenuList>
         {items.map((item, index) => (
-          <MenuItem key={index}>{item}</MenuItem>
+          <Link to = {item.redirection} key={index}>
+            <MenuItem>
+              {item.name}
+            </MenuItem>
+          </Link>
         ))}
         </MenuList>
       </Menu>
