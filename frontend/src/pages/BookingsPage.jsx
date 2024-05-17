@@ -42,24 +42,22 @@ function BookingsPage() {
     }
 
     const updateBooking = (id, updatedBooking) => {
-        try {
-            bookingService.updateBooking(id, updatedBooking)
-
+        bookingService.updateBooking(id, updatedBooking)
+        .then(() => {
             Swal.fire({
                 icon:'success',
                 title: 'Reserva modificada',
                 text: 'La reserva se ha modificado correctamente.',
             })
-
             getBookings()
-            
-        } catch (err) {
+        })
+        .catch(error => {
             Swal.fire({
                 icon: 'error',
                 title: 'Reserva no modificada',
-                text: err.message,
+                text: error.message,
             })
-        }
+        });
     }
 
     const formatDate = (date) => { 
