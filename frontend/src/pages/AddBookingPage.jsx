@@ -87,7 +87,7 @@ function AddBookingPage() {
                             name="name"
                             value={formData.name}
                             onChange={handleChange}
-                            className='bg-gray-600 text-white w-full'
+                            className='w-full'
                         />
                         {errors.name && <Typography className='text-red-500 text-sm'>{errors.name}</Typography>}
                     </div>
@@ -98,7 +98,7 @@ function AddBookingPage() {
                             name="telephone"
                             value={formData.telephone}
                             onChange={handleChange}
-                            className='bg-gray-600 text-white w-full'
+                            className='w-full'
                         />
                         {errors.telephone && <Typography className='text-red-500 text-sm'>{errors.telephone}</Typography>}
                     </div>
@@ -110,7 +110,7 @@ function AddBookingPage() {
                             name="bookingDay"
                             value={formData.bookingDay}
                             onChange={handleChange}
-                            className='bg-gray-600 text-white w-full'
+                            className='w-full'
                         />
                         {errors.bookingDay && <Typography className='text-red-500 text-sm'>{errors.bookingDay}</Typography>}
                     </div>

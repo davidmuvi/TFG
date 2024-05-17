@@ -1,11 +1,15 @@
 import { useEffect, useState } from 'react'
 import { bookingService } from '../services/booking.service.js'
 import Layout from '../layouts/LayoutPages'
+import ModifyBookingModal from '../components/ModifyBookingModal'
 import { Card, Typography } from "@material-tailwind/react"
-import { XCircleIcon } from '@heroicons/react/24/solid'
+import { XCircleIcon, PencilSquareIcon } from '@heroicons/react/24/solid'
+import Swal from 'sweetalert2'
 
 function BookingsPage() {
     const [bookings, setBookings] = useState([])
+    const [open, setOpen] = useState(false);
+    const [currentBooking, setCurrentBooking] = useState({ name: '', telephone: '', bookingDay: '' });
 
     const TABLE_HEAD = ["Cliente", "Teléfono", "Fecha", ""]
     const TABLE_ROWS = bookings
@@ -13,6 +17,11 @@ function BookingsPage() {
     useEffect(() => {
         getBookings()
     }, [])
+
+    const handleOpen = (booking) => {
+        setCurrentBooking(booking);
+        setOpen(true);
+    };
 
     const getBookings = () => { 
         bookingService.getBookings()
@@ -30,6 +39,27 @@ function BookingsPage() {
             getBookings()
         })
         .catch(error => {console.log(error)})
+    }
+
+    const updateBooking = (id, updatedBooking) => {
+        try {
+            bookingService.updateBooking(id, updatedBooking)
+
+            Swal.fire({
+                icon:'success',
+                title: 'Reserva modificada',
+                text: 'La reserva se ha modificado correctamente.',
+            })
+
+            getBookings()
+            
+        } catch (err) {
+            Swal.fire({
+                icon: 'error',
+                title: 'Reserva no modificada',
+                text: err.message,
+            })
+        }
     }
 
     const formatDate = (date) => { 
@@ -77,9 +107,12 @@ function BookingsPage() {
                             {formatDate({date})}
                         </Typography>
                         </td>
-                        <td className={`${classes} bg-blue-gray-50/50 h-full flex items-center justify-center`}>
+                        <td className={`${classes} bg-blue-gray-50/50 h-full flex items-center justify-around`}>
                         <Typography as="a" href="#" variant="small" color="blue-gray" className="font-medium w-6 h-6" onClick={() => deleteBooking(_id)}>
                             <XCircleIcon className='w-6 h-6 text-red-500'/>
+                        </Typography>
+                        <Typography as="a" href="#" variant="small" color="blue-gray" className="font-medium w-6 h-6" onClick={() => handleOpen(_id, date)}>
+                            <PencilSquareIcon className='w-6 h-6 text-black'/>
                         </Typography>
                         </td>
                     </tr>
@@ -88,6 +121,7 @@ function BookingsPage() {
                 </tbody>
             </table>
         </Card>
+        {open && <ModifyBookingModal open={open} setOpen={setOpen} booking={currentBooking} updateBooking={updateBooking} />}
     </Layout>
     )
 }

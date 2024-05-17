@@ -33,6 +33,15 @@ class BookingService {
             return error
         }
     }
+
+    async updateBooking(id, data) {
+        try {
+            const response = await this.api.patch(`/bookings/${id}`, data)
+            return response.data
+        } catch (error) {
+            return error
+        }
+    }
 }
 
 export const bookingService = new BookingService()
