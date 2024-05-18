@@ -14,7 +14,7 @@ export const createProduct = async (req, res) => {
 
 export const getProducts = async (req, res) => {
   try {
-    const products = await Product.find()
+    const products = await Product.find().populate('providerId')
     res.status(200).json(products)
   } catch (err) {
     res.status(404).json({ message: 'Products not found' })
