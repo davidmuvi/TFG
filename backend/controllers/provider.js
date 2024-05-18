@@ -48,3 +48,12 @@ export const deleteProviderById = async (req, res) => {
     res.status(404).json({ message: 'Provider not found' })
   }
 }
+
+export const getProviderByName = async (req, res) => {
+  try {
+    const clients = await Provider.findOne({ name: req.params.name })
+    res.status(200).json(clients)
+  } catch (error) {
+    res.status(404).json({ message: 'Provider not found' })
+  }
+}
