@@ -16,6 +16,15 @@ class ProductService {
         }
     }
 
+    async createProduct(product){ 
+        try {
+            const response = await this.api.post('/products', product)
+            return response.data
+        } catch (error) {
+            return error
+        }
+    }
+
     async deleteProduct(id){
         try {
             const response = await this.api.delete(`/products/${id}`)

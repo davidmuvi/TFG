@@ -22,8 +22,7 @@ const Navbar = () => {
                 redirection='/products' 
                 menuName='Products' 
                 items={[
-                    {name:'Añadir producto', redirection: '/products/add'}, 
-                    {name:'Modificar producto', redirection: '/products/edit'}
+                    {name:'Añadir producto', redirection: '/products/add'}
                 ]} 
             />
 
@@ -31,8 +30,7 @@ const Navbar = () => {
                 redirection='/providers' 
                 menuName='Providers' 
                 items={[
-                    {name:'Añadir proveedor', redirection:'/providers/add'}, 
-                    {name:'Modificar proveedor', redirection:'/providers/edit'}
+                    {name:'Añadir proveedor', redirection:'/providers/add'}
                 ]} 
             />
 
@@ -40,8 +38,7 @@ const Navbar = () => {
                 redirection='/tables' 
                 menuName='Tables' 
                 items={[
-                    {name:'Añadir mesa', redirection: '/tables/add'}, 
-                    {name:'Modificar mesa', redirection: '/tables/edit'}
+                    {name:'Añadir mesa', redirection: '/tables/add'}
                 ]} 
             />
 

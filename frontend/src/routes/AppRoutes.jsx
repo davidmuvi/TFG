@@ -7,6 +7,7 @@ import ProductsPage from '../pages/ProductsPage'
 import ProvidersPage from '../pages/ProvidersPage'
 import TablesPage from '../pages/TablesPage'
 import AddBookingPage from '../pages/AddBookingPage'
+import AddProductPage from '../pages/AddProductPage'
 
 const appRoutes = () => {
 return (
@@ -17,6 +18,7 @@ return (
             <Route path='/bookings/add' element={<AddBookingPage />} />
             <Route path='/bookings' element={<BookingsPage />} />
             <Route path='/products' element={<ProductsPage />} />
+            <Route path='/products/add' element={<AddProductPage />} />
             <Route path='/providers' element={<ProvidersPage />} />
             <Route path='/tables' element={<TablesPage />} />
         </Route>

@@ -16,6 +16,15 @@ class ProviderService {
         }
     }
 
+    async getProviderByName(providerName) {
+        try {
+            const response = await this.api.get(`/providers/name/${providerName}`)
+            return response.data
+        } catch (error) {
+            console.log(error)
+        }
+    }
+
     async deleteProvider(id){
         try {
             const response = await this.api.delete(`/providers/${id}`)
