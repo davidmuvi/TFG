@@ -85,6 +85,19 @@ function ProductPage() {
                     </tr>
                     );
                 })}
+
+                {/* Si no hay datos en la base de datos, mostramos un mensaje indicándolo.*/}
+                {
+                    TABLE_ROWS.length === 0 && (
+                    <tr>
+                        <td colSpan={TABLE_HEAD.length} className="p-4">
+                        <Typography variant="h5" color="blue-gray" className="font-normal">
+                            NO HAY PRODUCTOS REGISTRADOS
+                        </Typography>
+                        </td>
+                    </tr>
+                    )
+                }
                 </tbody>
             </table>
         </Card>
