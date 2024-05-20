@@ -13,7 +13,7 @@ class ProviderService {
             const response = await this.api.post('/providers', provider)
             return response.data
         } catch (error) {
-            console.log(error)
+            throw new Error(error.message)
         }
     }
 
@@ -22,7 +22,7 @@ class ProviderService {
             const response = await this.api.get('/providers')
             return response.data
         } catch (error) {
-            console.log(error)
+            throw new Error(error.message)
         }
     }
 
@@ -31,7 +31,7 @@ class ProviderService {
             const response = await this.api.get(`/providers/name/${providerName}`)
             return response.data
         } catch (error) {
-            console.log(error)
+            throw new Error(error.message)
         }
     }
 
@@ -40,7 +40,7 @@ class ProviderService {
             const response = await this.api.delete(`/providers/${id}`)
             return response.data
         } catch (error) {
-            console.log(error)
+            throw new Error(error.message)
         }
     }
 
@@ -55,7 +55,7 @@ class ProviderService {
             })
             return totalNumberOfProducts
         } catch (error) {
-            console.log(error)
+            throw new Error(error.message)
         }
     }
 }

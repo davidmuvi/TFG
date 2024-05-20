@@ -12,7 +12,7 @@ class ProductService {
             const response = await this.api.get('/products')
             return response.data
         } catch (error) {
-            console.log(error)
+            throw new Error(error.message)
         }
     }
 
@@ -21,7 +21,7 @@ class ProductService {
             const response = await this.api.post('/products', product)
             return response.data
         } catch (error) {
-            return error
+            throw new Error(error.message)
         }
     }
 
@@ -30,7 +30,7 @@ class ProductService {
             const response = await this.api.delete(`/products/${id}`)
             return response.data
         } catch (error) {
-            console.log(error)
+            throw new Error(error.message)
         }
     }
 }

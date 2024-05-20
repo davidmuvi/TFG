@@ -7,12 +7,22 @@ class TableService {
             withCredentials: true
         })
     }
+
+    async createTable(table){
+        try {
+            const response = await this.api.post('/tables', table)
+            return response.data
+        } catch (error) {
+            throw new Error(error.message)
+        }
+    }
+
     async getTables(){
         try {
             const response = await this.api.get('/tables')
             return response.data
         } catch (error) {
-            console.log(error)
+            throw new Error(error.message)
         }
     }
 
@@ -21,7 +31,7 @@ class TableService {
             const response = await this.api.delete(`/tables/${id}`)
             return response.data
         } catch (error) {
-            console.log(error)
+            throw new Error(error.message)
         }
     }
 

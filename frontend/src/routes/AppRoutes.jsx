@@ -9,6 +9,7 @@ import TablesPage from '../pages/TablesPage'
 import AddBookingPage from '../pages/AddBookingPage'
 import AddProductPage from '../pages/AddProductPage'
 import AddProviderPage from '../pages/AddProviderPage'
+import AddTablePage from '../pages/AddTablePage'
 
 const appRoutes = () => {
 return (
@@ -23,6 +24,7 @@ return (
             <Route path='/providers' element={<ProvidersPage />} />
             <Route path='/providers/add' element={<AddProviderPage />} />
             <Route path='/tables' element={<TablesPage />} />
+            <Route path='/tables/add' element={<AddTablePage />} />
         </Route>
     </Routes>
 )

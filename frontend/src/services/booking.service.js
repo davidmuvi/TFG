@@ -12,7 +12,7 @@ class BookingService {
             const response = await this.api.get('/bookings')
             return response.data
         } catch (error) {
-            console.log(error)
+            throw new Error(error.message)
         }
     }
 
@@ -21,7 +21,7 @@ class BookingService {
             const response = await this.api.delete(`/bookings/${id}`)
             return response.data
         } catch (error) {
-            console.log(error)
+            throw new Error(error.message)
         }
     }
 
@@ -30,7 +30,7 @@ class BookingService {
             const response = await this.api.post('/bookings', booking)
             return response.data
         } catch (error) {
-            return error
+            throw new Error(error.message)
         }
     }
 
@@ -39,7 +39,7 @@ class BookingService {
             const response = await this.api.patch(`/bookings/${id}`, data)
             return response.data
         } catch (error) {
-            return error
+            throw new Error(error.message)
         }
     }
 }

@@ -13,7 +13,7 @@ class ClientService {
             const response = await this.api.get(`/clients/${telephone}`)
             return response.data
         } catch (error) {
-            console.log(error)
+            throw new Error(error.message)
         }
     }
 }
