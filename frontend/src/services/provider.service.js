@@ -7,6 +7,16 @@ class ProviderService {
             withCredentials: true
         })
     }
+
+    async createProvider(provider){
+        try {
+            const response = await this.api.post('/providers', provider)
+            return response.data
+        } catch (error) {
+            console.log(error)
+        }
+    }
+
     async getProviders(){
         try {
             const response = await this.api.get('/providers')

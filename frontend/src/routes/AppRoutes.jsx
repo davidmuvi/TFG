@@ -8,6 +8,7 @@ import ProvidersPage from '../pages/ProvidersPage'
 import TablesPage from '../pages/TablesPage'
 import AddBookingPage from '../pages/AddBookingPage'
 import AddProductPage from '../pages/AddProductPage'
+import AddProviderPage from '../pages/AddProviderPage'
 
 const appRoutes = () => {
 return (
@@ -15,11 +16,12 @@ return (
         <Route path='/' element={<LoginPage />} />
         <Route element={<ProtectedRoute />}>
             <Route path='/employees' element={<EmployeePage />} />
-            <Route path='/bookings/add' element={<AddBookingPage />} />
             <Route path='/bookings' element={<BookingsPage />} />
+            <Route path='/bookings/add' element={<AddBookingPage />} />
             <Route path='/products' element={<ProductsPage />} />
             <Route path='/products/add' element={<AddProductPage />} />
             <Route path='/providers' element={<ProvidersPage />} />
+            <Route path='/providers/add' element={<AddProviderPage />} />
             <Route path='/tables' element={<TablesPage />} />
         </Route>
     </Routes>

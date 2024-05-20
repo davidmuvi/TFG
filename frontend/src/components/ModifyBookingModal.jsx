@@ -1,6 +1,7 @@
-import { Dialog, Input, Button, Typography } from '@material-tailwind/react';
-import { useState } from 'react';
-import { XMarkIcon } from '@heroicons/react/24/solid';
+import { Dialog, Input, Button, Typography } from '@material-tailwind/react'
+import { useState } from 'react'
+import { XMarkIcon } from '@heroicons/react/24/solid'
+import PropTypes from 'prop-types'
 
 function ModifyBookingModal({ open, setOpen, booking, updateBooking }) {
     const [formData, setFormData] = useState({
@@ -48,4 +49,11 @@ function ModifyBookingModal({ open, setOpen, booking, updateBooking }) {
     );
 }
 
+{/* Declaramos los tipos de las propiedades que le pasan al componente */}
+ModifyBookingModal.propTypes = { 
+    open: PropTypes.bool.isRequired,
+    setOpen: PropTypes.func.isRequired,
+    booking: PropTypes.object.isRequired,
+    updateBooking: PropTypes.func.isRequired
+}
 export default ModifyBookingModal;

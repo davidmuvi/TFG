@@ -6,6 +6,7 @@ import {
     MenuItem,
   } from "@material-tailwind/react";
 import { Link } from 'react-router-dom'
+import PropTypes from 'prop-types';
 
   export function MenuDefault({redirection, menuName, items = []}) {
     return (
@@ -30,3 +31,17 @@ import { Link } from 'react-router-dom'
       </Menu>
     );
   }
+
+  {/* Declaramos los tipos de las propiedades que le pasan al componente */}
+  MenuDefault.propTypes = {
+    redirection: PropTypes.string.isRequired,
+    menuName: PropTypes.string.isRequired,
+    items: PropTypes.arrayOf(
+      PropTypes.shape({
+        name: PropTypes.string.isRequired,
+        redirection: PropTypes.string.isRequired,
+      })
+    ).isRequired,
+  };
+
+  export default MenuDefault;
