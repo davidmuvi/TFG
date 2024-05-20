@@ -1,11 +1,16 @@
 import { useEffect, useState } from 'react'
 import { productService } from '../services/product.service.js'
 import Layout from '../layouts/LayoutPages'
+import ModifyProductModal from '../components/ModifyProductModal'
 import { Card, Typography } from "@material-tailwind/react"
 import { XCircleIcon, PencilSquareIcon } from '@heroicons/react/24/solid'
+import Swal from 'sweetalert2'
 
 function ProductPage() {
     const [products, setProducts] = useState([])
+    const [currentProduct, setCurrentProduct] = useState({ name: '', category: '', price: '' })
+    const [open, setOpen] = useState(false)
+
 
     const TABLE_HEAD = ["Nombre", "Categoría", "Precio", "Proveedor", ""]
     const TABLE_ROWS = products
@@ -30,6 +35,31 @@ function ProductPage() {
             getProducts()
         })
         .catch(error => {console.log(error)})
+    }
+
+    const handleOpen = (product) => {
+        setCurrentProduct(product)
+        setOpen(true)
+    }
+
+    const updateProduct = (id, updatedProduct) => {
+        productService.updateProduct(id, updatedProduct)
+       .then(() => { 
+            Swal.fire({
+                icon:'success',
+                title: 'Producto modificado',
+                text: 'El producto se ha modificado correctamente.',
+            })
+
+            getProducts()
+       })
+       .catch(() => {
+            Swal.fire({
+                icon: 'error',
+                title: 'Producto no modificado',
+                text: 'El producto no se ha modificado correctamente.',
+            })
+       })
     }
 
     return (
@@ -86,7 +116,7 @@ function ProductPage() {
                                 <XCircleIcon className='w-6 h-6 text-red-500'/>
                             </Typography>
 
-                            <Typography as="a" href="#" variant="small" color="blue-gray" className="font-medium w-6 h-6">
+                            <Typography as="a" href="#" variant="small" color="blue-gray" className="font-medium w-6 h-6" onClick={() => {handleOpen(_id, {name, category, price})}}>
                                 <PencilSquareIcon className='w-6 h-6 text-black'/>
                             </Typography>
                         </td>
@@ -109,6 +139,7 @@ function ProductPage() {
                 </tbody>
             </table>
         </Card>
+        {open && <ModifyProductModal open={open} setOpen={setOpen} product={currentProduct} updateProduct={updateProduct} />}
     </Layout>
     )
 }

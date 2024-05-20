@@ -33,6 +33,15 @@ class ProductService {
             throw new Error(error.message)
         }
     }
+
+    async updateProduct(id, product){ 
+        try {
+            const response = await this.api.patch(`/products/${id}`, product)
+            return response.data
+        } catch (error) {
+            throw new Error(error.message)
+        }
+    }
 }
 
 export const productService = new ProductService()
