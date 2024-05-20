@@ -1,15 +1,24 @@
 import { Dialog, Input, Button, Typography } from '@material-tailwind/react'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { XMarkIcon } from '@heroicons/react/24/solid'
 import PropTypes from 'prop-types'
 
 function ModifyProductModal({ open, setOpen, product, updateProduct }) {
-    const [errors, setErrors] = useState({})
     const [formData, setFormData] = useState({
         name: '',
         category: '',
         price: ''
     })
+
+    useEffect(() => {
+        if (product) {
+            setFormData({
+                name: product.name,
+                category: product.category,
+                price: product.price
+            })
+        }
+    }, [product])
 
     const handleChange = (e) => {
         const { name, value } = e.target
@@ -19,26 +28,14 @@ function ModifyProductModal({ open, setOpen, product, updateProduct }) {
         })
     }
 
-    const validate = () => {
-        const newErrors = {}
-        if (!formData.name) newErrors.name = 'El nombre del producto es obligatorio'
-        if (!formData.category) newErrors.category = 'La categoría del producto es obligatorio'
-        if (!formData.price) newErrors.price = 'El precio del producto es obligatorio'	
-
-        setErrors(newErrors)
-        return Object.keys(newErrors).length === 0
-    }
-
     const handleSubmit = (e) => {
         e.preventDefault()
-        if (validate()){
-            updateProduct(product, { 
-                name: formData.name,
-                category: formData.category,
-                price: formData.price 
-            })
-            setOpen(false)
-        }
+        updateProduct({
+            name: formData.name,
+            category: formData.category,
+            price: formData.price 
+        })
+        setOpen(false)
     }
 
     return (
@@ -58,7 +55,6 @@ function ModifyProductModal({ open, setOpen, product, updateProduct }) {
                             onChange={handleChange}
                             className='w-full'
                         />
-                        {errors.name && <Typography className='text-red-500 text-sm'>{errors.name}</Typography>}
                     </div>
                     <div>
                         <Typography variant="h6" className='mb-2'>Categoría del producto</Typography>
@@ -69,7 +65,6 @@ function ModifyProductModal({ open, setOpen, product, updateProduct }) {
                             onChange={handleChange}
                             className='w-full'
                         />
-                        {errors.category && <Typography className='text-red-500 text-sm'>{errors.category}</Typography>}
                     </div>
                     <div>
                         <Typography variant="h6" className='mb-2'>Precio del producto</Typography>
@@ -79,7 +74,6 @@ function ModifyProductModal({ open, setOpen, product, updateProduct }) {
                             onChange={handleChange}
                             className='w-full'
                         />
-                        {errors.price && <Typography className='text-red-500 text-sm'>{errors.price}</Typography>}
                     </div>
                     
                     <Button type="submit" color="blue" className='w-full mt-4'>Guardar</Button>

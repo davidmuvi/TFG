@@ -8,7 +8,7 @@ import Swal from 'sweetalert2'
 
 function ProductPage() {
     const [products, setProducts] = useState([])
-    const [currentProduct, setCurrentProduct] = useState({ name: '', category: '', price: '' })
+    const [currentProduct, setCurrentProduct] = useState({ _id: '', name: '', category: '', price: '' })
     const [open, setOpen] = useState(false)
 
 
@@ -116,7 +116,7 @@ function ProductPage() {
                                 <XCircleIcon className='w-6 h-6 text-red-500'/>
                             </Typography>
 
-                            <Typography as="a" href="#" variant="small" color="blue-gray" className="font-medium w-6 h-6" onClick={() => {handleOpen(_id, {name, category, price})}}>
+                            <Typography as="a" href="#" variant="small" color="blue-gray" className="font-medium w-6 h-6" onClick={() => {handleOpen({_id, name, category, price})}}>
                                 <PencilSquareIcon className='w-6 h-6 text-black'/>
                             </Typography>
                         </td>
@@ -139,7 +139,7 @@ function ProductPage() {
                 </tbody>
             </table>
         </Card>
-        {open && <ModifyProductModal open={open} setOpen={setOpen} product={currentProduct} updateProduct={updateProduct} />}
+        {open && <ModifyProductModal open={open} setOpen={setOpen} product={currentProduct} updateProduct={(updatedProduct) => updateProduct(currentProduct._id, updatedProduct)} />}
     </Layout>
     )
 }
