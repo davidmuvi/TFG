@@ -7,35 +7,35 @@ import Swal from 'sweetalert2'
 function AddProviderPage() { 
     const [formData, setFormData] = useState({
         name: '',
-    });
+    })
 
-    const [errors, setErrors] = useState({});
+    const [errors, setErrors] = useState({})
 
     const handleChange = (e) => {
-        const { name, value } = e.target;
+        const { name, value } = e.target
         setFormData({
             ...formData,
             [name]: value
-        });
-    };
+        })
+    }
 
     const validate = () => {
-        const newErrors = {};
-        if (!formData.name) newErrors.name = 'El nombre del proveedor es obligatorio';
+        const newErrors = {}
+        if (!formData.name) newErrors.name = 'El nombre del proveedor es obligatorio'
     
-        setErrors(newErrors);
-        return Object.keys(newErrors).length === 0;
-    };
+        setErrors(newErrors)
+        return Object.keys(newErrors).length === 0
+    }
 
     const createProvider = async () => {
-        const { name } = formData;
+        const { name } = formData
 
-        const newProvider = { name: name };
+        const newProvider = { name: name }
         await providerService.createProvider(newProvider)
     }
 
     const handleSubmit = (e) => {
-        e.preventDefault();
+        e.preventDefault()
 
         if (validate()) {
             try {
@@ -59,7 +59,7 @@ function AddProviderPage() {
                 })
             }
         }
-    };
+    }
 
     return (
         <Layout> 

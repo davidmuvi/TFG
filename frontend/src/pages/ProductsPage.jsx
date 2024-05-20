@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react'
 import { productService } from '../services/product.service.js'
 import Layout from '../layouts/LayoutPages'
 import { Card, Typography } from "@material-tailwind/react"
-import { XCircleIcon } from '@heroicons/react/24/solid'
+import { XCircleIcon, PencilSquareIcon } from '@heroicons/react/24/solid'
 
 function ProductPage() {
     const [products, setProducts] = useState([])
@@ -53,8 +53,8 @@ function ProductPage() {
                 </thead>
                 <tbody>
                 {TABLE_ROWS.map(({ _id, name, category, price, providerId }, index) => {
-                    const isLast = index === TABLE_ROWS.length - 1;
-                    const classes = isLast ? "p-4" : "p-4 border-b border-blue-gray-50";
+                    const isLast = index === TABLE_ROWS.length - 1
+                    const classes = isLast ? "p-4" : "p-4 border-b border-blue-gray-50"
                     
                     {/* Compruebo que el proveedor existe, si existe asigno su nombre sino un mensaje de error.*/}
                     const providerName = providerId && providerId.name ? providerId.name : 'No existe el proveedor'
@@ -62,32 +62,36 @@ function ProductPage() {
                     return (
                     <tr key={_id}>
                         <td className={classes}>
-                        <Typography variant="small" color="blue-gray" className="font-normal">
-                            {name}
-                        </Typography>
+                            <Typography variant="small" color="blue-gray" className="font-normal">
+                                {name}
+                            </Typography>
                         </td>
                         <td className={`${classes} bg-blue-gray-50/50`}>
-                        <Typography variant="small" color="blue-gray" className="font-normal">
-                            {category}
-                        </Typography>
+                            <Typography variant="small" color="blue-gray" className="font-normal">
+                                {category}
+                            </Typography>
                         </td>
                         <td className={classes}>
-                        <Typography variant="small" color="blue-gray" className="font-normal">
-                            {price}
-                        </Typography>
+                            <Typography variant="small" color="blue-gray" className="font-normal">
+                                {price}
+                            </Typography>
                         </td>
                         <td className={`${classes} bg-blue-gray-50/50`}>
-                        <Typography variant="small" color="blue-gray" className="font-normal">
-                            {providerName}
-                        </Typography>
+                            <Typography variant="small" color="blue-gray" className="font-normal">
+                                {providerName}
+                            </Typography>
                         </td>
-                        <td className={`${classes} h-full flex items-center justify-center`}>
-                        <Typography as="a" href="#" variant="small" color="blue-gray" className="font-medium w-6 h-6" onClick={() => deleteProduct(_id)}>
-                            <XCircleIcon className='w-6 h-6 text-red-500'/>
-                        </Typography>
+                        <td className={`${classes} h-full flex items-center justify-around`}>
+                            <Typography as="a" href="#" variant="small" color="blue-gray" className="font-medium w-6 h-6" onClick={() => deleteProduct(_id)}>
+                                <XCircleIcon className='w-6 h-6 text-red-500'/>
+                            </Typography>
+
+                            <Typography as="a" href="#" variant="small" color="blue-gray" className="font-medium w-6 h-6">
+                                <PencilSquareIcon className='w-6 h-6 text-black'/>
+                            </Typography>
                         </td>
                     </tr>
-                    );
+                    )
                 })}
 
                 {/* Si no hay datos en la base de datos, mostramos un mensaje indicándolo.*/}

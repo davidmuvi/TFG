@@ -8,8 +8,8 @@ import Swal from 'sweetalert2'
 
 function BookingsPage() {
     const [bookings, setBookings] = useState([])
-    const [open, setOpen] = useState(false);
-    const [currentBooking, setCurrentBooking] = useState({ name: '', telephone: '', bookingDay: '' });
+    const [open, setOpen] = useState(false)
+    const [currentBooking, setCurrentBooking] = useState({ name: '', telephone: '', bookingDay: '' })
 
     const TABLE_HEAD = ["Cliente", "Teléfono", "Fecha", ""]
     const TABLE_ROWS = bookings
@@ -19,9 +19,9 @@ function BookingsPage() {
     }, [])
 
     const handleOpen = (booking) => {
-        setCurrentBooking(booking);
-        setOpen(true);
-    };
+        setCurrentBooking(booking)
+        setOpen(true)
+    }
 
     const getBookings = () => { 
         bookingService.getBookings()
@@ -57,7 +57,7 @@ function BookingsPage() {
                 title: 'Reserva no modificada',
                 text: error.message,
             })
-        });
+        })
     }
 
     const formatDate = (date) => { 
@@ -86,8 +86,8 @@ function BookingsPage() {
                 </thead>
                 <tbody>
                 {TABLE_ROWS.map(({ _id, clientId, date }, index) => {
-                    const isLast = index === TABLE_ROWS.length - 1;
-                    const classes = isLast ? "p-4" : "p-4 border-b border-blue-gray-50";
+                    const isLast = index === TABLE_ROWS.length - 1
+                    const classes = isLast ? "p-4" : "p-4 border-b border-blue-gray-50"
 
                     {/* Compruebo que el cliente existe, si existe asigno sus datos sino un mensaje de error.*/}
                     const clientName = clientId && clientId.name ? clientId.name : 'No existe el cliente'
@@ -96,30 +96,31 @@ function BookingsPage() {
                     return (
                     <tr key={_id}>
                         <td className={classes}>
-                        <Typography variant="small" color="blue-gray" className="font-normal">
-                            {clientName}
-                        </Typography>
+                            <Typography variant="small" color="blue-gray" className="font-normal">
+                                {clientName}
+                            </Typography>
                         </td>
                         <td className={`${classes} bg-blue-gray-50/50`}>
-                        <Typography variant="small" color="blue-gray" className="font-normal">
-                            {clientTelephone}
-                        </Typography>
+                            <Typography variant="small" color="blue-gray" className="font-normal">
+                                {clientTelephone}
+                            </Typography>
                         </td>
                         <td className={classes}>
-                        <Typography variant="small" color="blue-gray" className="font-normal">
-                            {formatDate({date})}
-                        </Typography>
+                            <Typography variant="small" color="blue-gray" className="font-normal">
+                                {formatDate({date})}
+                            </Typography>
                         </td>
                         <td className={`${classes} bg-blue-gray-50/50 h-full flex items-center justify-around`}>
-                        <Typography as="a" href="#" variant="small" color="blue-gray" className="font-medium w-6 h-6" onClick={() => deleteBooking(_id)}>
-                            <XCircleIcon className='w-6 h-6 text-red-500'/>
-                        </Typography>
-                        <Typography as="a" href="#" variant="small" color="blue-gray" className="font-medium w-6 h-6" onClick={() => handleOpen(_id, date)}>
-                            <PencilSquareIcon className='w-6 h-6 text-black'/>
-                        </Typography>
+                            <Typography as="a" href="#" variant="small" color="blue-gray" className="font-medium w-6 h-6" onClick={() => deleteBooking(_id)}>
+                                <XCircleIcon className='w-6 h-6 text-red-500'/>
+                            </Typography>
+
+                            <Typography as="a" href="#" variant="small" color="blue-gray" className="font-medium w-6 h-6" onClick={() => handleOpen(_id, date)}>
+                                <PencilSquareIcon className='w-6 h-6 text-black'/>
+                            </Typography>
                         </td>
                     </tr>
-                    );
+                    )
                 })}
 
                 {/* Si no hay datos en la base de datos, mostramos un mensaje indicándolo.*/}

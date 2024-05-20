@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react'
 import { providerService } from '../services/provider.service.js'
 import Layout from '../layouts/LayoutPages'
 import { Card, Typography } from "@material-tailwind/react"
-import { XCircleIcon } from '@heroicons/react/24/solid'
+import { XCircleIcon, PencilSquareIcon } from '@heroicons/react/24/solid'
 
 function ProductPage() {
     const [providers, setProviders] = useState([])
@@ -54,8 +54,8 @@ function ProductPage() {
                 </thead>
                 <tbody>
                 {TABLE_ROWS.map(({ _id, name, products }, index) => {
-                    const isLast = index === TABLE_ROWS.length - 1;
-                    const classes = isLast ? "p-4" : "p-4 border-b border-blue-gray-50";
+                    const isLast = index === TABLE_ROWS.length - 1
+                    const classes = isLast ? "p-4" : "p-4 border-b border-blue-gray-50"
                     return (
                     <tr key={_id}>
                         <td className={classes}>
@@ -68,13 +68,17 @@ function ProductPage() {
                             {products}
                         </Typography>
                         </td>
-                        <td className={`${classes} h-full flex items-center justify-center`}>
-                        <Typography as="a" href="#" variant="small" color="blue-gray" className="font-medium w-6 h-6" onClick={() => deleteProvider(_id)}>
-                            <XCircleIcon className='w-6 h-6 text-red-500'/>
-                        </Typography>
+                        <td className={`${classes} h-full flex items-center justify-around`}>
+                            <Typography as="a" href="#" variant="small" color="blue-gray" className="font-medium w-6 h-6" onClick={() => deleteProvider(_id)}>
+                                <XCircleIcon className='w-6 h-6 text-red-500'/>
+                            </Typography>
+
+                            <Typography as="a" href="#" variant="small" color="blue-gray" className="font-medium w-6 h-6">
+                                    <PencilSquareIcon className='w-6 h-6 text-black'/>
+                            </Typography>
                         </td>
                     </tr>
-                    );
+                    )
                 })}
 
                 {/* Si no hay datos en la base de datos, mostramos un mensaje indicándolo.*/}

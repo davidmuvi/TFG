@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react'
 import { tableService } from '../services/table.service.js'
 import Layout from '../layouts/LayoutPages'
 import { Card, Typography } from "@material-tailwind/react"
-import { XCircleIcon } from '@heroicons/react/24/solid'
+import { XCircleIcon, PencilSquareIcon } from '@heroicons/react/24/solid'
 function TablesPage() {
     const [tables, setTables] = useState([])
 
@@ -69,33 +69,37 @@ function TablesPage() {
                     </thead>
                     <tbody>
                     {TABLE_ROWS.map(({ _id, tableNumber, capacity, availability }, index) => {
-                        const isLast = index === TABLE_ROWS.length - 1;
-                        const classes = isLast ? "p-4" : "p-4 border-b border-blue-gray-50";
+                        const isLast = index === TABLE_ROWS.length - 1
+                        const classes = isLast ? "p-4" : "p-4 border-b border-blue-gray-50"
             
                         return (
                         <tr key={tableNumber}>
                             <td className={classes}>
-                            <Typography variant="small" color="blue-gray" className="font-normal">
-                                {tableNumber}
-                            </Typography>
+                                <Typography variant="small" color="blue-gray" className="font-normal">
+                                    {tableNumber}
+                                </Typography>
                             </td>
                             <td className={`${classes} bg-blue-gray-50/50`}>
-                            <Typography variant="small" color="blue-gray" className="font-normal">
-                                {capacity}
-                            </Typography>
+                                <Typography variant="small" color="blue-gray" className="font-normal">
+                                    {capacity}
+                                </Typography>
                             </td>
                             <td className={classes}>
-                            <Typography variant="small" color="blue-gray" className="font-normal">
-                                {availability}
-                            </Typography>
+                                <Typography variant="small" color="blue-gray" className="font-normal">
+                                    {availability}
+                                </Typography>
                             </td>
-                            <td className={`${classes} bg-blue-gray-50/50 h-full flex items-center justify-center`}>
-                            <Typography as="a" href="#" variant="small" color="blue-gray" className="font-medium w-6 h-6" onClick={() => deleteTable(_id)}>
-                                <XCircleIcon className='w-6 h-6 text-red-500'/>
-                            </Typography>
+                            <td className={`${classes} bg-blue-gray-50/50 h-full flex items-center justify-around`}>
+                                <Typography as="a" href="#" variant="small" color="blue-gray" className="font-medium w-6 h-6" onClick={() => deleteTable(_id)}>
+                                    <XCircleIcon className='w-6 h-6 text-red-500'/>
+                                </Typography>
+
+                                <Typography as="a" href="#" variant="small" color="blue-gray" className="font-medium w-6 h-6">
+                                    <PencilSquareIcon className='w-6 h-6 text-black'/>
+                                </Typography>
                             </td>
                         </tr>
-                        );
+                        )
                     })}
                     
                     {/* Si no hay datos en la base de datos, mostramos un mensaje indicándolo.*/}

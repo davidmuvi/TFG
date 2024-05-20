@@ -17,7 +17,7 @@ import PropTypes from "prop-types"
         </CardBody>
       </Card>
       </Link>   
-    );
+    )
   }
 
    {/* Declaramos los tipos de las propiedades que le pasan al componente */}

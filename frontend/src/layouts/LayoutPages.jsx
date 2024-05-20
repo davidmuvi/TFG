@@ -1,4 +1,4 @@
-import Navbar from '../components/Navbar';
+import Navbar from '../components/Navbar'
 
 
 const Layout = ({ children }) => {
@@ -7,7 +7,7 @@ const Layout = ({ children }) => {
       <Navbar />
       {children}
     </div>
-  );
+  )
 }
 
-export default Layout;
+export default Layout

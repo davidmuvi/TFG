@@ -11,30 +11,30 @@ function AddProductPage() {
         category: '',
         price: '',
         providerName: ''
-    });
+    })
 
-    const [errors, setErrors] = useState({});
+    const [errors, setErrors] = useState({})
 
     const handleChange = (e) => {
-        const { name, value } = e.target;
+        const { name, value } = e.target
         setFormData({
             ...formData,
             [name]: value
-        });
-    };
+        })
+    }
 
     const validate = () => {
-        const newErrors = {};
-        if (!formData.name) newErrors.name = 'El nombre del producto es obligatorio';
-        if (!formData.category) newErrors.category = 'La categoría del producto es obligatoria';
-        if (!formData.price) newErrors.price = 'El precio del producto es obligatorio';	
-        if (!formData.providerName) newErrors.providerName = 'El nombre del proveedor es obligatorio';
-        setErrors(newErrors);
-        return Object.keys(newErrors).length === 0;
-    };
+        const newErrors = {}
+        if (!formData.name) newErrors.name = 'El nombre del producto es obligatorio'
+        if (!formData.category) newErrors.category = 'La categoría del producto es obligatoria'
+        if (!formData.price) newErrors.price = 'El precio del producto es obligatorio'	
+        if (!formData.providerName) newErrors.providerName = 'El nombre del proveedor es obligatorio'
+        setErrors(newErrors)
+        return Object.keys(newErrors).length === 0
+    }
 
     const createProduct = async () => {
-        const { name, category, price, providerName } = formData;
+        const { name, category, price, providerName } = formData
         const provider = await providerService.getProviderByName(providerName)
 
         if (!provider) {
@@ -43,15 +43,15 @@ function AddProductPage() {
                 title: 'Proveedor no existe',
                 text: 'El proveedor introducido no existe.',
             })
-            return;
+            return
         }
 
-        const newProduct = { name: name, category: category, price: Number(price), providerId: provider._id };
+        const newProduct = { name: name, category: category, price: Number(price), providerId: provider._id }
         await productService.createProduct(newProduct)
     }
 
     const handleSubmit = (e) => {
-        e.preventDefault();
+        e.preventDefault()
         if (validate()) {
             try {
                 createProduct() 
@@ -76,7 +76,7 @@ function AddProductPage() {
                 })
             }
         }
-    };
+    }
 
     return (
         <Layout> 

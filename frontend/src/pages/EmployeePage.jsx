@@ -1,7 +1,7 @@
 import { useAuth } from '../context/AuthContext'
-import { Typography, Button } from "@material-tailwind/react";
-import { EmployeePageCard } from '../components/EmployeePageCard';
-import { BookOpenIcon } from '@heroicons/react/24/solid';
+import { Typography, Button } from "@material-tailwind/react"
+import { EmployeePageCard } from '../components/EmployeePageCard'
+import { BookOpenIcon } from '@heroicons/react/24/solid'
 function EmployeePage() {
     const { user, logout } = useAuth()
 

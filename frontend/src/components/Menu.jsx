@@ -1,12 +1,12 @@
-import { ChevronDownIcon } from "@heroicons/react/24/solid";
+import { ChevronDownIcon } from "@heroicons/react/24/solid"
 import {
     Menu,
     MenuHandler,
     MenuList,
     MenuItem,
-  } from "@material-tailwind/react";
+  } from "@material-tailwind/react"
 import { Link } from 'react-router-dom'
-import PropTypes from 'prop-types';
+import PropTypes from 'prop-types'
 
   export function MenuDefault({redirection, menuName, items = []}) {
     return (
@@ -29,7 +29,7 @@ import PropTypes from 'prop-types';
         ))}
         </MenuList>
       </Menu>
-    );
+    )
   }
 
   {/* Declaramos los tipos de las propiedades que le pasan al componente */}
@@ -42,6 +42,6 @@ import PropTypes from 'prop-types';
         redirection: PropTypes.string.isRequired,
       })
     ).isRequired,
-  };
+  }
 
-  export default MenuDefault;
+  export default MenuDefault

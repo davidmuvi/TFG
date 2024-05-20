@@ -6,23 +6,23 @@ import PropTypes from 'prop-types'
 function ModifyBookingModal({ open, setOpen, booking, updateBooking }) {
     const [formData, setFormData] = useState({
         bookingDay: ''
-    });
+    })
 
     const handleChange = (e) => {
-        const { name, value } = e.target;
+        const { name, value } = e.target
         setFormData({
             ...formData,
             [name]: value
-        });
-    };
+        })
+    }
 
     const handleSubmit = (e) => {
-        e.preventDefault();
+        e.preventDefault()
         updateBooking(booking, { 
             date: formData.bookingDay 
-        });
-        setOpen(false);
-    };
+        })
+        setOpen(false)
+    }
 
     return (
         <Dialog size="xs" open={open} handler={() => setOpen(!open)} className='bg-transparent shadow-none'>
@@ -46,7 +46,7 @@ function ModifyBookingModal({ open, setOpen, booking, updateBooking }) {
                 </form>
             </div>
         </Dialog>
-    );
+    )
 }
 
 {/* Declaramos los tipos de las propiedades que le pasan al componente */}
@@ -56,4 +56,4 @@ ModifyBookingModal.propTypes = {
     booking: PropTypes.object.isRequired,
     updateBooking: PropTypes.func.isRequired
 }
-export default ModifyBookingModal;
+export default ModifyBookingModal

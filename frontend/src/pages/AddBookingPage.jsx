@@ -10,29 +10,29 @@ function AddBookingPage() {
         name: '',
         telephone: '',
         bookingDay: ''
-    });
+    })
 
-    const [errors, setErrors] = useState({});
+    const [errors, setErrors] = useState({})
 
     const handleChange = (e) => {
-        const { name, value } = e.target;
+        const { name, value } = e.target
         setFormData({
             ...formData,
             [name]: value
-        });
-    };
+        })
+    }
 
     const validate = () => {
-        const newErrors = {};
-        if (!formData.name) newErrors.name = 'El nombre del cliente es obligatorio';
-        if (!formData.telephone) newErrors.telephone = 'El teléfono del cliente es obligatorio';
-        if (!formData.bookingDay) newErrors.bookingDay = 'El día de la reserva es obligatorio';	
-        setErrors(newErrors);
-        return Object.keys(newErrors).length === 0;
-    };
+        const newErrors = {}
+        if (!formData.name) newErrors.name = 'El nombre del cliente es obligatorio'
+        if (!formData.telephone) newErrors.telephone = 'El teléfono del cliente es obligatorio'
+        if (!formData.bookingDay) newErrors.bookingDay = 'El día de la reserva es obligatorio'	
+        setErrors(newErrors)
+        return Object.keys(newErrors).length === 0
+    }
 
     const createBooking = async () => {
-        const { telephone, bookingDay } = formData;
+        const { telephone, bookingDay } = formData
         const client = await clientService.getClientByTelephone(telephone)
         
         if (!client) { 
@@ -44,12 +44,12 @@ function AddBookingPage() {
             return
         }
 
-        const newBooking = { clientId: client._id , date: bookingDay };
+        const newBooking = { clientId: client._id , date: bookingDay }
         await bookingService.createBooking(newBooking)
     }
 
     const handleSubmit = (e) => {
-        e.preventDefault();
+        e.preventDefault()
         if (validate()) {
             try {
                 createBooking() 
@@ -73,7 +73,7 @@ function AddBookingPage() {
                 })
             }
         }
-    };
+    }
 
     return (
         <Layout> 
