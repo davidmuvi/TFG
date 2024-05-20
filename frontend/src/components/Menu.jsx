@@ -32,7 +32,7 @@ import PropTypes from 'prop-types'
     )
   }
 
-  {/* Declaramos los tipos de las propiedades que le pasan al componente */}
+  // Declaramos los tipos de las propiedades que le pasan al componente
   MenuDefault.propTypes = {
     redirection: PropTypes.string.isRequired,
     menuName: PropTypes.string.isRequired,

@@ -10,6 +10,7 @@ function ModifyProductModal({ open, setOpen, product, updateProduct }) {
         price: ''
     })
 
+    // Cuando cargamos el modal, ponemos en el formulario los datos del producto que queremos modificar.
     useEffect(() => {
         if (product) {
             setFormData({
@@ -18,7 +19,7 @@ function ModifyProductModal({ open, setOpen, product, updateProduct }) {
                 price: product.price
             })
         }
-    }, [product])
+    }, [])
 
     const handleChange = (e) => {
         const { name, value } = e.target
@@ -83,11 +84,12 @@ function ModifyProductModal({ open, setOpen, product, updateProduct }) {
     )
 }
 
-{/* Declaramos los tipos de las propiedades que le pasan al componente */}
+// Declaramos los tipos de las propiedades que le pasan al componente
 ModifyProductModal.propTypes = { 
     open: PropTypes.bool.isRequired,
     setOpen: PropTypes.func.isRequired,
     product: PropTypes.object.isRequired,
     updateProduct: PropTypes.func.isRequired
 }
+
 export default ModifyProductModal

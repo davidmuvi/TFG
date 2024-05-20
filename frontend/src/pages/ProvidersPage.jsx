@@ -3,16 +3,18 @@ import { providerService } from '../services/provider.service.js'
 import Layout from '../layouts/LayoutPages'
 import { Card, Typography } from "@material-tailwind/react"
 import { XCircleIcon, PencilSquareIcon } from '@heroicons/react/24/solid'
+import Swal from 'sweetalert2'
 
 function ProductPage() {
     const [providers, setProviders] = useState([])
 
-    const TABLE_HEAD = ["Nombre", "Productos",""]
+    const TABLE_HEAD = ["Nombre", "Productos", ""]
     const TABLE_ROWS = providers
 
+    // Al entrar por primera vez y cada vez que hay un cambio en los proveedores, se ejecuta para cargar los proveedores.
     useEffect(() => {
         getProviders()
-    }, [])
+    }, [providers])
 
     const getProviders = () => { 
         providerService.getProviders()
@@ -26,11 +28,15 @@ function ProductPage() {
     }
 
     const deleteProvider = (providerId) => { 
-        providerService.deleteProvider(providerId)
-        .then(() => {
-            getProviders()
-        })
-        .catch(error => {console.log(error)})
+        try {
+            providerService.deleteProvider(providerId)
+        } catch(error){
+            Swal.fire({
+                icon: 'error',
+                title: 'Proveedor no eliminado',
+                text: 'El proveedor no se ha podido eliminar.',
+            })
+        }
     }
 
     return (

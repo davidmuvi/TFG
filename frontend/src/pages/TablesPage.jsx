@@ -3,6 +3,7 @@ import { tableService } from '../services/table.service.js'
 import Layout from '../layouts/LayoutPages'
 import { Card, Typography } from "@material-tailwind/react"
 import { XCircleIcon, PencilSquareIcon } from '@heroicons/react/24/solid'
+import Swal from 'sweetalert2'
 function TablesPage() {
     const [tables, setTables] = useState([])
 
@@ -31,7 +32,13 @@ function TablesPage() {
         .then(() => {
             getTables()
         })
-        .catch(error => {console.log(error)})
+        .catch(() => {
+            Swal.fire({
+                icon:'error',
+                title: 'Error al eliminar la mesa',
+                text: 'No se ha podido eliminar la mesa.',
+            })
+        })
     }
 
     // Esta función se encarga de obtener las mesas que no tienen disponibilidad, 

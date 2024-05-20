@@ -20,7 +20,7 @@ import PropTypes from "prop-types"
     )
   }
 
-   {/* Declaramos los tipos de las propiedades que le pasan al componente */}
+  // Declaramos los tipos de las propiedades que le pasan al componente
   EmployeePageCard.propTypes = {
     icon: PropTypes.node.isRequired,
     children: PropTypes.node.isRequired,

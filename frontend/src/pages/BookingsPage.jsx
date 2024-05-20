@@ -14,9 +14,10 @@ function BookingsPage() {
     const TABLE_HEAD = ["Cliente", "Teléfono", "Fecha", ""]
     const TABLE_ROWS = bookings
 
+    // Al entrar por primera vez y cada vez que hay un cambio en las reservas, se ejecuta para cargar las reservas.
     useEffect(() => {
         getBookings()
-    }, [])
+    }, [bookings])
 
     const handleOpen = (booking) => {
         setCurrentBooking(booking)
@@ -34,11 +35,15 @@ function BookingsPage() {
     }
 
     const deleteBooking = (bookingId) => { 
-        bookingService.deleteBooking(bookingId)
-        .then(() => {
-            getBookings()
-        })
-        .catch(error => {console.log(error)})
+        try {
+            bookingService.deleteBooking(bookingId)
+        } catch (error) { 
+            Swal.fire({
+                icon: 'error',
+                title: 'Reserva no eliminada',
+                text: 'La reserva no se ha podido eliminar',
+            })
+        }
     }
 
     const updateBooking = (id, updatedBooking) => {
@@ -49,7 +54,6 @@ function BookingsPage() {
                 title: 'Reserva modificada',
                 text: 'La reserva se ha modificado correctamente.',
             })
-            getBookings()
         })
         .catch(error => {
             Swal.fire({

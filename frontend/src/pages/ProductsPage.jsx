@@ -15,9 +15,10 @@ function ProductPage() {
     const TABLE_HEAD = ["Nombre", "Categoría", "Precio", "Proveedor", ""]
     const TABLE_ROWS = products
 
+    // Al entrar por primera vez y cada vez que hay un cambio en los productos, se ejecuta para cargar los productos.
     useEffect(() => {
         getProducts()
-    }, [])
+    }, [products])
 
     const getProducts = () => { 
         productService.getProducts()
@@ -30,13 +31,18 @@ function ProductPage() {
     }
 
     const deleteProduct = (productId) => { 
-        productService.deleteProduct(productId)
-        .then(() => {
-            getProducts()
-        })
-        .catch(error => {console.log(error)})
+        try {
+            productService.deleteProduct(productId)
+        } catch (error) { 
+            Swal.fire({
+                icon: 'error',
+                title: 'Producto no eliminado',
+                text: 'El producto no se ha eliminado correctamente.',
+            })
+        }
     }
 
+    // Para abrir el modal de modificar el producto. Se coge el producto actual para poder actualizarlo.
     const handleOpen = (product) => {
         setCurrentProduct(product)
         setOpen(true)
@@ -50,8 +56,6 @@ function ProductPage() {
                 title: 'Producto modificado',
                 text: 'El producto se ha modificado correctamente.',
             })
-
-            getProducts()
        })
        .catch(() => {
             Swal.fire({
@@ -83,10 +87,11 @@ function ProductPage() {
                 </thead>
                 <tbody>
                 {TABLE_ROWS.map(({ _id, name, category, price, providerId }, index) => {
+                    // Comprobamos si es la ultima fila de la tabla para aplicar unos estilos u otros.
                     const isLast = index === TABLE_ROWS.length - 1
                     const classes = isLast ? "p-4" : "p-4 border-b border-blue-gray-50"
                     
-                    {/* Compruebo que el proveedor existe, si existe asigno su nombre sino un mensaje de error.*/}
+                    // Compruebo que el proveedor existe, si existe asigno su nombre sino un mensaje de error
                     const providerName = providerId && providerId.name ? providerId.name : 'No existe el proveedor'
 
                     return (
@@ -124,7 +129,7 @@ function ProductPage() {
                     )
                 })}
 
-                {/* Si no hay datos en la base de datos, mostramos un mensaje indicándolo.*/}
+                {/* Si no hay datos en la base de datos, mostramos un mensaje indicándolo. */}
                 {
                     TABLE_ROWS.length === 0 && (
                     <tr>
@@ -139,6 +144,8 @@ function ProductPage() {
                 </tbody>
             </table>
         </Card>
+        
+        {/* Si el modal de modificar está abierto, le pasamos el producto desde el que se ha abierto y la función para modificar el producto. */}
         {open && <ModifyProductModal open={open} setOpen={setOpen} product={currentProduct} updateProduct={(updatedProduct) => updateProduct(currentProduct._id, updatedProduct)} />}
     </Layout>
     )
