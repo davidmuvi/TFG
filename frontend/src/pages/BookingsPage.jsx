@@ -88,16 +88,21 @@ function BookingsPage() {
                 {TABLE_ROWS.map(({ _id, clientId, date }, index) => {
                     const isLast = index === TABLE_ROWS.length - 1;
                     const classes = isLast ? "p-4" : "p-4 border-b border-blue-gray-50";
+
+                    {/* Compruebo que el cliente existe, si existe asigno sus datos sino un mensaje de error.*/}
+                    const clientName = clientId && clientId.name ? clientId.name : 'No existe el cliente'
+                    const clientTelephone = clientId && clientId.telephone ? clientId.telephone : 'No existe el cliente'
+
                     return (
                     <tr key={_id}>
                         <td className={classes}>
                         <Typography variant="small" color="blue-gray" className="font-normal">
-                            {clientId.name}
+                            {clientName}
                         </Typography>
                         </td>
                         <td className={`${classes} bg-blue-gray-50/50`}>
                         <Typography variant="small" color="blue-gray" className="font-normal">
-                            {clientId.telephone}
+                            {clientTelephone}
                         </Typography>
                         </td>
                         <td className={classes}>

@@ -55,6 +55,10 @@ function ProductPage() {
                 {TABLE_ROWS.map(({ _id, name, category, price, providerId }, index) => {
                     const isLast = index === TABLE_ROWS.length - 1;
                     const classes = isLast ? "p-4" : "p-4 border-b border-blue-gray-50";
+                    
+                    {/* Compruebo que el proveedor existe, si existe asigno su nombre sino un mensaje de error.*/}
+                    const providerName = providerId && providerId.name ? providerId.name : 'No existe el proveedor'
+
                     return (
                     <tr key={_id}>
                         <td className={classes}>
@@ -74,7 +78,7 @@ function ProductPage() {
                         </td>
                         <td className={`${classes} bg-blue-gray-50/50`}>
                         <Typography variant="small" color="blue-gray" className="font-normal">
-                            {providerId.name}
+                            {providerName}
                         </Typography>
                         </td>
                         <td className={`${classes} h-full flex items-center justify-center`}>
