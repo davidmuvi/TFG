@@ -11,6 +11,7 @@ import productRoutes from './routes/product.js'
 import stockRoutes from './routes/stock.js'
 import adminRoutes from './routes/admin.js'
 import loginRoutes from './routes/login.js'
+import bookingAttendedRoutes from './routes/booking_attended.js'
 import { verifyToken } from './controllers/login.js'
 import isAuthenticated from './middlewares/verifyToken.js'
 
@@ -25,6 +26,7 @@ app.use('/api/employees', employeeRoutes)
 app.use('/api/clients', clientRoutes)
 app.use('/api/providers', providerRoutes)
 app.use('/api/bookings', bookingRoutes)
+app.use('/api/bookings_attended', bookingAttendedRoutes)
 app.use('/api/tables', tableRoutes)
 app.use('/api/products', productRoutes)
 app.use('/api/stocks', stockRoutes)
