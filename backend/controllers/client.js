@@ -35,6 +35,15 @@ export const getClientByTelephone = async (req, res) => {
   }
 }
 
+export const getClientById = async (req, res) => {
+  try {
+    const client = await Client.findById(req.params.id)
+    res.status(200).json(client)
+  } catch (error) {
+    res.status(404).json({ message: 'Client not found' })
+  }
+}
+
 export const updateClientById = async (req, res) => {
   try {
     // La opción new: true devuelve el cliente actualizado
