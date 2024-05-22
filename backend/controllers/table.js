@@ -29,6 +29,15 @@ export const getTableById = async (req, res) => {
   }
 }
 
+export const getTableByTableNumber = async (req, res) => {
+  try {
+    const table = await Table.findOne({ tableNumber: req.params.tableNumber })
+    res.status(200).json(table)
+  } catch (err) {
+    res.status(404).json({ message: 'Table not found' })
+  }
+}
+
 export const updateTableById = async (req, res) => {
   try {
     const table = await Table.findByIdAndUpdate(req.params.id, req.body, {

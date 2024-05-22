@@ -42,6 +42,5 @@ export const login = async (req, res, next) => {
 }
 
 export const verifyToken = async (req, res) => {
-  console.log(req.payload)
   res.status(200).json(req.payload)
 }

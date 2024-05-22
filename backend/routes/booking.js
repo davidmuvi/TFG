@@ -1,16 +1,15 @@
 import { Router } from 'express'
-import { createBooking, getAllBookings, getBookingById, updateBookingById, getAllBookingsWithTable, deleteBookingById } from '../controllers/booking.js'
+import { bookingController } from '../controllers/booking.js'
 import { createBookingSchema } from '../schemas/booking.js'
 import { validateSchema } from '../middlewares/schema_validator.js'
 
 const router = Router()
 
-router.get('/', getAllBookings)
-router.get('/:id', getBookingById)
-router.post('/', validateSchema(createBookingSchema), createBooking)
-router.patch('/:id', updateBookingById)
-router.delete('/:id', deleteBookingById)
-
-router.get('/tables/with-assignments', getAllBookingsWithTable)
+router.get('/', bookingController.getAllBookings)
+router.get('/:id', bookingController.getBookingById)
+router.post('/', validateSchema(createBookingSchema), bookingController.createBooking)
+router.patch('/:id', bookingController.updateBookingById)
+router.delete('/:id', bookingController.deleteBookingById)
+router.get('/tables/with-assignments', bookingController.getAllBookingsWithTable)
 
 export default router
