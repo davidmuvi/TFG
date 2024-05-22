@@ -43,6 +43,15 @@ class TableService {
             console.log(error)
         }
     }
+
+    async updateTable(id, table) {
+        try {
+            const response = await this.api.patch(`/tables/${id}`, table)
+            return response.data
+        } catch (error) {
+            throw new Error(error.message)
+        }
+    }
 }
 
 export const tableService = new TableService()

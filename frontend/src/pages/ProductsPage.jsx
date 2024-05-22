@@ -147,7 +147,7 @@ function ProductPage() {
             </Card>
 
             {/* Si el modal de modificar está abierto, le pasamos el producto desde el que se ha abierto y la función para modificar el producto. */}
-            {open && <ModifyProductModal open={open} setOpen={setOpen} product={currentProduct} updateProduct={(updatedProduct) => updateProduct(currentProduct._id, updatedProduct)} />}
+            {open && <ModifyProductModal open={open} setOpen={setOpen} product={currentProduct} updateProduct={updateProduct} />}
         </Layout>
     )
 }

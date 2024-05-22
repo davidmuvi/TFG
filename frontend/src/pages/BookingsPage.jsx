@@ -121,7 +121,7 @@ function BookingsPage() {
                                             <XCircleIcon className='w-6 h-6 text-red-500' />
                                         </Typography>
 
-                                        <Typography as="a" href="#" variant="small" color="blue-gray" className="font-medium w-6 h-6" onClick={() => handleOpen(_id, date)}>
+                                        <Typography as="a" href="#" variant="small" color="blue-gray" className="font-medium w-6 h-6" onClick={() => handleOpen(_id)}>
                                             <PencilSquareIcon className='w-6 h-6 text-black' />
                                         </Typography>
                                     </td>

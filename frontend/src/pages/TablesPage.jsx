@@ -4,8 +4,11 @@ import Layout from '../layouts/LayoutPages'
 import { Card, Typography } from "@material-tailwind/react"
 import { XCircleIcon, PencilSquareIcon } from '@heroicons/react/24/solid'
 import Swal from 'sweetalert2'
+import ModifyTableModal from '../components/ModifyTableModal.jsx'
 function TablesPage() {
     const [tables, setTables] = useState([])
+    const [currentTable, setCurrentTable] = useState({ _id: '', tableNumber: 0, capacity: 0 })
+    const [open, setOpen] = useState(false)
 
     const TABLE_HEAD = ["Numero de mesa", "Capacidad", "Disponibilidad", ""]
     const TABLE_ROWS = tables
@@ -39,6 +42,30 @@ function TablesPage() {
                     text: 'No se ha podido eliminar la mesa.',
                 })
             })
+    }
+
+    const updateTable = (id, updatedTable) => {
+        tableService.updateTable(id, updatedTable)
+            .then(() => {
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Mesa modificada',
+                    text: 'La mesa se ha modificado correctamente.',
+                })
+                getTables()
+            })
+            .catch(() => {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Error al modificar la mesa',
+                    text: 'No se ha podido modificar la mesa.',
+                })
+            })
+    }
+
+    const handleOpen = (table) => {
+        setCurrentTable(table)
+        setOpen(true)
     }
 
     // Esta función se encarga de obtener las mesas que no tienen disponibilidad, 
@@ -97,11 +124,21 @@ function TablesPage() {
                                         </Typography>
                                     </td>
                                     <td className={`${classes} bg-blue-gray-50/50 h-full flex items-center justify-around`}>
-                                        <Typography as="a" href="#" variant="small" color="blue-gray" className="font-medium w-6 h-6" onClick={() => deleteTable(_id)}>
+                                        <Typography as="a"
+                                            variant="small"
+                                            color="blue-gray"
+                                            className="font-medium w-6 h-6 cursor-pointer"
+                                            onClick={() => deleteTable(_id)}
+                                        >
                                             <XCircleIcon className='w-6 h-6 text-red-500' />
                                         </Typography>
 
-                                        <Typography as="a" href="#" variant="small" color="blue-gray" className="font-medium w-6 h-6">
+                                        <Typography as="a"
+                                            variant="small"
+                                            color="blue-gray"
+                                            className="font-medium w-6 h-6 cursor-pointer"
+                                            onClick={() => handleOpen({ _id, tableNumber, capacity })}
+                                        >
                                             <PencilSquareIcon className='w-6 h-6 text-black' />
                                         </Typography>
                                     </td>
@@ -124,6 +161,7 @@ function TablesPage() {
                     </tbody>
                 </table>
             </Card>
+            {open && <ModifyTableModal open={open} setOpen={setOpen} table={currentTable} updateTable={updateTable} />}
         </Layout>
     )
 }

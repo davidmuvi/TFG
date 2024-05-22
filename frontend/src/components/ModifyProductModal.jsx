@@ -31,7 +31,7 @@ function ModifyProductModal({ open, setOpen, product, updateProduct }) {
 
     const handleSubmit = (e) => {
         e.preventDefault()
-        updateProduct({
+        updateProduct(product._id, {
             name: formData.name,
             category: formData.category,
             price: formData.price
