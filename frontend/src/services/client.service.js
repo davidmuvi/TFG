@@ -10,7 +10,7 @@ class ClientService {
 
     async getClientByTelephone(telephone) {
         try {
-            const response = await this.api.get(`/clients/${telephone}`)
+            const response = await this.api.get(`/api/clients/${telephone}`)
             return response.data
         } catch (error) {
             throw new Error(error.message)

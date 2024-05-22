@@ -10,7 +10,7 @@ class TableService {
 
     async createTable(table) {
         try {
-            const response = await this.api.post('/tables', table)
+            const response = await this.api.post('/api/tables', table)
             return response.data
         } catch (error) {
             throw new Error(error.message)
@@ -19,7 +19,7 @@ class TableService {
 
     async getTables() {
         try {
-            const response = await this.api.get('/tables')
+            const response = await this.api.get('/api/tables')
             return response.data
         } catch (error) {
             throw new Error(error.message)
@@ -28,7 +28,7 @@ class TableService {
 
     async deleteTable(id) {
         try {
-            const response = await this.api.delete(`/tables/${id}`)
+            const response = await this.api.delete(`/api/tables/${id}`)
             return response.data
         } catch (error) {
             throw new Error(error.message)
@@ -37,7 +37,7 @@ class TableService {
 
     async getTablesWithoutAvailability() {
         try {
-            const response = await this.api.get('/bookings/tables/with-assignments')
+            const response = await this.api.get('/api/bookings/tables/with-assignments')
             return response.data
         } catch (error) {
             console.log(error)
@@ -46,7 +46,16 @@ class TableService {
 
     async updateTable(id, table) {
         try {
-            const response = await this.api.patch(`/tables/${id}`, table)
+            const response = await this.api.patch(`/api/tables/${id}`, table)
+            return response.data
+        } catch (error) {
+            throw new Error(error.message)
+        }
+    }
+
+    async getTableByTableNumber(tableNumber) {
+        try {
+            const response = await this.api.get(`/api/tables/tableNumber/${tableNumber}`)
             return response.data
         } catch (error) {
             throw new Error(error.message)

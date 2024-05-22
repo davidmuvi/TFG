@@ -31,29 +31,31 @@ function ProductPage() {
     }
 
     const deleteProvider = (providerId) => {
-        try {
-            providerService.deleteProvider(providerId)
-        } catch (error) {
-            Swal.fire({
-                icon: 'error',
-                title: 'Proveedor no eliminado',
-                text: 'El proveedor no se ha podido eliminar.',
+        providerService.deleteProvider(providerId)
+            .then(() => {
+                getProviders()
             })
-        }
+            .catch(() => {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Proveedor no eliminado',
+                    text: 'El proveedor no se ha podido eliminar.',
+                })
+            })
     }
 
     const updateProvider = (id, updatedProvider) => {
         providerService.updateProvider(id, updatedProvider)
-           .then(() => {
+            .then(() => {
                 Swal.fire({
-                    icon:'success',
+                    icon: 'success',
                     title: 'Proveedor modificado',
                     text: 'El proveedor se ha modificado correctamente.',
                 })
 
                 getProviders()
             })
-           .catch(() => {
+            .catch(() => {
                 Swal.fire({
                     icon: 'error',
                     title: 'Proveedor no modificado',
@@ -107,7 +109,7 @@ function ProductPage() {
                                             <XCircleIcon className='w-6 h-6 text-red-500' />
                                         </Typography>
 
-                                        <Typography as="a" href="#" variant="small" color="blue-gray" className="font-medium w-6 h-6" onClick={() => handleOpen({_id, name})}>
+                                        <Typography as="a" href="#" variant="small" color="blue-gray" className="font-medium w-6 h-6" onClick={() => handleOpen({ _id, name })}>
                                             <PencilSquareIcon className='w-6 h-6 text-black' />
                                         </Typography>
                                     </td>

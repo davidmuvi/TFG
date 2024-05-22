@@ -9,7 +9,7 @@ class ProductService {
     }
     async getProducts() {
         try {
-            const response = await this.api.get('/products')
+            const response = await this.api.get('/api/products')
             return response.data
         } catch (error) {
             throw new Error(error.message)
@@ -18,7 +18,7 @@ class ProductService {
 
     async createProduct(product) {
         try {
-            const response = await this.api.post('/products', product)
+            const response = await this.api.post('/api/products', product)
             return response.data
         } catch (error) {
             throw new Error(error.message)
@@ -27,7 +27,7 @@ class ProductService {
 
     async deleteProduct(id) {
         try {
-            const response = await this.api.delete(`/products/${id}`)
+            const response = await this.api.delete(`/api/products/${id}`)
             return response.data
         } catch (error) {
             throw new Error(error.message)
@@ -36,7 +36,7 @@ class ProductService {
 
     async updateProduct(id, product) {
         try {
-            const response = await this.api.patch(`/products/${id}`, product)
+            const response = await this.api.patch(`/api/products/${id}`, product)
             return response.data
         } catch (error) {
             throw new Error(error.message)

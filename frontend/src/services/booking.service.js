@@ -9,7 +9,7 @@ class BookingService {
     }
     async getBookings() {
         try {
-            const response = await this.api.get('/bookings')
+            const response = await this.api.get('/api/bookings')
             return response.data
         } catch (error) {
             throw new Error(error.message)
@@ -18,7 +18,7 @@ class BookingService {
 
     async deleteBooking(id) {
         try {
-            const response = await this.api.delete(`/bookings/${id}`)
+            const response = await this.api.delete(`/api/bookings/${id}`)
             return response.data
         } catch (error) {
             throw new Error(error.message)
@@ -27,7 +27,7 @@ class BookingService {
 
     async createBooking(booking) {
         try {
-            const response = await this.api.post('/bookings', booking)
+            const response = await this.api.post('/api/bookings', booking)
             return response.data
         } catch (error) {
             throw new Error(error.message)
@@ -36,7 +36,7 @@ class BookingService {
 
     async updateBooking(id, data) {
         try {
-            const response = await this.api.patch(`/bookings/${id}`, data)
+            const response = await this.api.patch(`/api/bookings/${id}`, data)
             return response.data
         } catch (error) {
             throw new Error(error.message)

@@ -11,7 +11,7 @@ function BookingsPage() {
     const [open, setOpen] = useState(false)
     const [currentBooking, setCurrentBooking] = useState({ name: '', telephone: '', bookingDay: '' })
 
-    const TABLE_HEAD = ["Cliente", "Teléfono", "Fecha", ""]
+    const TABLE_HEAD = ["Cliente", "Teléfono", "Fecha", "Numero de mesa", ""]
     const TABLE_ROWS = bookings
 
     // Al entrar por primera vez se ejecuta para cargar las reservas.
@@ -35,15 +35,17 @@ function BookingsPage() {
     }
 
     const deleteBooking = (bookingId) => {
-        try {
-            bookingService.deleteBooking(bookingId)
-        } catch (error) {
-            Swal.fire({
-                icon: 'error',
-                title: 'Reserva no eliminada',
-                text: 'La reserva no se ha podido eliminar',
+        bookingService.deleteBooking(bookingId)
+            .then(() => {
+                getBookings()
             })
-        }
+            .catch(() => {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Reserva no eliminada',
+                    text: 'La reserva no se ha podido eliminar',
+                })
+            })
     }
 
     const updateBooking = (id, updatedBooking) => {
@@ -54,14 +56,13 @@ function BookingsPage() {
                     title: 'Reserva modificada',
                     text: 'La reserva se ha modificado correctamente.',
                 })
-
                 getBookings()
             })
-            .catch(error => {
+            .catch(() => {
                 Swal.fire({
                     icon: 'error',
                     title: 'Reserva no modificada',
-                    text: error.message,
+                    text: 'No se ha podido modificar la reserva',
                 })
             })
     }
@@ -91,13 +92,14 @@ function BookingsPage() {
                         </tr>
                     </thead>
                     <tbody>
-                        {TABLE_ROWS.map(({ _id, clientId, date }, index) => {
+                        {TABLE_ROWS.map(({ _id, clientId, tableId, date }, index) => {
                             const isLast = index === TABLE_ROWS.length - 1
                             const classes = isLast ? "p-4" : "p-4 border-b border-blue-gray-50"
 
                             {/* Compruebo que el cliente existe, si existe asigno sus datos sino un mensaje de error.*/ }
                             const clientName = clientId && clientId.name ? clientId.name : 'No existe el cliente'
                             const clientTelephone = clientId && clientId.telephone ? clientId.telephone : 'No existe el cliente'
+                            const tableNumber = tableId && tableId.tableNumber ? tableId.tableNumber : 'Mesa no asignada'
 
                             return (
                                 <tr key={_id}>
@@ -116,12 +118,17 @@ function BookingsPage() {
                                             {formatDate({ date })}
                                         </Typography>
                                     </td>
-                                    <td className={`${classes} bg-blue-gray-50/50 h-full flex items-center justify-around`}>
+                                    <td className={`${classes} bg-blue-gray-50/50`}>
+                                    <Typography variant="small" color="blue-gray" className="font-normal">
+                                            {tableNumber}
+                                    </Typography>
+                                    </td>
+                                    <td className={`${classes} h-full flex items-center justify-around`}>
                                         <Typography as="a" href="#" variant="small" color="blue-gray" className="font-medium w-6 h-6" onClick={() => deleteBooking(_id)}>
                                             <XCircleIcon className='w-6 h-6 text-red-500' />
                                         </Typography>
 
-                                        <Typography as="a" href="#" variant="small" color="blue-gray" className="font-medium w-6 h-6" onClick={() => handleOpen(_id)}>
+                                        <Typography as="a" href="#" variant="small" color="blue-gray" className="font-medium w-6 h-6" onClick={() => handleOpen({ id: _id, date: new Date(date).toLocaleDateString })}>
                                             <PencilSquareIcon className='w-6 h-6 text-black' />
                                         </Typography>
                                     </td>

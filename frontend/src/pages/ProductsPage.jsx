@@ -30,15 +30,17 @@ function ProductPage() {
     }
 
     const deleteProduct = (productId) => {
-        try {
-            productService.deleteProduct(productId)
-        } catch (error) {
-            Swal.fire({
-                icon: 'error',
-                title: 'Producto no eliminado',
-                text: 'El producto no se ha eliminado correctamente.',
+        productService.deleteProduct(productId)
+            .then(() => {
+                getProducts()
             })
-        }
+            .catch(() => {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Producto no eliminado',
+                    text: 'El producto no se ha eliminado correctamente.',
+                })
+            })
     }
 
     // Para abrir el modal de modificar el producto. Se coge el producto actual para poder actualizarlo.

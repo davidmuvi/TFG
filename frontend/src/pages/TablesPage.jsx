@@ -5,6 +5,7 @@ import { Card, Typography } from "@material-tailwind/react"
 import { XCircleIcon, PencilSquareIcon } from '@heroicons/react/24/solid'
 import Swal from 'sweetalert2'
 import ModifyTableModal from '../components/ModifyTableModal.jsx'
+import { bookingService } from '../services/booking.service.js'
 function TablesPage() {
     const [tables, setTables] = useState([])
     const [currentTable, setCurrentTable] = useState({ _id: '', tableNumber: 0, capacity: 0 })
@@ -17,17 +18,21 @@ function TablesPage() {
         getTables()
     }, [])
 
-    const getTables = () => {
-        tableService.getTables()
-            .then((tables) => {
-                // Le pongo la propiedad availability a cada objeto de la lista de mesas, ya que esta no es necesaria en la base de datos.
-                setTables(tables.map(table => ({
-                    ...table,
-                    availability: ''
-                })))
-                getAvailability(tables)
-            })
-            .catch(error => { console.error(error) })
+    const getTables = async () => {
+        try {
+            // Recuperamos todos las tablas sin el campo availability y creamos un array vació donde meteremos las tablas y le añadiremos el campo.
+            const tables = await tableService.getTables()
+            const tablesWithAvailabilityField = []
+
+            for (const table of tables){
+                const availability = await getAvailability(table)
+                tablesWithAvailabilityField.push({...table, availability })
+            }
+            
+            setTables(tablesWithAvailabilityField)
+        } catch (error) {
+            console.log(error.message)
+        }
     }
 
     const deleteTable = (tableId) => {
@@ -70,16 +75,19 @@ function TablesPage() {
 
     // Esta función se encarga de obtener las mesas que no tienen disponibilidad, 
     // y luego compara con la lista de todas las mesas para ver cuáles están disponibles.
-    const getAvailability = (tables) => {
-        tableService.getTablesWithoutAvailability()
-            .then((response) => {
-                const unavailableTableNumbers = response.map(table => table.tableNumber)
-                setTables(tables.map(table => ({
-                    ...table,
-                    availability: unavailableTableNumbers.includes(table.tableNumber) ? 'No disponible' : 'Disponible'
-                })))
-            })
-            .catch(error => { console.error(error) })
+    const getAvailability = async (table) => {
+        try {
+            const bookings = await bookingService.getBookings()
+
+            // El método some recorre el array y comprueba que al menos un elemento cumpla la condición.
+            // En este caso, si cumple la condición, devolvería true y lo revertimos porque si hay una coincidencia no está disponible.
+            const isAvailable = !bookings.some(booking => booking.tableId._id === table._id)
+            return isAvailable ? 'Disponible' : 'No disponible'
+
+        } catch (error) {
+            console.log(error)
+        }
+
     }
 
     return (

@@ -16,11 +16,11 @@ class AuthService {
         })
     }
     login(data) {
-        return this.api.post('/login', data)
+        return this.api.post('/api/login', data)
     }
 
     verifyToken(accessToken) {
-        return this.api.get('/verifyToken', { headers: { Authorization: `Bearer ${accessToken}` } })
+        return this.api.get('/api/verifyToken', { headers: { Authorization: `Bearer ${accessToken}` } })
     }
 }
 

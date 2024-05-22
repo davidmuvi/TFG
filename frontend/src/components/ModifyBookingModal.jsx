@@ -1,12 +1,24 @@
 import { Dialog, Input, Button, Typography } from '@material-tailwind/react'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { XMarkIcon } from '@heroicons/react/24/solid'
 import PropTypes from 'prop-types'
+import { tableService } from '../services/table.service'
+import Swal from 'sweetalert2'
 
 function ModifyBookingModal({ open, setOpen, booking, updateBooking }) {
     const [formData, setFormData] = useState({
-        bookingDay: ''
+        bookingDay: '',
+        tableNumber: ''
     })
+
+    // Cuando cargamos el modal, ponemos en el formulario los datos de la reserva que queremos modificar.
+    useEffect(() => {
+        if (booking) {
+            setFormData({
+                bookingDay: booking.date
+            })
+        }
+    }, [])
 
     const handleChange = (e) => {
         const { name, value } = e.target
@@ -18,10 +30,29 @@ function ModifyBookingModal({ open, setOpen, booking, updateBooking }) {
 
     const handleSubmit = (e) => {
         e.preventDefault()
-        updateBooking(booking, {
-            date: formData.bookingDay
-        })
-        setOpen(false)
+        if (formData.tableNumber) {
+            tableService.getTableByTableNumber(formData.tableNumber)
+                .then((table) => {
+                    updateBooking(booking.id, {
+                        date: formData.bookingDay,
+                        tableId: table._id
+                    })
+                    setOpen(false)
+                })
+                .catch(() => {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Reserva no modificada',
+                        text: 'La mesa asignada no existe',
+                    })
+                    setOpen(false)
+                })
+        } else {
+            updateBooking(booking.id, {
+                date: formData.bookingDay
+            })
+            setOpen(false)
+        }
     }
 
     return (
@@ -38,6 +69,17 @@ function ModifyBookingModal({ open, setOpen, booking, updateBooking }) {
                             type="date"
                             name="bookingDay"
                             value={formData.bookingDay}
+                            onChange={handleChange}
+                            className='w-full'
+                        />
+                    </div>
+
+                    <div className='mb-4'>
+                        <Typography variant="h6" className='mb-2'>Asignar numero de mesa</Typography>
+                        <Input
+                            type="number"
+                            name="tableNumber"
+                            value={formData.tableNumber}
                             onChange={handleChange}
                             className='w-full'
                         />

@@ -10,7 +10,7 @@ class ProviderService {
 
     async createProvider(provider) {
         try {
-            const response = await this.api.post('/providers', provider)
+            const response = await this.api.post('/api/providers', provider)
             return response.data
         } catch (error) {
             throw new Error(error.message)
@@ -19,7 +19,7 @@ class ProviderService {
 
     async getProviders() {
         try {
-            const response = await this.api.get('/providers')
+            const response = await this.api.get('/api/providers')
             return response.data
         } catch (error) {
             throw new Error(error.message)
@@ -28,7 +28,7 @@ class ProviderService {
 
     async getProviderByName(providerName) {
         try {
-            const response = await this.api.get(`/providers/name/${providerName}`)
+            const response = await this.api.get(`/api/providers/name/${providerName}`)
             return response.data
         } catch (error) {
             throw new Error(error.message)
@@ -37,7 +37,7 @@ class ProviderService {
 
     async deleteProvider(id) {
         try {
-            const response = await this.api.delete(`/providers/${id}`)
+            const response = await this.api.delete(`/api/providers/${id}`)
             return response.data
         } catch (error) {
             throw new Error(error.message)
@@ -47,7 +47,7 @@ class ProviderService {
     async getProductsByProvider(id) {
         try {
             let totalNumberOfProducts = 0
-            const products = await this.api.get('/products')
+            const products = await this.api.get('/api/products')
             products.map(product => {
                 if (product.providerId === id) {
                     totalNumberOfProducts++
@@ -61,7 +61,7 @@ class ProviderService {
 
     async updateProvider(id, provider) {
         try {
-            const response = await this.api.patch(`/providers/${id}`, provider)
+            const response = await this.api.patch(`/api/providers/${id}`, provider)
             return response.data
         } catch (error) {
             throw new Error(error.message)
