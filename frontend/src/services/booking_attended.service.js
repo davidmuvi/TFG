@@ -16,6 +16,15 @@ class BookingAttendedService {
         })
     }
 
+    async createBookingAttended(attendedBooking) {
+        try {
+            const response = await this.api.post(`/api/bookings_attended`, attendedBooking)
+            return response.data
+        } catch (error) {
+            throw new Error(error.message)
+        }
+    }
+
     async getBookingsAttended() {
         try {
             const response = await this.api.get('/api/bookings_attended')

@@ -58,16 +58,17 @@ function BookingsAttendedPage() {
                             const isLast = index === TABLE_ROWS.length - 1
                             const classes = isLast ? "p-4" : "p-4 border-b border-blue-gray-50"
                             
-                            clientService.getClientById(bookingId.clientId)
-                            .then ((client) => {
-                                client.name && setClientName(client.name)
-                                client.telephone && setClientTelephone(client.telephone)
-                                client.email && setClientEmail(client.email)
-                            })
-                            .catch ((error) => {
-                                console.error(error)
-                            })
-
+                            if (bookingId.clientId){
+                                clientService.getClientById(bookingId.clientId)
+                                .then ((client) => {
+                                    client.name && setClientName(client.name)
+                                    client.telephone && setClientTelephone(client.telephone)
+                                    client.email && setClientEmail(client.email)
+                                })
+                                .catch ((error) => {
+                                    console.error(error)
+                                })
+                            }
 
                             {/* Compruebo que el cliente existe, si existe asigno sus datos sino un mensaje de error.*/ }
                             const employeeName = employeeId && employeeId.name ? employeeId.name : 'No existe el empleado'

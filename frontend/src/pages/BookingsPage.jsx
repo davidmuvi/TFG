@@ -1,9 +1,11 @@
 import { useEffect, useState } from 'react'
 import { bookingService } from '../services/booking.service.js'
+import { bookingAttendedService } from '../services/booking_attended.service.js'
+import { useAuth } from '../context/AuthContext'
 import Layout from '../layouts/LayoutPages'
 import ModifyBookingModal from '../components/ModifyBookingModal'
 import { Card, Typography } from "@material-tailwind/react"
-import { XCircleIcon, PencilSquareIcon } from '@heroicons/react/24/solid'
+import { XCircleIcon, PencilSquareIcon, CheckCircleIcon } from '@heroicons/react/24/solid'
 import Swal from 'sweetalert2'
 
 function BookingsPage() {
@@ -11,6 +13,7 @@ function BookingsPage() {
     const [open, setOpen] = useState(false)
     const [currentBooking, setCurrentBooking] = useState({ name: '', telephone: '', bookingDay: '' })
 
+    const { user } = useAuth()
     const TABLE_HEAD = ["Cliente", "Teléfono", "Fecha", "Numero de mesa", ""]
     const TABLE_ROWS = bookings
 
@@ -67,6 +70,29 @@ function BookingsPage() {
             })
     }
 
+    const attendBooking = (bookingId, employeeId) => {
+        bookingAttendedService.createBookingAttended({
+            bookingId: bookingId,
+            employeeId: employeeId
+        })
+        .then(() => {
+            Swal.fire({
+                icon:'success',
+                title: 'Reserva atendida',
+                text: 'La reserva se ha atendido correctamente.',
+            })
+            setBookings(bookings.filter(booking => bookingId !== booking._id))
+            
+        })
+        .catch(() => {
+            Swal.fire({
+                icon: 'error',
+                title: 'Reserva no atendida',
+                text: 'La reserva no se ha podido atender',
+            })
+        })
+    }
+
     const formatDate = (date) => {
         const newDate = new Date(date.date)
         return newDate.toLocaleDateString()
@@ -119,17 +145,21 @@ function BookingsPage() {
                                         </Typography>
                                     </td>
                                     <td className={`${classes} bg-blue-gray-50/50`}>
-                                    <Typography variant="small" color="blue-gray" className="font-normal">
+                                        <Typography variant="small" color="blue-gray" className="font-normal">
                                             {tableNumber}
-                                    </Typography>
+                                        </Typography>
                                     </td>
                                     <td className={`${classes} h-full flex items-center justify-around`}>
-                                        <Typography as="a" href="#" variant="small" color="blue-gray" className="font-medium w-6 h-6" onClick={() => deleteBooking(_id)}>
-                                            <XCircleIcon className='w-6 h-6 text-red-500' />
-                                        </Typography>
-
                                         <Typography as="a" href="#" variant="small" color="blue-gray" className="font-medium w-6 h-6" onClick={() => handleOpen({ id: _id, date: new Date(date).toLocaleDateString })}>
                                             <PencilSquareIcon className='w-6 h-6 text-black' />
+                                        </Typography>
+
+                                        <Typography as="a" href="#" variant="small" color="blue-gray" className="font-medium w-6 h-6" onClick={() => attendBooking(_id, user.id)}>
+                                            <CheckCircleIcon className='w-6 h-6 text-green-500' />
+                                        </Typography>
+
+                                        <Typography as="a" href="#" variant="small" color="blue-gray" className="font-medium w-6 h-6" onClick={() => deleteBooking(_id)}>
+                                            <XCircleIcon className='w-6 h-6 text-red-500' />
                                         </Typography>
                                     </td>
                                 </tr>
