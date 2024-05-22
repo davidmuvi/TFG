@@ -14,7 +14,8 @@ const Navbar = () => {
                 redirection='/bookings'
                 menuName='Bookings'
                 items={[
-                    { name: 'Añadir reserva', redirection: '/bookings/add' }
+                    { name: 'Añadir reserva', redirection: '/bookings/add' },
+                    { name: 'Ver reservas atendidas', redirection: '/bookings_attended' }
                 ]}
             />
 

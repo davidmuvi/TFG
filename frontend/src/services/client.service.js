@@ -16,6 +16,15 @@ class ClientService {
             throw new Error(error.message)
         }
     }
+
+    async getClientById(id) {
+        try {
+            const response = await this.api.get(`/api/clients/id/${id}`)
+            return response.data
+        } catch (error) {
+            throw new Error(error.message)
+        }
+    }
 }
 
 export const clientService = new ClientService()

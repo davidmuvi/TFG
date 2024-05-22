@@ -10,6 +10,7 @@ import AddBookingPage from '../pages/AddBookingPage'
 import AddProductPage from '../pages/AddProductPage'
 import AddProviderPage from '../pages/AddProviderPage'
 import AddTablePage from '../pages/AddTablePage'
+import BookingsAttendedPage from '../pages/BookingsAttendedPage'
 
 const appRoutes = () => {
     return (
@@ -19,6 +20,7 @@ const appRoutes = () => {
                 <Route path='/employees' element={<EmployeePage />} />
                 <Route path='/bookings' element={<BookingsPage />} />
                 <Route path='/bookings/add' element={<AddBookingPage />} />
+                <Route path='/bookings_attended' element={<BookingsAttendedPage />}/>
                 <Route path='/products' element={<ProductsPage />} />
                 <Route path='/products/add' element={<AddProductPage />} />
                 <Route path='/providers' element={<ProvidersPage />} />
