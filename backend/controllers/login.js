@@ -19,7 +19,7 @@ export const login = async (req, res, next) => {
         return res.status(404).json({ message: 'Password or user incorrect' })
       }
 
-      const token = await createAccessToken({ username: adminFound.username, email: adminFound.email })
+      const token = await createAccessToken({ username: adminFound.username, email: adminFound.email, userType: 'admin' })
       res.json({
         token
       })
@@ -29,7 +29,7 @@ export const login = async (req, res, next) => {
         return res.status(404).json({ message: 'Password or user incorrect' })
       }
 
-      const token = await createAccessToken({ username: employeeFound.username, email: employeeFound.email })
+      const token = await createAccessToken({ username: employeeFound.username, email: employeeFound.email, userType: 'employee' })
       res.json({
         token
       })
