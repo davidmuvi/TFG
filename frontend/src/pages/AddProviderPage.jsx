@@ -4,7 +4,7 @@ import { Input, Button, Typography } from '@material-tailwind/react'
 import { useState } from 'react'
 import Swal from 'sweetalert2'
 
-function AddProviderPage() { 
+function AddProviderPage() {
     const [formData, setFormData] = useState({
         name: '',
     })
@@ -22,7 +22,7 @@ function AddProviderPage() {
     const validate = () => {
         const newErrors = {}
         if (!formData.name) newErrors.name = 'El nombre del proveedor es obligatorio'
-    
+
         setErrors(newErrors)
         return Object.keys(newErrors).length === 0
     }
@@ -39,10 +39,10 @@ function AddProviderPage() {
 
         if (validate()) {
             try {
-                createProvider() 
+                createProvider()
 
                 Swal.fire({
-                    icon:'success',
+                    icon: 'success',
                     title: 'Proveedor creado',
                     text: 'El proveedor se ha creado correctamente.',
                 })
@@ -62,14 +62,14 @@ function AddProviderPage() {
     }
 
     return (
-        <Layout> 
+        <Layout>
             <div className='flex-1 w-full flex items-center justify-center'>
                 <form onSubmit={handleSubmit} className='w-full max-w-md bg-gray-200 p-6 rounded-lg shadow-lg'>
                     <Typography variant="h4" className='text-center mb-6 text-blue-500'> Añadir proveedor </Typography>
 
                     <div className='mb-4'>
                         <Typography variant="h6" className='mb-2'> Nombre del proveedor </Typography>
-                        <Input 
+                        <Input
                             name="name"
                             value={formData.name}
                             onChange={handleChange}

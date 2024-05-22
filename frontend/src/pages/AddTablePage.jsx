@@ -4,7 +4,7 @@ import { Input, Button, Typography } from '@material-tailwind/react'
 import { useState } from 'react'
 import Swal from 'sweetalert2'
 
-function AddTablePage() { 
+function AddTablePage() {
     const [formData, setFormData] = useState({
         tableNumber: '',
         capacity: ''
@@ -41,22 +41,22 @@ function AddTablePage() {
 
         if (validate()) {
             createTable()
-            .then(() => {
+                .then(() => {
                     Swal.fire({
-                        icon:'success',
+                        icon: 'success',
                         title: 'Mesa creada',
                         text: 'La mesa se ha creado correctamente.',
                     })
                 }
-            )
-            .catch(() => {
+                )
+                .catch(() => {
                     Swal.fire({
                         icon: 'error',
                         title: 'Mesa no creada',
                         text: 'No se ha podido crear la mesa.',
                     })
                 }
-            )
+                )
 
             setFormData({
                 tableNumber: '',
@@ -66,14 +66,14 @@ function AddTablePage() {
     }
 
     return (
-        <Layout> 
+        <Layout>
             <div className='flex-1 w-full flex items-center justify-center'>
                 <form onSubmit={handleSubmit} className='w-full max-w-md bg-gray-200 p-6 rounded-lg shadow-lg'>
                     <Typography variant="h4" className='text-center mb-6 text-blue-500'> Añadir mesa </Typography>
 
                     <div className='mb-4'>
                         <Typography variant="h6" className='mb-2'> Numero de la mesa </Typography>
-                        <Input 
+                        <Input
                             name="tableNumber"
                             value={formData.tableNumber}
                             onChange={handleChange}
@@ -84,7 +84,7 @@ function AddTablePage() {
 
                     <div className='mb-4'>
                         <Typography variant="h6" className='mb-2'> Capacidad de la mesa </Typography>
-                        <Input 
+                        <Input
                             name="capacity"
                             value={formData.capacity}
                             onChange={handleChange}

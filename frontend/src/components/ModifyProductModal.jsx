@@ -34,7 +34,7 @@ function ModifyProductModal({ open, setOpen, product, updateProduct }) {
         updateProduct({
             name: formData.name,
             category: formData.category,
-            price: formData.price 
+            price: formData.price
         })
         setOpen(false)
     }
@@ -49,7 +49,7 @@ function ModifyProductModal({ open, setOpen, product, updateProduct }) {
                     </div>
                     <div className='mb-4'>
                         <Typography variant="h6" className='mb-2'>Nombre del producto</Typography>
-                        <Input 
+                        <Input
                             type="text"
                             name="name"
                             value={formData.name}
@@ -59,7 +59,7 @@ function ModifyProductModal({ open, setOpen, product, updateProduct }) {
                     </div>
                     <div>
                         <Typography variant="h6" className='mb-2'>Categoría del producto</Typography>
-                        <Input 
+                        <Input
                             type="text"
                             name="category"
                             value={formData.category}
@@ -69,14 +69,14 @@ function ModifyProductModal({ open, setOpen, product, updateProduct }) {
                     </div>
                     <div>
                         <Typography variant="h6" className='mb-2'>Precio del producto</Typography>
-                        <Input 
+                        <Input
                             name="price"
                             value={formData.price}
                             onChange={handleChange}
                             className='w-full'
                         />
                     </div>
-                    
+
                     <Button type="submit" color="blue" className='w-full mt-4'>Guardar</Button>
                 </form>
             </div>
@@ -85,7 +85,7 @@ function ModifyProductModal({ open, setOpen, product, updateProduct }) {
 }
 
 // Declaramos los tipos de las propiedades que le pasan al componente
-ModifyProductModal.propTypes = { 
+ModifyProductModal.propTypes = {
     open: PropTypes.bool.isRequired,
     setOpen: PropTypes.func.isRequired,
     product: PropTypes.object.isRequired,

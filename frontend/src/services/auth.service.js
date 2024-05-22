@@ -1,12 +1,12 @@
 import axios from 'axios'
 
 class AuthService {
-    constructor(){
+    constructor() {
         this.api = axios.create({
             baseURL: `${import.meta.env.VITE_DBURL}`,
             withCredentials: true
         })
-        this.api.interceptors.request.use(config => { 
+        this.api.interceptors.request.use(config => {
             const storeToken = localStorage.getItem('ACCESS_TOKEN')
             if (storeToken) {
                 config.headers.Authorization = `Bearer ${storeToken}`
@@ -15,12 +15,12 @@ class AuthService {
             return config
         })
     }
-    login(data){
+    login(data) {
         return this.api.post('/login', data)
     }
 
-    verifyToken(accessToken){
-        return this.api.get('/verifyToken', {headers: {Authorization: `Bearer ${accessToken}`}})
+    verifyToken(accessToken) {
+        return this.api.get('/verifyToken', { headers: { Authorization: `Bearer ${accessToken}` } })
     }
 }
 

@@ -1,14 +1,14 @@
 import axios from 'axios'
 
 class TableService {
-    constructor(){
+    constructor() {
         this.api = axios.create({
             baseURL: `${import.meta.env.VITE_DBURL}`,
             withCredentials: true
         })
     }
 
-    async createTable(table){
+    async createTable(table) {
         try {
             const response = await this.api.post('/tables', table)
             return response.data
@@ -17,7 +17,7 @@ class TableService {
         }
     }
 
-    async getTables(){
+    async getTables() {
         try {
             const response = await this.api.get('/tables')
             return response.data
@@ -26,7 +26,7 @@ class TableService {
         }
     }
 
-    async deleteTable(id){
+    async deleteTable(id) {
         try {
             const response = await this.api.delete(`/tables/${id}`)
             return response.data
@@ -35,7 +35,7 @@ class TableService {
         }
     }
 
-    async getTablesWithoutAvailability(){
+    async getTablesWithoutAvailability() {
         try {
             const response = await this.api.get('/bookings/tables/with-assignments')
             return response.data

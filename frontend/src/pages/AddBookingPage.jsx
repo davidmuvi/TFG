@@ -5,7 +5,7 @@ import { Input, Button, Typography } from '@material-tailwind/react'
 import { useState } from 'react'
 import Swal from 'sweetalert2'
 
-function AddBookingPage() { 
+function AddBookingPage() {
     const [formData, setFormData] = useState({
         name: '',
         telephone: '',
@@ -26,7 +26,7 @@ function AddBookingPage() {
         const newErrors = {}
         if (!formData.name) newErrors.name = 'El nombre del cliente es obligatorio'
         if (!formData.telephone) newErrors.telephone = 'El teléfono del cliente es obligatorio'
-        if (!formData.bookingDay) newErrors.bookingDay = 'El día de la reserva es obligatorio'	
+        if (!formData.bookingDay) newErrors.bookingDay = 'El día de la reserva es obligatorio'
         setErrors(newErrors)
         return Object.keys(newErrors).length === 0
     }
@@ -34,8 +34,8 @@ function AddBookingPage() {
     const createBooking = async () => {
         const { telephone, bookingDay } = formData
         const client = await clientService.getClientByTelephone(telephone)
-        
-        if (!client) { 
+
+        if (!client) {
             Swal.fire({
                 icon: 'error',
                 title: 'Usuario no existe',
@@ -44,7 +44,7 @@ function AddBookingPage() {
             return
         }
 
-        const newBooking = { clientId: client._id , date: bookingDay }
+        const newBooking = { clientId: client._id, date: bookingDay }
         await bookingService.createBooking(newBooking)
     }
 
@@ -52,10 +52,10 @@ function AddBookingPage() {
         e.preventDefault()
         if (validate()) {
             try {
-                createBooking() 
+                createBooking()
 
                 Swal.fire({
-                    icon:'success',
+                    icon: 'success',
                     title: 'Reserva creada',
                     text: 'La reserva se ha creado correctamente.',
                 })
@@ -76,14 +76,14 @@ function AddBookingPage() {
     }
 
     return (
-        <Layout> 
+        <Layout>
             <div className='flex-1 w-full flex items-center justify-center'>
                 <form onSubmit={handleSubmit} className='w-full max-w-md bg-gray-200 p-6 rounded-lg shadow-lg'>
                     <Typography variant="h4" className='text-center mb-6 text-blue-500'> Añadir reserva </Typography>
 
                     <div className='mb-4'>
                         <Typography variant="h6" className='mb-2'> Nombre del cliente </Typography>
-                        <Input 
+                        <Input
                             name="name"
                             value={formData.name}
                             onChange={handleChange}
@@ -94,7 +94,7 @@ function AddBookingPage() {
 
                     <div className='mb-4'>
                         <Typography variant="h6" className='mb-2'> Teléfono del cliente </Typography>
-                        <Input 
+                        <Input
                             name="telephone"
                             value={formData.telephone}
                             onChange={handleChange}
@@ -105,7 +105,7 @@ function AddBookingPage() {
 
                     <div className='mb-4'>
                         <Typography variant="h6" className='mb-2'> Día de la reserva </Typography>
-                        <Input 
+                        <Input
                             type="date"
                             name="bookingDay"
                             value={formData.bookingDay}

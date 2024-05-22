@@ -1,13 +1,13 @@
 import axios from 'axios'
 
 class BookingService {
-    constructor(){
+    constructor() {
         this.api = axios.create({
             baseURL: `${import.meta.env.VITE_DBURL}`,
             withCredentials: true
         })
     }
-    async getBookings(){
+    async getBookings() {
         try {
             const response = await this.api.get('/bookings')
             return response.data
@@ -16,7 +16,7 @@ class BookingService {
         }
     }
 
-    async deleteBooking(id){
+    async deleteBooking(id) {
         try {
             const response = await this.api.delete(`/bookings/${id}`)
             return response.data
@@ -25,7 +25,7 @@ class BookingService {
         }
     }
 
-    async createBooking(booking){ 
+    async createBooking(booking) {
         try {
             const response = await this.api.post('/bookings', booking)
             return response.data

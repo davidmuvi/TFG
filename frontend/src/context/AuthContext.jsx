@@ -3,7 +3,7 @@ import { authService } from '../services/auth.service.js'
 
 export const AuthContext = createContext()
 
-export const useAuth = () => { 
+export const useAuth = () => {
     const context = useContext(AuthContext)
     if (!context) {
         throw new Error('useAuth must be used within an AuthProvider')
@@ -21,13 +21,13 @@ export const AuthProvider = ({ children }) => {
 
     const storeToken = (token) => {
         localStorage.setItem('ACCESS_TOKEN', token)
-    }    
+    }
 
-    const removeToken = () => { 
+    const removeToken = () => {
         localStorage.removeItem('ACCESS_TOKEN')
     }
 
-    const logout = () => { 
+    const logout = () => {
         setLoading(false)
         setUser(null)
         removeToken()
@@ -37,14 +37,14 @@ export const AuthProvider = ({ children }) => {
         const token = localStorage.getItem('ACCESS_TOKEN')
         if (token) {
             authService
-            .verifyToken(token)
-            .then(
-                ({data}) => {
-                    setUser(data)
-                    setLoading(false)
-                }
-            )
-            .catch(err => console.log(err))
+                .verifyToken(token)
+                .then(
+                    ({ data }) => {
+                        setUser(data)
+                        setLoading(false)
+                    }
+                )
+                .catch(err => console.log(err))
         }
         else {
             logout()
@@ -52,7 +52,7 @@ export const AuthProvider = ({ children }) => {
     }
 
     return (
-        <AuthContext.Provider value={{user, loading, authUser, storeToken, logout}}>
+        <AuthContext.Provider value={{ user, loading, authUser, storeToken, logout }}>
             {children}
         </AuthContext.Provider>
     )

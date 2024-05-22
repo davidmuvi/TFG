@@ -1,12 +1,20 @@
 import { Dialog, Input, Button, Typography } from '@material-tailwind/react'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { XMarkIcon } from '@heroicons/react/24/solid'
 import PropTypes from 'prop-types'
 
-function ModifyBookingModal({ open, setOpen, booking, updateBooking }) {
+function ModifyProviderModal({ open, setOpen, provider, updateProvider }) {
     const [formData, setFormData] = useState({
-        bookingDay: ''
+        name: ''
     })
+
+    useEffect(() => {
+        if (provider) {
+            setFormData({
+                name: provider.name
+            })
+        }
+    }, [])
 
     const handleChange = (e) => {
         const { name, value } = e.target
@@ -18,8 +26,8 @@ function ModifyBookingModal({ open, setOpen, booking, updateBooking }) {
 
     const handleSubmit = (e) => {
         e.preventDefault()
-        updateBooking(booking, {
-            date: formData.bookingDay
+        updateProvider(provider._id, {
+            name: formData.name
         })
         setOpen(false)
     }
@@ -29,15 +37,15 @@ function ModifyBookingModal({ open, setOpen, booking, updateBooking }) {
             <div className='flex-1 w-full flex items-center justify-center'>
                 <form className='w-full max-w-md bg-gray-200 p-6 rounded-lg shadow-lg' onSubmit={handleSubmit}>
                     <div className='flex justify-between items-center mb-6'>
-                        <Typography variant="h4" className='text-center text-blue-500'>Modificar reserva</Typography>
+                        <Typography variant="h4" className='text-center text-blue-500'>Modificar proveedor</Typography>
                         <XMarkIcon className='text-black cursor-pointer w-6 h-6' onClick={() => setOpen(false)} />
                     </div>
                     <div className='mb-4'>
-                        <Typography variant="h6" className='mb-2'>Día de la reserva</Typography>
+                        <Typography variant="h6" className='mb-2'>Nombre del proveedor</Typography>
                         <Input
-                            type="date"
-                            name="bookingDay"
-                            value={formData.bookingDay}
+                            type="text"
+                            name="name"
+                            value={formData.name}
                             onChange={handleChange}
                             className='w-full'
                         />
@@ -50,10 +58,11 @@ function ModifyBookingModal({ open, setOpen, booking, updateBooking }) {
 }
 
 {/* Declaramos los tipos de las propiedades que le pasan al componente */ }
-ModifyBookingModal.propTypes = {
+ModifyProviderModal.propTypes = {
     open: PropTypes.bool.isRequired,
     setOpen: PropTypes.func.isRequired,
-    booking: PropTypes.object.isRequired,
-    updateBooking: PropTypes.func.isRequired
+    provider: PropTypes.object.isRequired,
+    updateProvider: PropTypes.func.isRequired
 }
-export default ModifyBookingModal
+
+export default ModifyProviderModal

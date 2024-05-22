@@ -15,7 +15,10 @@ function LoginPage() {
 
     const handleInputChange = (e) => {
       const { name, value } = e.target
-      setLoginData({...loginData, [name]: value})
+      setLoginData({
+        ...loginData, 
+        [name]: value
+      })
     }
 
     const handleSubmit = (e) => {
@@ -33,7 +36,12 @@ function LoginPage() {
   // Si se ha autenticado el usuario, se redirecciona a la pagina de empleados
     useEffect(() => {
       if (user) {
-        navigate('/employees')
+        if (user.userType === 'employee'){
+          navigate('/employees')
+        } else if (user.userType === 'admin'){
+          navigate('/admin')
+        }
+        
       }
     }, [user, navigate])
 

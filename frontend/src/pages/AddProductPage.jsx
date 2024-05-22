@@ -5,7 +5,7 @@ import { Input, Button, Typography } from '@material-tailwind/react'
 import { useState } from 'react'
 import Swal from 'sweetalert2'
 
-function AddProductPage() { 
+function AddProductPage() {
     const [formData, setFormData] = useState({
         name: '',
         category: '',
@@ -27,7 +27,7 @@ function AddProductPage() {
         const newErrors = {}
         if (!formData.name) newErrors.name = 'El nombre del producto es obligatorio'
         if (!formData.category) newErrors.category = 'La categoría del producto es obligatoria'
-        if (!formData.price) newErrors.price = 'El precio del producto es obligatorio'	
+        if (!formData.price) newErrors.price = 'El precio del producto es obligatorio'
         if (!formData.providerName) newErrors.providerName = 'El nombre del proveedor es obligatorio'
         setErrors(newErrors)
         return Object.keys(newErrors).length === 0
@@ -54,10 +54,10 @@ function AddProductPage() {
         e.preventDefault()
         if (validate()) {
             try {
-                createProduct() 
+                createProduct()
 
                 Swal.fire({
-                    icon:'success',
+                    icon: 'success',
                     title: 'Producto creado',
                     text: 'El producto se ha creado correctamente.',
                 })
@@ -79,14 +79,14 @@ function AddProductPage() {
     }
 
     return (
-        <Layout> 
+        <Layout>
             <div className='flex-1 w-full flex items-center justify-center'>
                 <form onSubmit={handleSubmit} className='w-full max-w-md bg-gray-200 p-6 rounded-lg shadow-lg'>
                     <Typography variant="h4" className='text-center mb-6 text-blue-500'> Añadir producto </Typography>
 
                     <div className='mb-4'>
                         <Typography variant="h6" className='mb-2'> Nombre del producto </Typography>
-                        <Input 
+                        <Input
                             name="name"
                             value={formData.name}
                             onChange={handleChange}
@@ -97,7 +97,7 @@ function AddProductPage() {
 
                     <div className='mb-4'>
                         <Typography variant="h6" className='mb-2'> Categoría del producto </Typography>
-                        <Input 
+                        <Input
                             name="category"
                             value={formData.category}
                             onChange={handleChange}
@@ -108,7 +108,7 @@ function AddProductPage() {
 
                     <div className='mb-4'>
                         <Typography variant="h6" className='mb-2'> Precio del producto </Typography>
-                        <Input 
+                        <Input
                             type="number"
                             name="price"
                             value={formData.price}
@@ -120,7 +120,7 @@ function AddProductPage() {
 
                     <div className='mb-4'>
                         <Typography variant="h6" className='mb-2'> Nombre del proveedor </Typography>
-                        <Input 
+                        <Input
                             type="text"
                             name="providerName"
                             value={formData.providerName}
