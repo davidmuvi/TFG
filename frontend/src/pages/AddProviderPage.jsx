@@ -65,7 +65,7 @@ function AddProviderPage() {
         <Layout>
             <div className='flex-1 w-full flex items-center justify-center'>
                 <form onSubmit={handleSubmit} className='w-full max-w-md bg-gray-200 p-6 rounded-lg shadow-lg'>
-                    <Typography variant="h4" className='text-center mb-6 text-blue-500'> Añadir proveedor </Typography>
+                    <Typography variant="h4" className='text-center mb-6 text-gray-900'> Añadir proveedor </Typography>
 
                     <div className='mb-4'>
                         <Typography variant="h6" className='mb-2'> Nombre del proveedor </Typography>
@@ -78,7 +78,7 @@ function AddProviderPage() {
                         {errors.name && <Typography className='text-red-500 text-sm'>{errors.name}</Typography>}
                     </div>
 
-                    <Button type="submit" color="blue" className='w-full mt-4'>Añadir</Button>
+                    <Button type="submit" className='w-full mt-4'>Añadir</Button>
                 </form>
             </div>
         </Layout>

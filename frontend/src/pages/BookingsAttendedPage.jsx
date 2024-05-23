@@ -42,8 +42,8 @@ function BookingsAttendedPage() {
 
     return (
         <Layout>
-            <Card className="flex-1 w-screen">
-                <table className="w-full h-full min-w-max table-auto text-left">
+            <Card className="flex-1 h-full w-screen table-container">
+                <table className="w-full h-full max-w-full text-left">
                     <thead>
                         <tr>
                             {TABLE_HEAD.map((head) => (

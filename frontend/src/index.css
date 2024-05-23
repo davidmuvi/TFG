@@ -2,10 +2,20 @@
 @tailwind components;
 @tailwind utilities;
 
+body {
+    overflow-x: hidden;
+}
+
 #root {
     min-height: 100vh;
     min-width: 100vw;
     display: flex;
     align-items: center;
     justify-content: center;
+}
+
+.login {
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' version='1.1' xmlns:xlink='http://www.w3.org/1999/xlink' xmlns:svgjs='http://svgjs.dev/svgjs' width='1440' height='680' preserveAspectRatio='none' viewBox='0 0 1440 560'%3e%3cg mask='url(%26quot%3b%23SvgjsMask1011%26quot%3b)' fill='none'%3e%3crect width='1440' height='560' x='0' y='0' fill='rgba(52%2c 52%2c 52%2c 1)'%3e%3c/rect%3e%3cpath d='M 0%2c232 C 57.6%2c213 172.8%2c145.6 288%2c137 C 403.2%2c128.4 460.8%2c201.8 576%2c189 C 691.2%2c176.2 748.8%2c58.4 864%2c73 C 979.2%2c87.6 1036.8%2c274.4 1152%2c262 C 1267.2%2c249.6 1382.4%2c61.2 1440%2c11L1440 560L0 560z' fill='rgba(87%2c 87%2c 87%2c 1)'%3e%3c/path%3e%3cpath d='M 0%2c369 C 96%2c405.6 288%2c564.4 480%2c552 C 672%2c539.6 768%2c327.6 960%2c307 C 1152%2c286.4 1344%2c420.6 1440%2c449L1440 560L0 560z' fill='rgba(132%2c 132%2c 133%2c 1)'%3e%3c/path%3e%3c/g%3e%3cdefs%3e%3cmask id='SvgjsMask1011'%3e%3crect width='1440' height='560' fill='white'%3e%3c/rect%3e%3c/mask%3e%3c/defs%3e%3c/svg%3e");
+    background-repeat: no-repeat;
+    background-size: cover;
 }

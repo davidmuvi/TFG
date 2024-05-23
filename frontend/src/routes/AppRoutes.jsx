@@ -10,6 +10,7 @@ import AddProductPage from '../pages/AddProductPage'
 import AddProviderPage from '../pages/AddProviderPage'
 import AddTablePage from '../pages/AddTablePage'
 import BookingsAttendedPage from '../pages/BookingsAttendedPage'
+import { AdminPage } from '../pages/AdminPage'
 
 const appRoutes = ({bookings, setBookings}) => {
     
@@ -26,6 +27,7 @@ const appRoutes = ({bookings, setBookings}) => {
                 <Route path='/providers/add' element={<AddProviderPage />} />
                 <Route path='/tables' element={<TablesPage bookings={bookings}/>} />
                 <Route path='/tables/add' element={<AddTablePage />} />
+                <Route path='/admin' element={<AdminPage />} />
             </Route>
         </Routes>
     )

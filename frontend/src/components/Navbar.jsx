@@ -1,60 +1,28 @@
 import { useAuth } from '../context/AuthContext'
-import { Link } from 'react-router-dom'
-import { MenuDefault } from './Menu'
+import PropTypes from 'prop-types'
 
-const Navbar = () => {
-    const { user, logout } = useAuth()
+const Navbar = ({backgroundColor, children, username}) => {
+    const { logout } = useAuth()
     return (
-        <nav className="bg-blue-400 h-1/6 p-6 text-white flex items-center justify-between">
-            <Link to='/employees'>
-                <img src="" alt="Logo" />
-            </Link>
-
-            <MenuDefault
-                redirection='/bookings'
-                menuName='Bookings'
-                items={[
-                    { name: 'Añadir reserva', redirection: '/bookings/add' },
-                    { name: 'Ver reservas atendidas', redirection: '/bookings_attended' }
-                ]}
-            />
-
-            <MenuDefault
-                redirection='/products'
-                menuName='Products'
-                items={[
-                    { name: 'Añadir producto', redirection: '/products/add' }
-                ]}
-            />
-
-            <MenuDefault
-                redirection='/providers'
-                menuName='Providers'
-                items={[
-                    { name: 'Añadir proveedor', redirection: '/providers/add' }
-                ]}
-            />
-
-            <MenuDefault
-                redirection='/tables'
-                menuName='Tables'
-                items={[
-                    { name: 'Añadir mesa', redirection: '/tables/add' }
-                ]}
-            />
-
-            <div className='gap-3 h-full w-48'>
-                <p className='absolute right-3 top-20 font-bold text-lg'> {user.email} </p>
-                <button
-                    className='absolute right-3 top-3 bg-red-500 rounded-lg p-2 text-white w-26 h-8 text-sm flex items-center justify-center'
-                    onClick={logout}
-                >
-                    Logout
-                </button>
-
-            </div>
-        </nav>
+        <nav className={`${backgroundColor} h-1/6 p-6 text-white flex flex-row items-center justify-between`}>
+          {children}
+        <div className='flex flex-col items-center gap-5 h-full mr-3'>
+          <p className='font-bold text-lg'>{username}</p>
+          <button
+            className='bg-red-500 rounded-lg p-2 text-white w-26 h-8 text-sm flex items-center justify-center'
+            onClick={logout}
+          >
+            Logout
+          </button>
+        </div>
+      </nav>
     )
+}
+
+Navbar.propTypes = {
+    backgroundColor: PropTypes.string,
+    children: PropTypes.node,
+    username: PropTypes.string
 }
 
 export default Navbar
