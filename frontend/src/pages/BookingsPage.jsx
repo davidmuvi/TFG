@@ -7,9 +7,9 @@ import ModifyBookingModal from '../components/ModifyBookingModal'
 import { Card, Typography } from "@material-tailwind/react"
 import { XCircleIcon, PencilSquareIcon, CheckCircleIcon } from '@heroicons/react/24/solid'
 import Swal from 'sweetalert2'
+import PropTypes from 'prop-types'
 
-function BookingsPage() {
-    const [bookings, setBookings] = useState([])
+function BookingsPage({ bookings, setBookings }) {
     const [open, setOpen] = useState(false)
     const [currentBooking, setCurrentBooking] = useState({ name: '', telephone: '', bookingDay: '' })
 
@@ -188,6 +188,11 @@ function BookingsPage() {
             {open && <ModifyBookingModal open={open} setOpen={setOpen} booking={currentBooking} updateBooking={updateBooking} />}
         </Layout>
     )
+}
+
+BookingsPage.propTypes = {
+    bookings: PropTypes.array.isRequired,
+    setBookings: PropTypes.func.isRequired,
 }
 
 export default BookingsPage

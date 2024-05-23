@@ -37,7 +37,7 @@ function LoginPage() {
     useEffect(() => {
       if (user) {
         if (user.userType === 'employee'){
-          navigate('/employees')
+          navigate('/bookings')
         } else if (user.userType === 'admin'){
           navigate('/admin')
         }
