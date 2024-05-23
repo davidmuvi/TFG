@@ -2,6 +2,7 @@ import Admin from '../models/admin.js'
 import Employee from '../models/employee.js'
 import bcrypt from 'bcryptjs'
 import { createAccessToken } from '../libs/jwt.js'
+import employee from '../models/employee.js'
 
 export const login = async (req, res, next) => {
   const { username, password } = req.body
@@ -19,7 +20,7 @@ export const login = async (req, res, next) => {
         return res.status(404).json({ message: 'Password or user incorrect' })
       }
 
-      const token = await createAccessToken({ username: adminFound.username, email: adminFound.email, userType: 'admin' })
+      const token = await createAccessToken({ username: adminFound.username, email: adminFound.email, userType: 'admin', id: adminFound._id })
       res.json({
         token
       })
@@ -29,7 +30,7 @@ export const login = async (req, res, next) => {
         return res.status(404).json({ message: 'Password or user incorrect' })
       }
 
-      const token = await createAccessToken({ username: employeeFound.username, email: employeeFound.email, userType: 'employee' })
+      const token = await createAccessToken({ username: employeeFound.username, email: employeeFound.email, userType: 'employee', id: employeeFound._id })
       res.json({
         token
       })
