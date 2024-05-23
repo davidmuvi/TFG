@@ -30,9 +30,13 @@ function BookingsPage() {
     const getBookings = () => {
         bookingService.getBookings()
             .then((bookings) => {
-                setBookings(bookings.map(booking => ({
-                    ...booking
-                })))
+                bookingAttendedService.getBookingsAttended()
+                    .then((bookingsAttended) => {
+                        const attendedBookingIds = bookingsAttended.map(bookingAttended => bookingAttended.bookingId._id)
+                        const notAttendedBookings = bookings.filter(booking => !attendedBookingIds.includes(booking._id))
+
+                        setBookings(notAttendedBookings)
+                    })
             })
             .catch(error => { console.error(error) })
     }
@@ -75,22 +79,22 @@ function BookingsPage() {
             bookingId: bookingId,
             employeeId: employeeId
         })
-        .then(() => {
-            Swal.fire({
-                icon:'success',
-                title: 'Reserva atendida',
-                text: 'La reserva se ha atendido correctamente.',
+            .then(() => {
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Reserva atendida',
+                    text: 'La reserva se ha atendido correctamente.',
+                })
+
+                getBookings()
             })
-            setBookings(bookings.filter(booking => bookingId !== booking._id))
-            
-        })
-        .catch(() => {
-            Swal.fire({
-                icon: 'error',
-                title: 'Reserva no atendida',
-                text: 'La reserva no se ha podido atender',
+            .catch(() => {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Reserva no atendida',
+                    text: 'La reserva no se ha podido atender',
+                })
             })
-        })
     }
 
     const formatDate = (date) => {
