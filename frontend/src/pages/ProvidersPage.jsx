@@ -19,15 +19,18 @@ function ProductPage() {
         getProviders()
     }, [])
 
-    const getProviders = () => {
-        providerService.getProviders()
-            .then((providers) => {
-                setProviders(providers.map(provider => ({
-                    ...provider,
-                    products: 0
-                })))
-            })
-            .catch(error => { console.error(error) })
+    const getProviders = async () => {
+        const providers = await providerService.getProviders()
+
+        const providersWithProducts = await Promise.all(providers.map(async (provider) => {
+            const products = await providerService.getProductsByProvider(provider._id)
+            return {
+               ...provider,
+                products: products
+            }
+        }))
+
+        setProviders(providersWithProducts)
     }
 
     const deleteProvider = (providerId) => {

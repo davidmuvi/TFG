@@ -3,12 +3,11 @@ import { bookingAttendedService } from '../services/booking_attended.service.js'
 import { clientService } from '../services/client.service.js'
 import Layout from '../layouts/LayoutPages'
 import { Card, Typography } from "@material-tailwind/react"
-import { XCircleIcon } from '@heroicons/react/24/solid'
 
 function BookingsAttendedPage() {
     const [bookings, setBookings] = useState([])
 
-    const TABLE_HEAD = ["Empleado", "Fecha reserva", "Nombre cliente", "Telefono cliente", "Email cliente", ""]
+    const TABLE_HEAD = ["Empleado", "Fecha reserva", "Nombre cliente", "Telefono cliente", "Email cliente"]
     const TABLE_ROWS = bookings
 
     // Al entrar por primera vez se ejecuta para cargar las reservas.
@@ -102,11 +101,6 @@ function BookingsAttendedPage() {
                                     <td className={classes}>
                                         <Typography variant="small" color="blue-gray" className="font-normal">
                                             {clientInfo.email}
-                                        </Typography>
-                                    </td>
-                                    <td className={`${classes} bg-blue-gray-50/50 h-full flex items-center justify-center`}>
-                                        <Typography as="a" href="#" variant="small" color="blue-gray" className="font-medium w-6 h-6">
-                                            <XCircleIcon className='w-6 h-6 text-red-500' />
                                         </Typography>
                                     </td>
                                 </tr>

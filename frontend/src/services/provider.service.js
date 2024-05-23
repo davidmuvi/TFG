@@ -48,8 +48,8 @@ class ProviderService {
         try {
             let totalNumberOfProducts = 0
             const products = await this.api.get('/api/products')
-            products.map(product => {
-                if (product.providerId === id) {
+            products.data.map(product => {
+                if (product.providerId._id === id) {
                     totalNumberOfProducts++
                 }
             })
