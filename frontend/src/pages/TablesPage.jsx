@@ -24,11 +24,11 @@ function TablesPage() {
             const tables = await tableService.getTables()
             const tablesWithAvailabilityField = []
 
-            for (const table of tables){
+            for (const table of tables) {
                 const availability = await getAvailability(table)
-                tablesWithAvailabilityField.push({...table, availability })
+                tablesWithAvailabilityField.push({ ...table, availability })
             }
-            
+
             setTables(tablesWithAvailabilityField)
         } catch (error) {
             console.log(error.message)
@@ -81,13 +81,21 @@ function TablesPage() {
 
             // El método some recorre el array y comprueba que al menos un elemento cumpla la condición.
             // En este caso, si cumple la condición, devolvería true y lo revertimos porque si hay una coincidencia no está disponible.
-            const isAvailable = !bookings.some(booking => booking.tableId._id === table._id)
+            let isAvailable = ''
+            bookings.forEach((booking) => {
+                if (booking.tableId && booking.tableId._id === table._id) {
+                    isAvailable = false
+                    return
+                } else {
+                    isAvailable = true
+                    return
+                }
+            })
             return isAvailable ? 'Disponible' : 'No disponible'
 
         } catch (error) {
             console.log(error)
         }
-
     }
 
     return (

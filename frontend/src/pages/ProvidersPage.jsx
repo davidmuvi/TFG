@@ -25,7 +25,7 @@ function ProductPage() {
         const providersWithProducts = await Promise.all(providers.map(async (provider) => {
             const products = await providerService.getProductsByProvider(provider._id)
             return {
-               ...provider,
+                ...provider,
                 products: products
             }
         }))
