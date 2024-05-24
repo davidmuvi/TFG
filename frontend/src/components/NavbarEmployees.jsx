@@ -3,6 +3,7 @@ import MenuDefault from './Menu'
 import Navbar from './Navbar'
 import { useAuth } from '../context/AuthContext'
 import PropTypes from 'prop-types'
+import { ArrowRightCircleIcon } from '@heroicons/react/24/outline'
 
 const NavbarEmployees = ({ backgroundColor }) => {
     const { user } = useAuth()
@@ -10,7 +11,7 @@ const NavbarEmployees = ({ backgroundColor }) => {
     return (
         <Navbar backgroundColor={backgroundColor} username={user.username}>
             <Link to='/'>
-                <img src="src/images/logo.png" alt="Logo" className='w-20 h-20 rounded-lg'/>
+                <img src="src/images/logo.png" alt="Logo" className='w-20 h-20 rounded-lg' />
             </Link>
 
             <MenuDefault
@@ -45,6 +46,15 @@ const NavbarEmployees = ({ backgroundColor }) => {
                     { name: 'Añadir mesa', redirection: '/tables/add' }
                 ]}
             />
+
+            {user.userType === 'admin' &&
+                <Link to='/admin/manage-employees'
+                    className="flex items-center gap-2 p-2 mt-10 rounded-lg hover:bg-gray-800 hover:text-white"
+                >
+                    Gestionar empleados
+                    <ArrowRightCircleIcon className="h-6 w-6" />
+                </Link>
+            }
         </Navbar>
     )
 }
