@@ -4,13 +4,13 @@ import Navbar from './Navbar'
 import { useAuth } from '../context/AuthContext'
 import PropTypes from 'prop-types'
 
-const NavbarEmployees = ({backgroundColor}) => {
+const NavbarEmployees = ({ backgroundColor }) => {
     const { user } = useAuth()
 
     return (
         <Navbar backgroundColor={backgroundColor} username={user.username}>
-            <Link to='/employees'>
-                <img src="" alt="Logo" />
+            <Link to='/'>
+                <img src="src/images/logo.png" alt="Logo" className='w-24 h-24 rounded-lg'/>
             </Link>
 
             <MenuDefault
