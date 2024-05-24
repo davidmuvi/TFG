@@ -4,6 +4,7 @@ import { NavbarAdmin } from '../components/NavbarAdmin'
 import { TableAdmin } from '../components/TableAdmin'
 import { useEffect, useState } from "react"
 import { employeeService } from '../services/employee.service.js'
+import { UserPlusIcon } from '@heroicons/react/24/solid'
 
 function ManageEmployeesPage() {
     const navigate = useNavigate()
@@ -31,8 +32,12 @@ function ManageEmployeesPage() {
 
     return (
         <div className='min-h-screen w-screen flex flex-col'>
-            <NavbarAdmin />
-            <TableAdmin employees={employees} getEmployees={getEmployees}/>
+            <NavbarAdmin
+                redirection='/admin/manage-employees/add'
+                icon={<UserPlusIcon className="h-6 w-6" />}
+                iconText='Añadir empleado'
+            />
+            <TableAdmin employees={employees} getEmployees={getEmployees} />
         </div>
     )
 }

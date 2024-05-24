@@ -7,9 +7,9 @@ import {
     Collapse,
 } from "@material-tailwind/react";
 import { Link } from "react-router-dom";
-import { ArrowRightCircleIcon, UserPlusIcon } from "@heroicons/react/24/solid";
+import { ArrowRightCircleIcon } from "@heroicons/react/24/solid";
 
-export function NavbarAdmin() {
+export function NavbarAdmin({redirection, icon, iconText }) {
     const [openNav, setOpenNav] = React.useState(false);
 
     useEffect(() => {
@@ -26,11 +26,11 @@ export function NavbarAdmin() {
                 variant="small"
                 className="flex items-center gap-x-2 p-1"
             >
-                <Link to='/admin/manage-employees/add'
+                <Link to={redirection}
                     className="font-bold flex items-center gap-2 p-2 rounded-lg hover:bg-gray-800 hover:text-white"
                 >
-                    Añadir empleado
-                    <UserPlusIcon className="h-6 w-6" />
+                    {iconText}
+                    {icon}
                 </Link>
             </Typography>
 
