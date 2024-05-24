@@ -2,9 +2,17 @@ import { BriefcaseIcon, UserIcon } from "@heroicons/react/24/solid"
 import { AdminPageCard } from "../components/AdminPageCard"
 import { Button } from "@material-tailwind/react"
 import { useAuth } from '../context/AuthContext'
+import { useNavigate } from "react-router-dom"
 
 function AdminPage() {
-    const { logout } = useAuth()
+    const { logout, user } = useAuth()
+    const navigate = useNavigate()
+
+    if (user.userType !== 'admin') {
+        navigate('/')
+        return
+    }
+
     return (
         <div className="flex flex-col items-center justify-center gap-10 w-full h-screen bg-gradient-to-br from-gray-200 to-gray-500">
             <div className="flex items-center justify-center gap-16 w-full">

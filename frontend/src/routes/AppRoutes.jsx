@@ -11,6 +11,7 @@ import AddProviderPage from '../pages/AddProviderPage'
 import AddTablePage from '../pages/AddTablePage'
 import BookingsAttendedPage from '../pages/BookingsAttendedPage'
 import AdminPage from '../pages/AdminPage'
+import ManageEmployeesPage from '../pages/ManageEmployeesPage'
 
 const appRoutes = ({bookings, setBookings}) => {
     
@@ -28,6 +29,7 @@ const appRoutes = ({bookings, setBookings}) => {
                 <Route path='/tables' element={<TablesPage bookings={bookings}/>} />
                 <Route path='/tables/add' element={<AddTablePage />} />
                 <Route path='/admin' element={<AdminPage />} />
+                <Route path='/admin/manage-employees' element={<ManageEmployeesPage />} />
             </Route>
         </Routes>
     )
