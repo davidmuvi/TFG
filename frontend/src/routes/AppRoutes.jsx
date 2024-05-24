@@ -10,7 +10,7 @@ import AddProductPage from '../pages/AddProductPage'
 import AddProviderPage from '../pages/AddProviderPage'
 import AddTablePage from '../pages/AddTablePage'
 import BookingsAttendedPage from '../pages/BookingsAttendedPage'
-import { AdminPage } from '../pages/AdminPage'
+import AdminPage from '../pages/AdminPage'
 
 const appRoutes = ({bookings, setBookings}) => {
     

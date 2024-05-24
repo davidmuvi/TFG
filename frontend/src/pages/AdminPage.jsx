@@ -3,7 +3,7 @@ import { AdminPageCard } from "../components/AdminPageCard"
 import { Button } from "@material-tailwind/react"
 import { useAuth } from '../context/AuthContext'
 
-export const AdminPage = () => {
+function AdminPage() {
     const { logout } = useAuth()
     return (
         <div className="flex flex-col items-center justify-center gap-10 w-full h-screen bg-gradient-to-br from-gray-200 to-gray-500">
@@ -29,3 +29,5 @@ export const AdminPage = () => {
         </div>
     )
 }
+
+export default AdminPage

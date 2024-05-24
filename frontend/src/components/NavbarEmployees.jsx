@@ -10,7 +10,7 @@ const NavbarEmployees = ({ backgroundColor }) => {
     return (
         <Navbar backgroundColor={backgroundColor} username={user.username}>
             <Link to='/'>
-                <img src="src/images/logo.png" alt="Logo" className='w-24 h-24 rounded-lg'/>
+                <img src="src/images/logo.png" alt="Logo" className='w-20 h-20 rounded-lg'/>
             </Link>
 
             <MenuDefault
