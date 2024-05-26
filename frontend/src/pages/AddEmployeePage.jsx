@@ -28,6 +28,7 @@ function AddEmployeePage() {
         const newErrors = {}
         if (!formData.name) newErrors.name = 'El nombre del empleado es obligatorio'
         if (!formData.username) newErrors.username = 'El nombre de usuario es obligatorio'
+        if (!formData.password) newErrors.password = 'La contraseña de usuario es obligatoria'
         if (!formData.email) newErrors.email = 'El email es obligatorio'
         if (!formData.role) newErrors.role = 'El puesto de trabajo es obligatorio'
         if (!formData.telephone) newErrors.telephone = 'El teléfono del empleado es obligatorio'
@@ -36,7 +37,13 @@ function AddEmployeePage() {
     }
 
     const createEmployee = async () => {
-
+        try {
+            const { name, username, password, email, role, telephone } = formData
+            const newEmployee = { name: name, username: username, password: password, email: email, role: role, telephone: Number(telephone) }
+            await employeeService.createEmployee(newEmployee)
+        } catch (err) {
+            console.error(err)
+        }
     }
 
     const handleSubmit = (e) => {
@@ -47,20 +54,22 @@ function AddEmployeePage() {
 
                 Swal.fire({
                     icon: 'success',
-                    title: 'Reserva creada',
-                    text: 'La reserva se ha creado correctamente.',
+                    title: 'Empleado creado',
+                    text: 'El empleado se ha creado correctamente.',
                 })
 
                 setFormData({
                     name: '',
-                    telephone: '',
-                    bookingDay: ''
+                    username: '',
+                    email: '',
+                    role: '',
+                    telephone: ''
                 })
             } catch (err) {
                 Swal.fire({
                     icon: 'error',
-                    title: 'Reserva no creada',
-                    text: 'No se ha podido crear la reserva.',
+                    title: 'Empleado no creado',
+                    text: 'No se ha podido crear el empleado.',
                 })
             }
         }
@@ -96,6 +105,18 @@ function AddEmployeePage() {
                             className='w-full'
                         />
                         {errors.username && <Typography className='text-red-500 text-sm'>{errors.username}</Typography>}
+                    </div>
+
+                    <div className='mb-4'>
+                        <Typography variant="h6" className='mb-2'> Contraseña del empleado </Typography>
+                        <Input
+                            type="password"
+                            name="password"
+                            value={formData.password}
+                            onChange={handleChange}
+                            className='w-full'
+                        />
+                        {errors.password && <Typography className='text-red-500 text-sm'>{errors.password}</Typography>}
                     </div>
 
                     <div className='mb-4'>

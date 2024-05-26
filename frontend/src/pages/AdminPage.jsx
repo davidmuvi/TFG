@@ -27,7 +27,7 @@ function AdminPage() {
                 paragraph='Desde aquí podrás gestionar facilmente tu restaurante.'
                 icon={<BriefcaseIcon className="text-black w-10 h-10" />}
                 buttonText="Empezar a gestionar restaurante"
-                redirection="/admin/manage-restaurant"
+                redirection="/bookings"
             />
             </div>
 
