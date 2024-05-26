@@ -158,9 +158,10 @@ function BookingsPage({ bookings, setBookings }) {
                                             <PencilSquareIcon className='w-6 h-6 text-black' />
                                         </Typography>
 
+                                        {user.userType !== 'admin' &&
                                         <Typography as="a" href="#" variant="small" color="blue-gray" className="font-medium w-6 h-6" onClick={() => attendBooking(_id, user.id)}>
                                             <CheckCircleIcon className='w-6 h-6 text-green-500' />
-                                        </Typography>
+                                        </Typography>}
 
                                         <Typography as="a" href="#" variant="small" color="blue-gray" className="font-medium w-6 h-6" onClick={() => deleteBooking(_id)}>
                                             <XCircleIcon className='w-6 h-6 text-red-500' />

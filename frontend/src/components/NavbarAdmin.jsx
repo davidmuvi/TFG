@@ -1,23 +1,25 @@
-import React, { useEffect } from "react";
+import React, { useEffect } from "react"
 import {
     Navbar,
     Typography,
     Button,
     IconButton,
     Collapse,
-} from "@material-tailwind/react";
-import { Link } from "react-router-dom";
-import { ArrowRightCircleIcon } from "@heroicons/react/24/solid";
+} from "@material-tailwind/react"
+import { Link } from "react-router-dom"
+import { ArrowRightCircleIcon } from "@heroicons/react/24/solid"
+import { useAuth } from "../context/AuthContext"
+import PropTypes from 'prop-types'
 
-export function NavbarAdmin({redirection, icon, iconText }) {
-    const [openNav, setOpenNav] = React.useState(false);
-
+export function NavbarAdmin({ redirection, icon, iconText }) {
+    const [openNav, setOpenNav] = React.useState(false)
+    const { logout } = useAuth()
     useEffect(() => {
         window.addEventListener(
             "resize",
             () => window.innerWidth >= 960 && setOpenNav(false),
-        );
-    }, []);
+        )
+    }, [])
 
     const navList = (
         <ul className="mt-2 mb-4 flex flex-col gap-2 lg:mb-0 lg:mt-0 lg:flex-row lg:items-center lg:gap-12">
@@ -47,7 +49,7 @@ export function NavbarAdmin({redirection, icon, iconText }) {
                 </Link>
             </Typography>
         </ul>
-    );
+    )
 
     return (
         <Navbar className="px-2 py-2 lg:px-8 lg:py-4 w-screen !max-w-full">
@@ -61,12 +63,11 @@ export function NavbarAdmin({redirection, icon, iconText }) {
                 <div className="hidden lg:block">{navList}</div>
                 <div className="flex items-center gap-x-1">
                     <Button
-                        variant="gradient"
                         color="red"
-                        size="sm"
                         className="hidden lg:inline-block"
+                        onClick={logout}
                     >
-                        <span>Logout</span>
+                        Logout
                     </Button>
                 </div>
                 <IconButton
@@ -116,6 +117,7 @@ export function NavbarAdmin({redirection, icon, iconText }) {
                             color="red"
                             size="sm"
                             className="lg:inline-block"
+                            onClick={logout}
                         >
                             <span>Logout</span>
                         </Button>
@@ -123,5 +125,11 @@ export function NavbarAdmin({redirection, icon, iconText }) {
                 </div>
             </Collapse>
         </Navbar>
-    );
+    )
+}
+
+NavbarAdmin.propTypes = {
+    redirection: PropTypes.string.isRequired,
+    icon: PropTypes.element.isRequired,
+    iconText: PropTypes.string.isRequired,
 }

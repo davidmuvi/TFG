@@ -64,7 +64,7 @@ function BookingsAttendedPage() {
                             const isLast = index === TABLE_ROWS.length - 1
                             const classes = isLast ? "p-4" : "p-4 border-b border-blue-gray-50"
 
-                            const employeeName = employeeId && employeeId.name ? employeeId.name : 'No existe el empleado'
+                            const employeeName = employeeId && employeeId.name ? employeeId.name : 'Empleado borrado'
                             const bookingDate = bookingId && bookingId.date ? bookingId.date : 'No existe la fecha'
 
                             {/* Compruebo que el cliente existe, si existe asigno sus datos sino un mensaje de error.
