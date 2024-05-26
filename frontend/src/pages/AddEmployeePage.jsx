@@ -9,6 +9,7 @@ function AddEmployeePage() {
     const [formData, setFormData] = useState({
         name: '',
         username: '',
+        password: '',
         email: '',
         role: '',
         telephone: ''
@@ -82,7 +83,7 @@ function AddEmployeePage() {
                 icon={<UserIcon className="h-6 w-6" />}
                 iconText='Ver empleados'
             />
-            <div className='flex-1 h-full w-full flex items-center justify-center'>
+            <div className='flex-1 h-full w-full flex items-center justify-center py-4'>
                 <form onSubmit={handleSubmit} className='w-full max-w-md bg-gray-200 p-6 rounded-lg shadow-lg'>
                     <Typography variant="h4" className='text-center mb-6 text-gray-900'> Añadir empleado </Typography>
 

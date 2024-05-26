@@ -2,8 +2,19 @@ import { PencilSquareIcon, XCircleIcon } from "@heroicons/react/24/solid"
 import { Card, Typography } from "@material-tailwind/react"
 import { employeeService } from "../services/employee.service"
 import Swal from 'sweetalert2'
+import { useState } from "react"
+import ModifyEmployeeModal from './ModifyEmployeeModal'
 
 export function TableAdmin({ employees, getEmployees }) {
+    const [open, setOpen] = useState(false)
+    const [currentEmployee, setCurrentEmployee] = useState({
+        name: '',
+        username: '',
+        email: '',
+        role: '',
+        telephone: ''
+    })
+
     const TABLE_HEAD = ["Nombre", "Username", "Email", "Puesto", "Fecha de creación", "Teléfono", ""]
     const TABLE_ROWS = employees
 
@@ -44,9 +55,34 @@ export function TableAdmin({ employees, getEmployees }) {
                         text: 'No se ha eliminado el empleado.',
                     })
                 }
-                
+
             })
 
+    }
+
+    const handleOpen = (employee) => {
+        setCurrentEmployee(employee)
+        setOpen(true)
+    }
+
+    const updateEmployee = (id, updatedEmployee) => {
+        employeeService.updateEmployee(id, updatedEmployee)
+            .then(() => {
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Empleado modificado',
+                    text: 'El empleado ha sido modificado correctamente.',
+                })
+
+                getEmployees()
+            })
+            .catch(() => {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Empleado no modificado',
+                    text: 'El empleado no se ha modificado correctamente.',
+                })
+            })
     }
 
     const formatDate = (date) => {
@@ -149,7 +185,10 @@ export function TableAdmin({ employees, getEmployees }) {
                                         variant="small"
                                         className="cursor-pointer"
                                     >
-                                        <PencilSquareIcon className="w-6 h-6 text-black" />
+                                        <PencilSquareIcon
+                                            className="w-6 h-6 text-black"
+                                            onClick={() => handleOpen({ _id, name, username, email, role, telephone })}
+                                        />
                                     </Typography>
                                 </td>
                             </tr>
@@ -157,6 +196,7 @@ export function TableAdmin({ employees, getEmployees }) {
                     })}
                 </tbody>
             </table>
+            <ModifyEmployeeModal open={open} setOpen={setOpen} employee={currentEmployee} updateEmployee={updateEmployee}/>
         </Card>
     )
 }

@@ -26,6 +26,15 @@ class EmployeeService {
         }
     }
 
+    async updateEmployee(id, employee) {
+        try {
+            const response = await this.api.patch(`/api/employees/${id}`, employee)
+            return response.data
+        } catch (error) {
+            throw new Error(error.message)
+        }
+    }
+
     async deleteEmployee(id) {
         try {
             const response = await this.api.delete(`/api/employees/${id}`)
