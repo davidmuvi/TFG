@@ -50,7 +50,7 @@ function ModifyEmployeeModal({ open, setOpen, employee, updateEmployee }) {
             <div className='flex-1 w-full flex items-center justify-center'>
                 <form className='w-full max-w-md bg-gray-200 p-6 rounded-lg shadow-lg' onSubmit={handleSubmit}>
                     <div className='flex justify-between items-center mb-6'>
-                        <Typography variant="h4" className='text-center text-gray-900'>Modificar reserva</Typography>
+                        <Typography variant="h4" className='text-center text-gray-900'>Modificar empleado</Typography>
                         <XMarkIcon className='text-black cursor-pointer w-6 h-6' onClick={() => setOpen(false)} />
                     </div>
                     <div className='mb-4'>

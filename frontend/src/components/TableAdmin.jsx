@@ -196,7 +196,7 @@ export function TableAdmin({ employees, getEmployees }) {
                     })}
                 </tbody>
             </table>
-            <ModifyEmployeeModal open={open} setOpen={setOpen} employee={currentEmployee} updateEmployee={updateEmployee}/>
+            {open && <ModifyEmployeeModal open={open} setOpen={setOpen} employee={currentEmployee} updateEmployee={updateEmployee} />}
         </Card>
     )
 }

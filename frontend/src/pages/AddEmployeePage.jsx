@@ -62,6 +62,7 @@ function AddEmployeePage() {
                 setFormData({
                     name: '',
                     username: '',
+                    password: '',
                     email: '',
                     role: '',
                     telephone: ''
