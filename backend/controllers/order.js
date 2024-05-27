@@ -33,10 +33,16 @@ class OrderController {
 
     async updateOrderByBookingId(req, res) {
         try {
-            const order = await Order.findOneAndUpdate({ bookingId: req.params.bookingId }, req.body, { new: true })
+            const order = await Order.findOne({ bookingId: req.params.bookingId })
+            if (!order) {
+                return res.status(404).json({ message: 'Order not found' })
+            }
+            const { productId } = req.body
+            order.products.push(productId)
+            await order.save()
             res.status(200).json(order)
         } catch (error) {
-            res.status(404).json({ message: 'Order not found' })
+            res.status(404).json({ message: 'Error updating order' })
         }
     }
 

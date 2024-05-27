@@ -30,6 +30,15 @@ export const getProductById = async (req, res) => {
   }
 }
 
+export const getProductByName = async (req, res) => {
+  try {
+    const product = await Product.findOne({ name: req.params.name })
+    res.status(200).json(product)
+  } catch (err) {
+    res.status(404).json({ message: 'Product not found' })
+  }
+}
+
 export const updateProduct = async (req, res) => {
   try {
     const product = await Product.findByIdAndUpdate(req.params.id, req.body, {
