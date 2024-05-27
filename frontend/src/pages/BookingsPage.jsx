@@ -4,14 +4,18 @@ import { bookingAttendedService } from '../services/booking_attended.service.js'
 import { useAuth } from '../context/AuthContext'
 import Layout from '../layouts/LayoutPages'
 import ModifyBookingModal from '../components/ModifyBookingModal'
+import OrderModal from '../components/OrderModal'
 import { Card, Typography } from "@material-tailwind/react"
-import { XCircleIcon, PencilSquareIcon, CheckCircleIcon } from '@heroicons/react/24/solid'
+import { XCircleIcon, PencilSquareIcon, CheckCircleIcon, ClipboardDocumentListIcon } from '@heroicons/react/24/solid'
 import Swal from 'sweetalert2'
 import PropTypes from 'prop-types'
 
 function BookingsPage({ bookings, setBookings }) {
     const [open, setOpen] = useState(false)
+    const [openOrderModal, setOpenOrderModal] = useState(false)
+
     const [currentBooking, setCurrentBooking] = useState({ name: '', telephone: '', bookingDay: '' })
+    const [currentBookingOrder, setCurrentBookingOrder] = useState('')
 
     const { user } = useAuth()
     const TABLE_HEAD = ["Cliente", "Teléfono", "Fecha", "Numero de mesa", ""]
@@ -25,6 +29,11 @@ function BookingsPage({ bookings, setBookings }) {
     const handleOpen = (booking) => {
         setCurrentBooking(booking)
         setOpen(true)
+    }
+
+    const handleOpenOrderModal = (bookingId) => {
+        setCurrentBookingOrder(bookingId)
+        setOpenOrderModal(true)
     }
 
     const getBookings = () => {
@@ -154,16 +163,37 @@ function BookingsPage({ bookings, setBookings }) {
                                         </Typography>
                                     </td>
                                     <td className={`${classes} h-full flex items-center justify-around`}>
-                                        <Typography as="a" href="#" variant="small" color="blue-gray" className="font-medium w-6 h-6" onClick={() => handleOpen({ id: _id, date: new Date(date).toLocaleDateString })}>
+                                        <Typography className="font-medium w-6 h-6 cursor-pointer"
+                                            onClick={() => handleOpen({ id: _id, date: new Date(date).toLocaleDateString })}
+                                        >
                                             <PencilSquareIcon className='w-6 h-6 text-black' />
                                         </Typography>
 
-                                        {user.userType !== 'admin' &&
-                                        <Typography as="a" href="#" variant="small" color="blue-gray" className="font-medium w-6 h-6" onClick={() => attendBooking(_id, user.id)}>
-                                            <CheckCircleIcon className='w-6 h-6 text-green-500' />
-                                        </Typography>}
+                                        <Typography className="font-medium w-6 h-6 cursor-pointer"
+                                            onClick={() => handleOpenOrderModal(_id)}
+                                        >
+                                            <ClipboardDocumentListIcon className='w-6 h-6 text-black' />
+                                        </Typography>
 
-                                        <Typography as="a" href="#" variant="small" color="blue-gray" className="font-medium w-6 h-6" onClick={() => deleteBooking(_id)}>
+                                        {user.userType !== 'admin' &&
+                                            <Typography className="font-medium w-6 h-6 cursor-pointer"
+                                                onClick={
+                                                    () => tableId && tableId.tableNumber
+                                                        ? attendBooking(_id, user.id)
+                                                        : Swal.fire({
+                                                            icon: 'error',
+                                                            title: 'Reserva no atendida',
+                                                            text: 'La reserva debe tener una mesa asignada para poder atenderla.',
+                                                        })
+                                                }
+                                            >
+                                                <CheckCircleIcon className='w-6 h-6 text-green-500' />
+                                            </Typography>
+                                        }
+
+                                        <Typography className="font-medium w-6 h-6 cursor-pointer"
+                                            onClick={() => deleteBooking(_id)}
+                                        >
                                             <XCircleIcon className='w-6 h-6 text-red-500' />
                                         </Typography>
                                     </td>
@@ -187,6 +217,7 @@ function BookingsPage({ bookings, setBookings }) {
                 </table>
             </Card>
             {open && <ModifyBookingModal open={open} setOpen={setOpen} booking={currentBooking} updateBooking={updateBooking} />}
+            {openOrderModal && <OrderModal openOrderModal={openOrderModal} setOpenOrderModal={setOpenOrderModal} bookingId={currentBookingOrder} />}
         </Layout>
     )
 }

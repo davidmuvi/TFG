@@ -3,6 +3,7 @@ import { useAuth } from '../context/AuthContext'
 import { useNavigate } from 'react-router-dom'
 import { authService } from '../services/auth.service.js'
 import { Button } from '@material-tailwind/react'
+import Swal from 'sweetalert2'
 function LoginPage() {
   const [loginData, setLoginData] = useState({
     username: '',
@@ -30,6 +31,11 @@ function LoginPage() {
         authUser()
       })
       .catch(err => {
+        Swal.fire({
+          icon: 'error',
+          title: 'Error',
+          text: err.response?.data?.message,
+        })
         setLoginError(err.response?.data?.message)
       })
   }
@@ -42,8 +48,8 @@ function LoginPage() {
       } else if (user.userType === 'admin') {
         navigate('/admin')
       }
-
     }
+
   }, [user, navigate])
 
   const { username, password } = loginData

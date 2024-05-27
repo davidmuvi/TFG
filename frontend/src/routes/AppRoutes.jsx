@@ -32,6 +32,7 @@ const appRoutes = ({ bookings, setBookings }) => {
                 <Route path='/admin' element={<AdminPage />} />
                 <Route path='/admin/manage-employees' element={<ManageEmployeesPage />} />
                 <Route path='/admin/manage-employees/add' element={<AddEmployeePage />} />
+                {/* <Route path='*' element={<ErrorPage />} /> */}
             </Route>
         </Routes>
     )

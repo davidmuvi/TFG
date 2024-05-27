@@ -1,51 +1,52 @@
 import axios from 'axios'
 
-class ProductService {
+class OrderService {
     constructor() {
         this.api = axios.create({
             baseURL: `${import.meta.env.VITE_DBURL}`,
             withCredentials: true
         })
     }
-    async getProducts() {
+
+    async getOrders() {
         try {
-            const response = await this.api.get('/api/products')
+            const response = await this.api.get('/api/orders')
             return response.data
         } catch (error) {
             throw new Error(error.message)
         }
     }
 
-    async createProduct(product) {
+    async createOrder(order) {
         try {
-            const response = await this.api.post('/api/products', product)
+            const response = await this.api.post('/api/orders', order)
             return response.data
         } catch (error) {
             throw new Error(error.message)
         }
     }
 
-    async deleteProduct(id) {
+    async getOrderByBookingId(id) {
         try {
-            const response = await this.api.delete(`/api/products/${id}`)
+            const response = await this.api.get(`/api/orders/booking/${id}`)
             return response.data
         } catch (error) {
             throw new Error(error.message)
         }
     }
 
-    async updateProduct(id, product) {
+    async updateOrderByBookingId(id, order) {
         try {
-            const response = await this.api.patch(`/api/products/${id}`, product)
+            const response = await this.api.patch(`/api/orders/${id}`, { productId: order })
             return response.data
         } catch (error) {
             throw new Error(error.message)
         }
     }
 
-    async getProductByName(name) {
+    async deleteOrderByBookingId(id) {
         try {
-            const response = await this.api.get(`/api/products/name/${name}`)
+            const response = await this.api.delete(`/api/orders/${id}`)
             return response.data
         } catch (error) {
             throw new Error(error.message)
@@ -53,4 +54,4 @@ class ProductService {
     }
 }
 
-export const productService = new ProductService()
+export const orderService = new OrderService()
