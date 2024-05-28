@@ -38,42 +38,40 @@ function AddEmployeePage() {
     }
 
     const createEmployee = async () => {
-        try {
-            const { name, username, password, email, role, telephone } = formData
-            const newEmployee = { name: name, username: username, password: password, email: email, role: role, telephone: Number(telephone) }
-            await employeeService.createEmployee(newEmployee)
-        } catch (err) {
-            console.error(err)
-        }
+        const { name, username, password, email, role, telephone } = formData
+        const newEmployee = { name: name, username: username, password: password, email: email, role: role, telephone: telephone }
+        await employeeService.createEmployee(newEmployee)
+
     }
 
     const handleSubmit = (e) => {
         e.preventDefault()
         if (validate()) {
-            try {
-                createEmployee()
+            createEmployee()
+                .then(() => {
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Empleado creado',
+                        text: 'El empleado se ha creado correctamente.',
+                    })
 
-                Swal.fire({
-                    icon: 'success',
-                    title: 'Empleado creado',
-                    text: 'El empleado se ha creado correctamente.',
+                    setFormData({
+                        name: '',
+                        username: '',
+                        password: '',
+                        email: '',
+                        role: '',
+                        telephone: ''
+                    })
                 })
 
-                setFormData({
-                    name: '',
-                    username: '',
-                    password: '',
-                    email: '',
-                    role: '',
-                    telephone: ''
+                .catch(() => {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Empleado no creado',
+                        text: 'No se ha podido crear el empleado.',
+                    })
                 })
-            } catch (err) {
-                Swal.fire({
-                    icon: 'error',
-                    title: 'Empleado no creado',
-                    text: 'No se ha podido crear el empleado.',
-                })
-            }
         }
     }
 
