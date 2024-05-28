@@ -17,7 +17,7 @@ class StockController {
       const stocks = await Stock.find()
       res.status(200).json(stocks)
     } catch (error) {
-      res.status(404).json({ message: 'Stocks not found' })
+      res.status(404).json({ message: 'Stock not found' })
     }
   }
 
@@ -30,11 +30,26 @@ class StockController {
     }
   }
 
-  async updateStockById(req, res) {
+  async getStockByProductId(req, res) {
     try {
-      const stock = await Stock.findByIdAndUpdate(req.params.id, req.body, {
-        new: true
-      })
+      const stock = await Stock.findOne({ productId: req.params.productId })
+      res.status(200).json(stock)
+    } catch (error) {
+      res.status(404).json({ message: 'Stock not found' })
+    }
+  }
+
+  async updateStockByProductId(req, res) {
+    try {
+      const stock = await Stock.findOne({ productId: req.params.productId })
+
+      if (!stock) {
+        return res.status(404).json({ message: 'Stock not found' })
+      }
+
+      const { quantity } = req.body
+      stock.quantity = quantity
+      await stock.save()
       res.status(200).json(stock)
     } catch (error) {
       res.status(404).json({ message: 'Stock not found' })
@@ -50,6 +65,15 @@ class StockController {
       stock.quantity = stock.quantity - req.body.quantity
       await stock.save()
       res.status(200).json(stock)
+    } catch (error) {
+      res.status(404).json({ message: 'Stock not found' })
+    }
+  }
+
+  async deleteStockById(req, res) {
+    try {
+      const stockDeleted = await Stock.findByIdAndDelete(req.params.id)
+      res.status(200).json(stockDeleted)
     } catch (error) {
       res.status(404).json({ message: 'Stock not found' })
     }

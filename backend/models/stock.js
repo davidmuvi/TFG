@@ -5,7 +5,8 @@ const stockSchema = new mongoose.Schema({
     type: mongoose.Schema.Types.ObjectId,
     ref: 'Product',
     required: true,
-    unique: true
+    unique: true,
+    sparse: true,
   },
   quantity: {
     type: Number,

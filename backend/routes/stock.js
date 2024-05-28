@@ -8,6 +8,7 @@ const router = Router()
 router.get('/', stockController.getAllStocks)
 router.post('/', validateSchema(createStockSchema), stockController.createStock)
 router.get('/:id', stockController.getStockById)
-router.patch('/:id', stockController.updateStockById)
-
+router.get('/product/:productId', stockController.getStockByProductId)
+router.patch('/product/:productId', stockController.updateStockByProductId)
+router.delete('/:id', stockController.deleteStockById)
 export default router
