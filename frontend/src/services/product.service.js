@@ -51,6 +51,15 @@ class ProductService {
             throw new Error(error.message)
         }
     }
+
+    async getProductById(id) {
+        try {
+            const response = await this.api.get(`/api/products/${id}`)
+            return response.data
+        } catch (error) {
+            throw new Error(error.message)
+        }
+    }
 }
 
 export const productService = new ProductService()

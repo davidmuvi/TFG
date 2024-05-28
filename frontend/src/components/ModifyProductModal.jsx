@@ -57,7 +57,7 @@ function ModifyProductModal({ open, setOpen, product, updateProduct }) {
                             className='w-full'
                         />
                     </div>
-                    <div>
+                    <div className='mb-4'>
                         <Typography variant="h6" className='mb-2'>Categoría del producto</Typography>
                         <Input
                             type="text"

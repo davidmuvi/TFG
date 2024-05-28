@@ -4,6 +4,7 @@ import { productService } from '../services/product.service.js'
 import { Dialog, Typography } from '@material-tailwind/react'
 import { MinusIcon, PlusIcon, XMarkIcon } from '@heroicons/react/24/solid'
 import { Input } from '@material-tailwind/react'
+import PropTypes from 'prop-types'
 
 function OrderModal({ openOrderModal, setOpenOrderModal, bookingId }) {
     const [order, setOrder] = useState([])
@@ -51,6 +52,16 @@ function OrderModal({ openOrderModal, setOpenOrderModal, bookingId }) {
             })
     }
 
+    const deleteProductInOrderByBookingId = (bookingId, productId) => { 
+        orderService.deleteProductInOrderByBookingId(bookingId, productId)
+           .then(() => {
+                getOrderByBookingId()
+            })
+           .catch((error) => {
+                console.log(error)
+            })
+    }
+
     return (
         <Dialog
             size="lg"
@@ -65,10 +76,14 @@ function OrderModal({ openOrderModal, setOpenOrderModal, bookingId }) {
                 </div>
                 <div className='mb-3 border-2 border-blue-gray-100 p-1 rounded-lg break-words flex-1 overflow-y-auto max-h-full custom-scrollbar'>
                     {order && order.products && order.products.length > 0 ? (
-                        order.products.map((item, index) => (
+                        order.products.map((product, index) => (
                             <div key={index} className='mb-1 flex items-center justify-around'>
-                                <p>{item}</p>
-                                <MinusIcon className='w-6 h-6 text-red-700 font-extrabold cursor-pointer' />
+                                <p>{product.name}</p>
+                                <p>{product.price}€</p>
+                                <MinusIcon 
+                                className='w-6 h-6 text-red-700 font-extrabold cursor-pointer' 
+                                onClick={() => deleteProductInOrderByBookingId(bookingId, product._id)}
+                                />
                             </div>
                         ))
                     ) : (
@@ -93,4 +108,9 @@ function OrderModal({ openOrderModal, setOpenOrderModal, bookingId }) {
     )
 }
 
+OrderModal.propTypes = {
+    openOrderModal: PropTypes.bool.isRequired,
+    setOpenOrderModal: PropTypes.func.isRequired,
+    bookingId: PropTypes.string.isRequired,
+}
 export default OrderModal

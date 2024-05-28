@@ -44,6 +44,15 @@ class OrderService {
         }
     }
 
+    async deleteProductInOrderByBookingId(bookingId, productId) {
+        try {
+            const response = await this.api.patch(`/api/orders/delete-product/${bookingId}`, { productId: productId })
+            return response.data
+        } catch (error) {
+            throw new Error(error.message)
+        }
+    }
+
     async deleteOrderByBookingId(id) {
         try {
             const response = await this.api.delete(`/api/orders/${id}`)
