@@ -1,4 +1,4 @@
-import React, { useEffect } from "react"
+import { useEffect, useState } from "react"
 import {
     Navbar,
     Typography,
@@ -12,7 +12,7 @@ import { useAuth } from "../context/AuthContext"
 import PropTypes from 'prop-types'
 
 export function NavbarAdmin({ redirection, icon, iconText }) {
-    const [openNav, setOpenNav] = React.useState(false)
+    const [openNav, setOpenNav] = useState(false)
     const { logout } = useAuth()
     useEffect(() => {
         window.addEventListener(
@@ -22,7 +22,7 @@ export function NavbarAdmin({ redirection, icon, iconText }) {
     }, [])
 
     const navList = (
-        <ul className="mt-2 mb-4 flex flex-col gap-2 lg:mb-0 lg:mt-0 lg:flex-row lg:items-center lg:gap-12">
+        <ul className="mt-2 mb-4 flex flex-col gap-2 lg:mb-0 lg:mt-0 lg:flex-row lg:items-center lg:gap-12 text-black">
             <Typography
                 as="li"
                 variant="small"
@@ -56,7 +56,7 @@ export function NavbarAdmin({ redirection, icon, iconText }) {
             <div className="container mx-auto flex items-center justify-between text-blue-gray-900">
                 <Typography
                     as="a"
-                    className="mr-4 cursor-pointer p-2 rounded-lg font-bold hover:bg-gray-800 hover:text-white"
+                    className="mr-4 cursor-pointer p-2 rounded-lg font-bold"
                 >
                     EL SABOR DEL CHEF
                 </Typography>

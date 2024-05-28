@@ -4,6 +4,7 @@ import { employeeService } from "../services/employee.service"
 import Swal from 'sweetalert2'
 import { useState } from "react"
 import ModifyEmployeeModal from './ModifyEmployeeModal'
+import PropTypes from 'prop-types'
 
 export function TableAdmin({ employees, getEmployees }) {
     const [open, setOpen] = useState(false)
@@ -199,4 +200,9 @@ export function TableAdmin({ employees, getEmployees }) {
             {open && <ModifyEmployeeModal open={open} setOpen={setOpen} employee={currentEmployee} updateEmployee={updateEmployee} />}
         </Card>
     )
+}
+
+TableAdmin.propTypes = {
+    employees: PropTypes.array.isRequired,
+    getEmployees: PropTypes.func.isRequired,
 }

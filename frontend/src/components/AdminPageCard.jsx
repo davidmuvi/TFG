@@ -10,7 +10,7 @@ import PropTypes from "prop-types"
 
 export function AdminPageCard({ header, paragraph, icon, buttonText, redirection }) {
     return (
-        <Card className="w-96 h-64">
+        <Card className="sm:w-96 sm:h-64 w-80">
             <CardBody>
                 {icon}
                 <Typography variant="h5" color="blue-gray" className="mb-2 mt-3">

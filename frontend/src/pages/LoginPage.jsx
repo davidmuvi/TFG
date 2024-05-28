@@ -57,7 +57,7 @@ function LoginPage() {
   return (
     <div className='h-screen w-screen flex items-center justify-center login'>
       <form onSubmit={handleSubmit}
-        className="w-2/5 h-96 flex flex-col justify-center items-center gap-10 text-black bg-white rounded-xl shadow-lg p-8"
+        className="md:w-2/5 md:h-96 w-80 h-96 flex flex-col justify-center items-center gap-10 text-black bg-white rounded-xl shadow-lg "
       >
         <div className="w-2/3 flex flex-col gap-8">
           <div className="flex flex-col gap-2">

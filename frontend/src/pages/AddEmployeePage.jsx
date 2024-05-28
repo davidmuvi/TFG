@@ -85,11 +85,11 @@ function AddEmployeePage() {
                 iconText='Ver empleados'
             />
             <div className='flex-1 h-full w-full flex items-center justify-center py-4'>
-                <form onSubmit={handleSubmit} className='w-full max-w-md bg-gray-200 p-6 rounded-lg shadow-lg'>
-                    <Typography variant="h4" className='text-center mb-6 text-gray-900'> Añadir empleado </Typography>
+                <form onSubmit={handleSubmit} className='w-80 sm:w-full max-w-md bg-gray-200 p-6 rounded-lg shadow-lg'>
+                    <Typography variant="h4" className='text-center text-md sm:text-2xl mb-6 text-gray-900'> Añadir empleado </Typography>
 
                     <div className='mb-4'>
-                        <Typography variant="h6" className='mb-2'> Nombre del empleado </Typography>
+                        <Typography variant="h6" className='mb-2 text-xs sm:text-base'> Nombre del empleado </Typography>
                         <Input
                             name="name"
                             value={formData.name}
@@ -99,7 +99,7 @@ function AddEmployeePage() {
                         {errors.name && <Typography className='text-red-500 text-sm'>{errors.name}</Typography>}
                     </div>
                     <div className='mb-4'>
-                        <Typography variant="h6" className='mb-2'> Username del empleado </Typography>
+                        <Typography variant="h6" className='mb-2 text-xs sm:text-base'> Username del empleado </Typography>
                         <Input
                             name="username"
                             value={formData.username}
@@ -110,7 +110,7 @@ function AddEmployeePage() {
                     </div>
 
                     <div className='mb-4'>
-                        <Typography variant="h6" className='mb-2'> Contraseña del empleado </Typography>
+                        <Typography variant="h6" className='mb-2 text-xs sm:text-base'> Contraseña del empleado </Typography>
                         <Input
                             type="password"
                             name="password"
@@ -122,7 +122,7 @@ function AddEmployeePage() {
                     </div>
 
                     <div className='mb-4'>
-                        <Typography variant="h6" className='mb-2'> Email del empleado </Typography>
+                        <Typography variant="h6" className='mb-2 text-xs sm:text-base'> Email del empleado </Typography>
                         <Input
                             name="email"
                             value={formData.email}
@@ -133,7 +133,7 @@ function AddEmployeePage() {
                     </div>
 
                     <div className='mb-4'>
-                        <Typography variant="h6" className='mb-2'> Puesto del empleado </Typography>
+                        <Typography variant="h6" className='mb-2 text-xs sm:text-base'> Puesto del empleado </Typography>
                         <Input
                             name="role"
                             value={formData.role}
@@ -144,7 +144,7 @@ function AddEmployeePage() {
                     </div>
 
                     <div className='mb-4'>
-                        <Typography variant="h6" className='mb-2'> Teléfono del empleado </Typography>
+                        <Typography variant="h6" className='mb-2 text-xs sm:text-base'> Teléfono del empleado </Typography>
                         <Input
                             name="telephone"
                             value={formData.telephone}

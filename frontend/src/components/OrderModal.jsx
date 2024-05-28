@@ -52,12 +52,12 @@ function OrderModal({ openOrderModal, setOpenOrderModal, bookingId }) {
             })
     }
 
-    const deleteProductInOrderByBookingId = (bookingId, productId) => { 
+    const deleteProductInOrderByBookingId = (bookingId, productId) => {
         orderService.deleteProductInOrderByBookingId(bookingId, productId)
-           .then(() => {
+            .then(() => {
                 getOrderByBookingId()
             })
-           .catch((error) => {
+            .catch((error) => {
                 console.log(error)
             })
     }
@@ -80,9 +80,9 @@ function OrderModal({ openOrderModal, setOpenOrderModal, bookingId }) {
                             <div key={index} className='mb-1 flex items-center justify-around'>
                                 <p>{product.name}</p>
                                 <p>{product.price}€</p>
-                                <MinusIcon 
-                                className='w-6 h-6 text-red-700 font-extrabold cursor-pointer' 
-                                onClick={() => deleteProductInOrderByBookingId(bookingId, product._id)}
+                                <MinusIcon
+                                    className='w-6 h-6 text-red-700 font-extrabold cursor-pointer'
+                                    onClick={() => deleteProductInOrderByBookingId(bookingId, product._id)}
                                 />
                             </div>
                         ))
