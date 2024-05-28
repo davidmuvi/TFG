@@ -13,7 +13,7 @@ import adminRoutes from './routes/admin.js'
 import loginRoutes from './routes/login.js'
 import orderRoutes from './routes/order.js'
 import bookingAttendedRoutes from './routes/booking_attended.js'
-import { verifyToken } from './controllers/login.js'
+import { loginController } from './controllers/login.js'
 import isAuthenticated from './middlewares/verifyToken.js'
 
 const app = express()
@@ -31,8 +31,8 @@ app.use('/api/orders', orderRoutes)
 app.use('/api/bookings_attended', bookingAttendedRoutes)
 app.use('/api/tables', tableRoutes)
 app.use('/api/products', productRoutes)
-app.use('/api/stocks', stockRoutes)
+app.use('/api/stock', stockRoutes)
 app.use('/api/admins', adminRoutes)
 app.use('/api/login', loginRoutes)
-app.get('/api/verifyToken', isAuthenticated, verifyToken)
+app.get('/api/verifyToken', isAuthenticated, loginController.verifyToken)
 export default app
