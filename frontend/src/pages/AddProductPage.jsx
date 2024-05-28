@@ -4,13 +4,15 @@ import { providerService } from '../services/provider.service.js'
 import { Input, Button, Typography } from '@material-tailwind/react'
 import { useState } from 'react'
 import Swal from 'sweetalert2'
+import { stockService } from '../services/stock.service.js'
 
 function AddProductPage() {
     const [formData, setFormData] = useState({
         name: '',
         category: '',
         price: '',
-        providerName: ''
+        providerName: '',
+        quantity: ''
     })
 
     const [errors, setErrors] = useState({})
@@ -34,49 +36,58 @@ function AddProductPage() {
     }
 
     const createProduct = async () => {
-        const { name, category, price, providerName } = formData
-        const provider = await providerService.getProviderByName(providerName)
+        const { name, category, price, providerName, quantity } = formData
+        try {
+            const provider = await providerService.getProviderByName(providerName)
 
-        if (!provider) {
+            if (!provider) {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Proveedor no existe',
+                    text: 'El proveedor introducido no existe.',
+                })
+                return
+            }
+
+            const newProduct = { name: name, category: category, price: Number(price), providerId: provider._id }
+            const product = await productService.createProduct(newProduct)
+            
+            if (product && product._id && quantity) {
+                const newStock = { productId: product._id, quantity: Number(quantity) }
+                await stockService.createStock(newStock)
+            }
+
+            Swal.fire({
+                icon: 'success',
+                title: 'Producto creado',
+                text: 'El producto se ha creado correctamente.',
+            })
+
+            setFormData({
+                name: '',
+                category: '',
+                price: '',
+                providerName: '',
+                quantity: ''
+            })
+
+        } catch (error) {
             Swal.fire({
                 icon: 'error',
-                title: 'Proveedor no existe',
-                text: 'El proveedor introducido no existe.',
+                title: 'Producto no creado',
+                text: 'No se ha podido crear el producto.',
             })
-            return
         }
 
-        const newProduct = { name: name, category: category, price: Number(price), providerId: provider._id }
-        await productService.createProduct(newProduct)
     }
 
     const handleSubmit = (e) => {
         e.preventDefault()
         if (validate()) {
-            try {
-                createProduct()
-
-                Swal.fire({
-                    icon: 'success',
-                    title: 'Producto creado',
-                    text: 'El producto se ha creado correctamente.',
-                })
-
-                setFormData({
-                    name: '',
-                    category: '',
-                    price: '',
-                    providerName: ''
-                })
-            } catch (err) {
-                Swal.fire({
-                    icon: 'error',
-                    title: 'Producto no creado',
-                    text: 'No se ha podido crear el producto.',
-                })
-            }
+            createProduct()
         }
     }
+
 
     return (
         <Layout>
@@ -128,6 +139,17 @@ function AddProductPage() {
                             className='w-full'
                         />
                         {errors.providerName && <Typography className='text-red-500 text-sm'>{errors.providerName}</Typography>}
+                    </div>
+
+                    <div className='mb-4'>
+                        <Typography variant="h6" className='mb-2'> Cantidad del producto </Typography>
+                        <Input
+                            type="text"
+                            name="quantity"
+                            value={formData.quantity}
+                            onChange={handleChange}
+                            className='w-full'
+                        />
                     </div>
 
                     <Button type="submit" className='w-full mt-4'>Añadir</Button>

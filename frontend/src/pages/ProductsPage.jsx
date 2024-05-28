@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react'
 import { productService } from '../services/product.service.js'
+import { stockService } from '../services/stock.service.js'
 import Layout from '../layouts/LayoutPages'
 import ModifyProductModal from '../components/ModifyProductModal'
 import { Card, Typography } from "@material-tailwind/react"
@@ -11,7 +12,7 @@ function ProductPage() {
     const [currentProduct, setCurrentProduct] = useState({ _id: '', name: '', category: '', price: '' })
     const [open, setOpen] = useState(false)
 
-    const TABLE_HEAD = ["Nombre", "Categoría", "Precio", "Proveedor", ""]
+    const TABLE_HEAD = ["Nombre", "Categoría", "Precio", "Cantidad", "Proveedor", ""]
     const TABLE_ROWS = products
 
     // Al entrar por primera vez se ejecuta para cargar los productos.
@@ -19,14 +20,20 @@ function ProductPage() {
         getProducts()
     }, [])
 
-    const getProducts = () => {
-        productService.getProducts()
-            .then((products) => {
-                setProducts(products.map(product => ({
-                    ...product
-                })))
-            })
-            .catch(error => { console.error(error) })
+    const getProducts = async () => {
+        try {
+            const products = await productService.getProducts()
+            const productsWithStock = await Promise.all(products.map(async (product) => {
+                const stock = await stockService.getStockByProductId(product._id)
+                return {
+                   ...product,
+                    quantity: stock ? stock.quantity : 0
+                }
+            }))
+            setProducts(productsWithStock)
+        } catch (error) {
+            console.log(error.message)
+        }
     }
 
     const deleteProduct = (productId) => {
@@ -41,12 +48,6 @@ function ProductPage() {
                     text: 'El producto no se ha eliminado correctamente.',
                 })
             })
-    }
-
-    // Para abrir el modal de modificar el producto. Se coge el producto actual para poder actualizarlo.
-    const handleOpen = (product) => {
-        setCurrentProduct(product)
-        setOpen(true)
     }
 
     const updateProduct = (id, updatedProduct) => {
@@ -69,6 +70,12 @@ function ProductPage() {
             })
     }
 
+    // Para abrir el modal de modificar el producto. Se coge el producto actual para poder actualizarlo.
+    const handleOpen = (product) => {
+        setCurrentProduct(product)
+        setOpen(true)
+    }
+
     return (
         <Layout>
             <Card className="flex-1 w-screen">
@@ -89,14 +96,14 @@ function ProductPage() {
                         </tr>
                     </thead>
                     <tbody>
-                        {TABLE_ROWS.map(({ _id, name, category, price, providerId }, index) => {
+                        {TABLE_ROWS.map(({ _id, name, category, price, providerId, quantity }, index) => {   
                             // Comprobamos si es la ultima fila de la tabla para aplicar unos estilos u otros.
                             const isLast = index === TABLE_ROWS.length - 1
                             const classes = isLast ? "p-4" : "p-4 border-b border-blue-gray-50"
 
                             // Compruebo que el proveedor existe, si existe asigno su nombre sino un mensaje de error
                             const providerName = providerId && providerId.name ? providerId.name : 'No existe el proveedor'
-
+        
                             return (
                                 <tr key={_id}>
                                     <td className={classes}>
@@ -116,10 +123,15 @@ function ProductPage() {
                                     </td>
                                     <td className={`${classes} bg-blue-gray-50/50`}>
                                         <Typography variant="small" color="blue-gray" className="font-normal">
+                                            {quantity}
+                                        </Typography>
+                                    </td>
+                                    <td className={classes}>
+                                        <Typography variant="small" color="blue-gray" className="font-normal">
                                             {providerName}
                                         </Typography>
                                     </td>
-                                    <td className={`${classes} h-full flex items-center justify-around`}>
+                                    <td className={`${classes} bg-blue-gray-50/50 h-full flex items-center justify-around`}>
                                         <Typography as="a" href="#" variant="small" color="blue-gray" className="font-medium w-6 h-6" onClick={() => deleteProduct(_id)}>
                                             <XCircleIcon className='w-6 h-6 text-red-500' />
                                         </Typography>
