@@ -10,5 +10,7 @@ router.post('/', validateSchema(createStockSchema), stockController.createStock)
 router.get('/:id', stockController.getStockById)
 router.get('/product/:productId', stockController.getStockByProductId)
 router.patch('/product/:productId', stockController.updateStockByProductId)
+router.patch('/product/increase/:productId', stockController.increaseStockByProductId)
+router.patch('/product/decrease/:productId', stockController.decreaseStockByProductId)
 router.delete('/:id', stockController.deleteStockById)
 export default router

@@ -9,6 +9,8 @@ import { Card, Typography } from "@material-tailwind/react"
 import { XCircleIcon, PencilSquareIcon, CheckCircleIcon, ClipboardDocumentListIcon } from '@heroicons/react/24/solid'
 import Swal from 'sweetalert2'
 import PropTypes from 'prop-types'
+import { orderService } from '../services/order.service.js'
+import { stockService } from '../services/stock.service.js'
 
 function BookingsPage({ bookings, setBookings }) {
     const [open, setOpen] = useState(false)
@@ -89,6 +91,16 @@ function BookingsPage({ bookings, setBookings }) {
             employeeId: employeeId
         })
             .then(() => {
+                orderService.getOrderByBookingId(bookingId)
+                    .then((order) => {
+                        if (order) {
+                            for (let product of order.products) {
+                                const productId = product._id
+                                stockService.decreaseStockByProductId(productId, 1)
+                            }
+                        }
+                    })
+
                 Swal.fire({
                     icon: 'success',
                     title: 'Reserva atendida',
