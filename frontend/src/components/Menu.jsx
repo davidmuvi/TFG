@@ -11,7 +11,7 @@ import PropTypes from 'prop-types'
 export function MenuDefault({ redirection, menuName, items = [] }) {
   return (
     <Menu>
-      <div className="flex items-center gap-2 p-2 rounded-xl hover:bg-gray-800">
+      <div className="flex items-center gap-2 p-2 rounded-xl hover:bg-black hover:bg-opacity-10">
         <Link to={redirection}>
           <p>{menuName}</p>
         </Link>
@@ -19,10 +19,10 @@ export function MenuDefault({ redirection, menuName, items = [] }) {
           <ChevronDownIcon className="w-6 h-6 cursor-pointer" />
         </MenuHandler>
       </div>
-      <MenuList>
+      <MenuList className="text-main_purple font-bold">
         {items.map((item, index) => (
           <Link to={item.redirection} key={index}>
-            <MenuItem>
+            <MenuItem className="hover:text-white hover:bg-main_purple">
               {item.name}
             </MenuItem>
           </Link>

@@ -78,44 +78,53 @@ function AddBookingPage() {
     return (
         <Layout>
             <div className='flex-1 w-full flex items-center justify-center'>
-                <form onSubmit={handleSubmit} className='w-full max-w-md bg-gray-200 p-6 rounded-lg shadow-lg'>
-                    <Typography variant="h4" className='text-center mb-6 text-gray-900'> Añadir reserva </Typography>
+                <form onSubmit={handleSubmit}
+                    className='w-80 sm:w-full max-w-md bg-secondary_purple p-6 rounded-lg shadow-lg text-main_purple flex flex-col gap-6'
+                >
+                    <Typography variant="h4" className='text-center text-md sm:text-2xl mb-2'> Añadir reserva </Typography>
 
-                    <div className='mb-4'>
-                        <Typography variant="h6" className='mb-2'> Nombre del cliente </Typography>
-                        <Input
-                            name="name"
-                            value={formData.name}
-                            onChange={handleChange}
-                            className='w-full'
-                        />
-                        {errors.name && <Typography className='text-red-500 text-sm'>{errors.name}</Typography>}
-                    </div>
+                    <Input
+                        name="name"
+                        value={formData.name}
+                        onChange={handleChange}
+                        color="purple"
+                        label="Nombre del cliente"
+                        labelProps={{
+                            className: "!text-main_purple after:border-main_purple before:border-main_purple peer-focus:before:!border-main_purple peer-focus:after:!border-main_purple",
+                        }}
+                        className='text-main_purple border-main_purple placeholder-shown:border placeholder-shown:border-main_purple placeholder-shown:border-t-main_purple focus:border-main_purple'
+                    />
+                    {errors.name && <Typography className='text-red-500 text-sm'>{errors.name}</Typography>}
 
-                    <div className='mb-4'>
-                        <Typography variant="h6" className='mb-2'> Teléfono del cliente </Typography>
-                        <Input
-                            name="telephone"
-                            value={formData.telephone}
-                            onChange={handleChange}
-                            className='w-full'
-                        />
-                        {errors.telephone && <Typography className='text-red-500 text-sm'>{errors.telephone}</Typography>}
-                    </div>
+                    <Input
+                        name="telephone"
+                        value={formData.telephone}
+                        onChange={handleChange}
+                        color="purple"
+                        label="Teléfono del cliente"
+                        labelProps={{
+                            className: "!text-main_purple after:border-main_purple before:border-main_purple peer-focus:before:!border-main_purple peer-focus:after:!border-main_purple",
+                        }}
+                        className='text-main_purple border-main_purple placeholder-shown:border placeholder-shown:border-main_purple placeholder-shown:border-t-main_purple focus:border-main_purple'
+                    />
+                    {errors.telephone && <Typography className='text-red-500 text-sm'>{errors.telephone}</Typography>}
 
-                    <div className='mb-4'>
-                        <Typography variant="h6" className='mb-2'> Día de la reserva </Typography>
-                        <Input
-                            type="date"
-                            name="bookingDay"
-                            value={formData.bookingDay}
-                            onChange={handleChange}
-                            className='w-full'
-                        />
-                        {errors.bookingDay && <Typography className='text-red-500 text-sm'>{errors.bookingDay}</Typography>}
-                    </div>
+                    <Input
+                        type="date"
+                        name="bookingDay"
+                        value={formData.bookingDay}
+                        onChange={handleChange}
+                        color="purple"
+                        label="Fecha de la reserva"
+                        labelProps={{
+                            className: "!text-main_purple after:border-main_purple before:border-main_purple peer-focus:before:!border-main_purple peer-focus:after:!border-main_purple",
+                        }}
+                        className='text-main_purple border-main_purple placeholder-shown:border placeholder-shown:border-main_purple placeholder-shown:border-t-main_purple focus:border-main_purple'
+                    />
+                    {errors.bookingDay && <Typography className='text-red-500 text-sm'>{errors.bookingDay}</Typography>}
 
-                    <Button type="submit" className='w-full mt-4'>Añadir</Button>
+
+                    <Button type="submit" className='w-full mt-4 bg-main_purple'>Añadir</Button>
                 </form>
             </div>
         </Layout>

@@ -74,66 +74,53 @@ function ProductPage() {
 
     return (
         <Layout>
-            <Card className="flex-1 w-screen">
-                <table className="w-full h-full min-w-max table-auto text-left">
-                    <thead>
-                        <tr>
-                            {TABLE_HEAD.map((head) => (
-                                <th key={head} className="border-b border-blue-gray-100 bg-blue-gray-50 p-4">
-                                    <Typography
-                                        variant="small"
-                                        color="blue-gray"
-                                        className="leading-none opacity-70 font-bold"
-                                    >
-                                        {head}
+            <Card className="flex-1 w-screen p-4">
+                <div className='grid grid-cols-3 gap-2 mb-4'>
+                    {TABLE_HEAD.map((head) => (
+                        <div
+                            key={head}
+                            className="bg-main_purple rounded-3xl text-white text-2xl font-extrabold flex items-center justify-center p-2"
+                        >
+                            {head}
+                        </div>
+                    ))}
+                </div>
+                <div className='grid grid-cols-3 gap-2 auto-rows-max'>
+                    {TABLE_ROWS.map(({ _id, name, products }) => {
+                        return (
+                            <>
+                                <div className='bg-secondary_purple rounded-3xl p-2 flex justify-center text-main_purple font-bold'>
+                                    {name}
+                                </div>
+                                <div className='bg-secondary_purple rounded-3xl p-2 flex justify-center text-main_purple font-bold'>
+                                    {products}
+                                </div>
+                                <div className='bg-secondary_purple rounded-3xl p-2 flex justify-around'>
+                                    <Typography as="a" href="#" variant="small" color="blue-gray" className="font-medium w-6 h-6" onClick={() => deleteProvider(_id)}>
+                                        <XCircleIcon className='w-6 h-6 text-red-500' />
                                     </Typography>
-                                </th>
-                            ))}
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {TABLE_ROWS.map(({ _id, name, products }, index) => {
-                            const isLast = index === TABLE_ROWS.length - 1
-                            const classes = isLast ? "p-4" : "p-4 border-b border-blue-gray-50"
-                            return (
-                                <tr key={_id}>
-                                    <td className={classes}>
-                                        <Typography variant="small" color="blue-gray" className="font-normal">
-                                            {name}
-                                        </Typography>
-                                    </td>
-                                    <td className={`${classes} bg-blue-gray-50/50`}>
-                                        <Typography variant="small" color="blue-gray" className="font-normal">
-                                            {products}
-                                        </Typography>
-                                    </td>
-                                    <td className={`${classes} h-full flex items-center justify-around`}>
-                                        <Typography as="a" href="#" variant="small" color="blue-gray" className="font-medium w-6 h-6" onClick={() => deleteProvider(_id)}>
-                                            <XCircleIcon className='w-6 h-6 text-red-500' />
-                                        </Typography>
 
-                                        <Typography as="a" href="#" variant="small" color="blue-gray" className="font-medium w-6 h-6" onClick={() => handleOpen({ _id, name })}>
-                                            <PencilSquareIcon className='w-6 h-6 text-black' />
-                                        </Typography>
-                                    </td>
-                                </tr>
-                            )
-                        })}
+                                    <Typography as="a" href="#" variant="small" color="blue-gray" className="font-medium w-6 h-6" onClick={() => handleOpen({ _id, name })}>
+                                        <PencilSquareIcon className='w-6 h-6 text-main_purple' />
+                                    </Typography>
+                                </div>
+                            </>
+                        )
+                    })}
 
-                        {/* Si no hay datos en la base de datos, mostramos un mensaje indicándolo.*/}
-                        {
-                            TABLE_ROWS.length === 0 && (
-                                <tr>
-                                    <td colSpan={TABLE_HEAD.length} className="p-4">
-                                        <Typography variant="h5" color="blue-gray" className="font-normal">
-                                            NO HAY PROVEEDORES REGISTRADOS
-                                        </Typography>
-                                    </td>
-                                </tr>
-                            )
-                        }
-                    </tbody>
-                </table>
+                    {/* Si no hay datos en la base de datos, mostramos un mensaje indicándolo.*/}
+                    {
+                        TABLE_ROWS.length === 0 && (
+                            <tr>
+                                <td colSpan={TABLE_HEAD.length} className="p-4">
+                                    <Typography variant="h5" color="blue-gray" className="font-normal">
+                                        NO HAY PROVEEDORES REGISTRADOS
+                                    </Typography>
+                                </td>
+                            </tr>
+                        )
+                    }
+                </div>
             </Card>
             <ModifyProviderModal open={open} setOpen={setOpen} provider={currentProvider} updateProvider={updateProvider} />
         </Layout>

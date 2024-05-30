@@ -68,30 +68,37 @@ function AddTablePage() {
     return (
         <Layout>
             <div className='flex-1 w-full flex items-center justify-center'>
-                <form onSubmit={handleSubmit} className='w-full max-w-md bg-gray-200 p-6 rounded-lg shadow-lg'>
-                    <Typography variant="h4" className='text-center mb-6 text-gray-900'> Añadir mesa </Typography>
+                <form onSubmit={handleSubmit}
+                    className='w-80 sm:w-full max-w-md bg-secondary_purple p-6 rounded-lg shadow-lg text-main_purple flex flex-col gap-6'
+                >
+                    <Typography variant="h4" className='text-center text-md sm:text-2xl mb-2'> Añadir mesa </Typography>
 
-                    <div className='mb-4'>
-                        <Typography variant="h6" className='mb-2'> Numero de la mesa </Typography>
-                        <Input
-                            name="tableNumber"
-                            value={formData.tableNumber}
-                            onChange={handleChange}
-                            className='w-full'
-                        />
-                        {errors.tableNumber && <Typography className='text-red-500 text-sm'>{errors.tableNumber}</Typography>}
-                    </div>
+                    <Input
+                        name="tableNumber"
+                        value={formData.tableNumber}
+                        onChange={handleChange}
+                        color="purple"
+                        label="Número de mesa"
+                        labelProps={{
+                            className: "!text-main_purple after:border-main_purple before:border-main_purple peer-focus:before:!border-main_purple peer-focus:after:!border-main_purple",
+                        }}
+                        className='text-main_purple border-main_purple placeholder-shown:border placeholder-shown:border-main_purple placeholder-shown:border-t-main_purple focus:border-main_purple'
+                    />
+                    {errors.tableNumber && <Typography className='text-red-500 text-sm'>{errors.tableNumber}</Typography>}
 
-                    <div className='mb-4'>
-                        <Typography variant="h6" className='mb-2'> Capacidad de la mesa </Typography>
-                        <Input
-                            name="capacity"
-                            value={formData.capacity}
-                            onChange={handleChange}
-                            className='w-full'
-                        />
-                        {errors.capacity && <Typography className='text-red-500 text-sm'>{errors.capacity}</Typography>}
-                    </div>
+                    <Input
+                        name="capacity"
+                        value={formData.capacity}
+                        onChange={handleChange}
+                        color="purple"
+                        label="Capacidad"
+                        labelProps={{
+                            className: "!text-main_purple after:border-main_purple before:border-main_purple peer-focus:before:!border-main_purple peer-focus:after:!border-main_purple",
+                        }}
+                        className='text-main_purple border-main_purple placeholder-shown:border placeholder-shown:border-main_purple placeholder-shown:border-t-main_purple focus:border-main_purple'
+                    />
+                    {errors.capacity && <Typography className='text-red-500 text-sm'>{errors.capacity}</Typography>}
+
 
                     <Button type="submit" className='w-full mt-4'>Añadir</Button>
                 </form>

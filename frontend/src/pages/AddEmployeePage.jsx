@@ -83,76 +83,91 @@ function AddEmployeePage() {
                 iconText='Ver empleados'
             />
             <div className='flex-1 h-full w-full flex items-center justify-center py-4'>
-                <form onSubmit={handleSubmit} className='w-80 sm:w-full max-w-md bg-gray-200 p-6 rounded-lg shadow-lg'>
-                    <Typography variant="h4" className='text-center text-md sm:text-2xl mb-6 text-gray-900'> Añadir empleado </Typography>
+                <form
+                    onSubmit={handleSubmit}
+                    className='w-80 sm:w-full max-w-md bg-secondary_purple p-6 rounded-lg shadow-lg text-main_purple flex flex-col gap-6'
+                >
+                    <Typography variant="h4" className='text-center text-md sm:text-2xl mb-2'> Añadir empleado </Typography>
+                    <Input
+                        name="name"
+                        value={formData.name}
+                        onChange={handleChange}
+                        color="purple"
+                        label="Nombre del empleado"
+                        labelProps={{
+                            className: "!text-main_purple after:border-main_purple before:border-main_purple peer-focus:before:!border-main_purple peer-focus:after:!border-main_purple",
+                        }}
+                        className='text-main_purple border-main_purple placeholder-shown:border placeholder-shown:border-main_purple placeholder-shown:border-t-main_purple focus:border-main_purple'
+                    />
+                    {errors.name && <Typography className='text-red-500 text-sm'>{errors.name}</Typography>}
+                    <Input
+                        name="username"
+                        value={formData.username}
+                        onChange={handleChange}
+                        color="purple"
+                        label="Username del empleado"
+                        labelProps={{
+                            className: "!text-main_purple after:border-main_purple before:border-main_purple peer-focus:before:!border-main_purple peer-focus:after:!border-main_purple",
+                        }}
+                        className='text-main_purple border-main_purple placeholder-shown:border placeholder-shown:border-main_purple placeholder-shown:border-t-main_purple focus:border-main_purple'
+                    />
+                    {errors.username && <Typography className='text-red-500 text-sm'>{errors.username}</Typography>}
 
-                    <div className='mb-4'>
-                        <Typography variant="h6" className='mb-2 text-xs sm:text-base'> Nombre del empleado </Typography>
-                        <Input
-                            name="name"
-                            value={formData.name}
-                            onChange={handleChange}
-                            className='w-full'
-                        />
-                        {errors.name && <Typography className='text-red-500 text-sm'>{errors.name}</Typography>}
-                    </div>
-                    <div className='mb-4'>
-                        <Typography variant="h6" className='mb-2 text-xs sm:text-base'> Username del empleado </Typography>
-                        <Input
-                            name="username"
-                            value={formData.username}
-                            onChange={handleChange}
-                            className='w-full'
-                        />
-                        {errors.username && <Typography className='text-red-500 text-sm'>{errors.username}</Typography>}
-                    </div>
+                    <Input
+                        type='password'
+                        name="password"
+                        value={formData.password}
+                        onChange={handleChange}
+                        color="purple"
+                        label="Password del empleado"
+                        labelProps={{
+                            className: "!text-main_purple after:border-main_purple before:border-main_purple peer-focus:before:!border-main_purple peer-focus:after:!border-main_purple",
+                        }}
+                        className='text-main_purple border-main_purple placeholder-shown:border placeholder-shown:border-main_purple placeholder-shown:border-t-main_purple focus:border-main_purple'
+                    />
+                    {errors.password && <Typography className='text-red-500 text-sm'>{errors.password}</Typography>}
 
-                    <div className='mb-4'>
-                        <Typography variant="h6" className='mb-2 text-xs sm:text-base'> Contraseña del empleado </Typography>
-                        <Input
-                            type="password"
-                            name="password"
-                            value={formData.password}
-                            onChange={handleChange}
-                            className='w-full'
-                        />
-                        {errors.password && <Typography className='text-red-500 text-sm'>{errors.password}</Typography>}
-                    </div>
+                    <Input
+                        type='email'
+                        name="email"
+                        value={formData.email}
+                        onChange={handleChange}
+                        color="purple"
+                        label="Email del empleado"
+                        labelProps={{
+                            className: "!text-main_purple after:border-main_purple before:border-main_purple peer-focus:before:!border-main_purple peer-focus:after:!border-main_purple",
+                        }}
+                        className='text-main_purple border-main_purple placeholder-shown:border placeholder-shown:border-main_purple placeholder-shown:border-t-main_purple focus:border-main_purple'
+                    />
+                    {errors.email && <Typography className='text-red-500 text-sm'>{errors.email}</Typography>}
 
-                    <div className='mb-4'>
-                        <Typography variant="h6" className='mb-2 text-xs sm:text-base'> Email del empleado </Typography>
-                        <Input
-                            name="email"
-                            value={formData.email}
-                            onChange={handleChange}
-                            className='w-full'
-                        />
-                        {errors.email && <Typography className='text-red-500 text-sm'>{errors.email}</Typography>}
-                    </div>
+                    <Input
+                        name="role"
+                        value={formData.role}
+                        onChange={handleChange}
+                        color="purple"
+                        label="Puesto del empleado"
+                        labelProps={{
+                            className: "!text-main_purple after:border-main_purple before:border-main_purple peer-focus:before:!border-main_purple peer-focus:after:!border-main_purple",
+                        }}
+                        className='text-main_purple border-main_purple placeholder-shown:border placeholder-shown:border-main_purple placeholder-shown:border-t-main_purple focus:border-main_purple'
+                    />
+                    {errors.role && <Typography className='text-red-500 text-sm'>{errors.role}</Typography>}
 
-                    <div className='mb-4'>
-                        <Typography variant="h6" className='mb-2 text-xs sm:text-base'> Puesto del empleado </Typography>
-                        <Input
-                            name="role"
-                            value={formData.role}
-                            onChange={handleChange}
-                            className='w-full'
-                        />
-                        {errors.role && <Typography className='text-red-500 text-sm'>{errors.role}</Typography>}
-                    </div>
+                    <Input
+                        name="telephone"
+                        value={formData.telephone}
+                        onChange={handleChange}
+                        color="purple"
+                        label="Teléfono del empleado"
+                        labelProps={{
+                            className: "!text-main_purple after:border-main_purple before:border-main_purple peer-focus:before:!border-main_purple peer-focus:after:!border-main_purple",
+                        }}
+                        className='text-main_purple border-main_purple placeholder-shown:border placeholder-shown:border-main_purple placeholder-shown:border-t-main_purple focus:border-main_purple'
+                    />
+                    {errors.telephone && <Typography className='text-red-500 text-sm'>{errors.telephone}</Typography>}
 
-                    <div className='mb-4'>
-                        <Typography variant="h6" className='mb-2 text-xs sm:text-base'> Teléfono del empleado </Typography>
-                        <Input
-                            name="telephone"
-                            value={formData.telephone}
-                            onChange={handleChange}
-                            className='w-full'
-                        />
-                        {errors.telephone && <Typography className='text-red-500 text-sm'>{errors.telephone}</Typography>}
-                    </div>
-
-                    <Button type="submit" className='w-full mt-4'>Añadir</Button>
+                    <Button type="submit" className='w-full mt-4 bg-main_purple'>Añadir</Button>
                 </form>
             </div>
         </div>

@@ -51,7 +51,7 @@ function AddProductPage() {
 
             const newProduct = { name: name, category: category, price: Number(price), providerId: provider._id }
             const product = await productService.createProduct(newProduct)
-            
+
             if (product && product._id && quantity) {
                 const newStock = { productId: product._id, quantity: Number(quantity) }
                 await stockService.createStock(newStock)
@@ -92,67 +92,79 @@ function AddProductPage() {
     return (
         <Layout>
             <div className='flex-1 w-full flex items-center justify-center'>
-                <form onSubmit={handleSubmit} className='w-full max-w-md bg-gray-200 p-6 rounded-lg shadow-lg'>
-                    <Typography variant="h4" className='text-center mb-6 text-gray-900'> Añadir producto </Typography>
+                <form onSubmit={handleSubmit}
+                    className='w-80 sm:w-full max-w-md bg-secondary_purple p-6 rounded-lg shadow-lg text-main_purple flex flex-col gap-6'
+                >
+                    <Typography variant="h4" className='text-center text-md sm:text-2xl mb-2'> Añadir producto </Typography>
 
-                    <div className='mb-4'>
-                        <Typography variant="h6" className='mb-2'> Nombre del producto </Typography>
-                        <Input
-                            name="name"
-                            value={formData.name}
-                            onChange={handleChange}
-                            className='w-full'
-                        />
-                        {errors.name && <Typography className='text-red-500 text-sm'>{errors.name}</Typography>}
-                    </div>
+                    <Input
+                        name="name"
+                        value={formData.name}
+                        onChange={handleChange}
+                        color="purple"
+                        label="Nombre del producto"
+                        labelProps={{
+                            className: "!text-main_purple after:border-main_purple before:border-main_purple peer-focus:before:!border-main_purple peer-focus:after:!border-main_purple",
+                        }}
+                        className='text-main_purple border-main_purple placeholder-shown:border placeholder-shown:border-main_purple placeholder-shown:border-t-main_purple focus:border-main_purple'
+                    />
+                    {errors.name && <Typography className='text-red-500 text-sm'>{errors.name}</Typography>}
 
-                    <div className='mb-4'>
-                        <Typography variant="h6" className='mb-2'> Categoría del producto </Typography>
-                        <Input
-                            name="category"
-                            value={formData.category}
-                            onChange={handleChange}
-                            className='w-full'
-                        />
-                        {errors.category && <Typography className='text-red-500 text-sm'>{errors.category}</Typography>}
-                    </div>
+                    <Input
+                        name="category"
+                        value={formData.category}
+                        onChange={handleChange}
+                        color="purple"
+                        label="Categoría del producto"
+                        labelProps={{
+                            className: "!text-main_purple after:border-main_purple before:border-main_purple peer-focus:before:!border-main_purple peer-focus:after:!border-main_purple",
+                        }}
+                        className='text-main_purple border-main_purple placeholder-shown:border placeholder-shown:border-main_purple placeholder-shown:border-t-main_purple focus:border-main_purple'
+                    />
+                    {errors.category && <Typography className='text-red-500 text-sm'>{errors.category}</Typography>}
 
-                    <div className='mb-4'>
-                        <Typography variant="h6" className='mb-2'> Precio del producto </Typography>
-                        <Input
-                            type="number"
-                            name="price"
-                            value={formData.price}
-                            onChange={handleChange}
-                            className='w-full'
-                        />
-                        {errors.price && <Typography className='text-red-500 text-sm'>{errors.price}</Typography>}
-                    </div>
+                    <Input
+                        type="number"
+                        name="price"
+                        value={formData.price}
+                        onChange={handleChange}
+                        color="purple"
+                        label="Precio del producto"
+                        labelProps={{
+                            className: "!text-main_purple after:border-main_purple before:border-main_purple peer-focus:before:!border-main_purple peer-focus:after:!border-main_purple",
+                        }}
+                        className='text-main_purple border-main_purple placeholder-shown:border placeholder-shown:border-main_purple placeholder-shown:border-t-main_purple focus:border-main_purple'
+                    />
+                    {errors.price && <Typography className='text-red-500 text-sm'>{errors.price}</Typography>}
 
-                    <div className='mb-4'>
-                        <Typography variant="h6" className='mb-2'> Nombre del proveedor </Typography>
-                        <Input
-                            type="text"
-                            name="providerName"
-                            value={formData.providerName}
-                            onChange={handleChange}
-                            className='w-full'
-                        />
-                        {errors.providerName && <Typography className='text-red-500 text-sm'>{errors.providerName}</Typography>}
-                    </div>
+                    <Input
+                        type="text"
+                        name="providerName"
+                        value={formData.providerName}
+                        onChange={handleChange}
+                        color="purple"
+                        label="Nombre del proveedor"
+                        labelProps={{
+                            className: "!text-main_purple after:border-main_purple before:border-main_purple peer-focus:before:!border-main_purple peer-focus:after:!border-main_purple",
+                        }}
+                        className='text-main_purple border-main_purple placeholder-shown:border placeholder-shown:border-main_purple placeholder-shown:border-t-main_purple focus:border-main_purple'
+                    />
+                    {errors.providerName && <Typography className='text-red-500 text-sm'>{errors.providerName}</Typography>}
 
-                    <div className='mb-4'>
-                        <Typography variant="h6" className='mb-2'> Cantidad del producto </Typography>
-                        <Input
-                            type="text"
-                            name="quantity"
-                            value={formData.quantity}
-                            onChange={handleChange}
-                            className='w-full'
-                        />
-                    </div>
+                    <Input
+                        type="text"
+                        name="quantity"
+                        value={formData.quantity}
+                        onChange={handleChange}
+                        color="purple"
+                        label="Cantidad del producto"
+                        labelProps={{
+                            className: "!text-main_purple after:border-main_purple before:border-main_purple peer-focus:before:!border-main_purple peer-focus:after:!border-main_purple",
+                        }}
+                        className='text-main_purple border-main_purple placeholder-shown:border placeholder-shown:border-main_purple placeholder-shown:border-t-main_purple focus:border-main_purple'
+                    />
 
-                    <Button type="submit" className='w-full mt-4'>Añadir</Button>
+                    <Button type="submit" className='w-full mt-4 bg-main_purple'>Añadir</Button>
                 </form>
             </div>
         </Layout>

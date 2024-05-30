@@ -103,46 +103,31 @@ function TablesPage({ bookings }) {
 
     return (
         <Layout>
-            <Card className="flex-1 w-screen">
-                <table className="w-full h-full min-w-max table-auto text-left">
-                    <thead>
-                        <tr>
-                            {TABLE_HEAD.map((head) => (
-                                <th key={head} className="border-b border-blue-gray-100 bg-blue-gray-50 p-4">
-                                    <Typography
-                                        variant="small"
-                                        color="blue-gray"
-                                        className="leading-none opacity-70 font-bold"
-                                    >
-                                        {head}
-                                    </Typography>
-                                </th>
-                            ))}
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {TABLE_ROWS.map(({ _id, tableNumber, capacity, availability }, index) => {
-                            const isLast = index === TABLE_ROWS.length - 1
-                            const classes = isLast ? "p-4" : "p-4 border-b border-blue-gray-50"
-
+            <Card className="flex-1 w-screen p-4">
+                <div className='grid grid-cols-4 gap-2 mb-4'>
+                    {TABLE_HEAD.map((head) => (
+                        <div
+                            key={head}
+                            className="bg-main_purple rounded-3xl text-white text-2xl font-extrabold flex items-center justify-center p-2"
+                        >
+                            {head}
+                        </div>
+                    ))}
+                </div>
+                    <div className='grid grid-cols-4 gap-2 auto-rows-max'>
+                        {TABLE_ROWS.map(({ _id, tableNumber, capacity, availability }) => {
                             return (
-                                <tr key={tableNumber}>
-                                    <td className={classes}>
-                                        <Typography variant="small" color="blue-gray" className="font-normal">
+                                <>
+                                    <div className='bg-secondary_purple rounded-3xl p-2 flex justify-center text-main_purple font-bold'>
                                             {tableNumber}
-                                        </Typography>
-                                    </td>
-                                    <td className={`${classes} bg-blue-gray-50/50`}>
-                                        <Typography variant="small" color="blue-gray" className="font-normal">
+                                    </div>
+                                    <div className='bg-secondary_purple rounded-3xl p-2 flex justify-center text-main_purple font-bold'>
                                             {capacity}
-                                        </Typography>
-                                    </td>
-                                    <td className={classes}>
-                                        <Typography variant="small" color="blue-gray" className="font-normal">
+                                    </div>
+                                    <div className='bg-secondary_purple rounded-3xl p-2 flex justify-center text-main_purple font-bold'>
                                             {availability}
-                                        </Typography>
-                                    </td>
-                                    <td className={`${classes} bg-blue-gray-50/50 h-full flex items-center justify-around`}>
+                                    </div>
+                                    <div className='bg-secondary_purple rounded-3xl p-2 flex justify-around'>
                                         <Typography as="a"
                                             variant="small"
                                             color="blue-gray"
@@ -158,10 +143,10 @@ function TablesPage({ bookings }) {
                                             className="font-medium w-6 h-6 cursor-pointer"
                                             onClick={() => handleOpen({ _id, tableNumber, capacity })}
                                         >
-                                            <PencilSquareIcon className='w-6 h-6 text-black' />
+                                            <PencilSquareIcon className='w-6 h-6 text-main_purple' />
                                         </Typography>
-                                    </td>
-                                </tr>
+                                    </div>
+                                </>
                             )
                         })}
 
@@ -177,8 +162,7 @@ function TablesPage({ bookings }) {
                                 </tr>
                             )
                         }
-                    </tbody>
-                </table>
+                    </div>
             </Card>
             {open && <ModifyTableModal open={open} setOpen={setOpen} table={currentTable} updateTable={updateTable} />}
         </Layout>

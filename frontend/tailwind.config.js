@@ -9,8 +9,8 @@ export default withMT({
     extend: {
       colors: {
         main_green: "#5CBF94",
-        main_purple: "#5C156B",
-        secondary_purple: "#CFCFFF"
+        main_purple: "#2f156b",
+        secondary_purple: "#e6e6fc"
       }
     },
   },

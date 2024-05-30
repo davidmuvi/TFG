@@ -16,7 +16,7 @@ export function TableAdmin({ employees, getEmployees }) {
         telephone: ''
     })
 
-    const TABLE_HEAD = ["Nombre", "Username", "Email", "Puesto", "Fecha de creación", "Teléfono", ""]
+    const TABLE_HEAD = ["Nombre", "Username", "Email", "Puesto", "Contratación", "Teléfono", ""]
     const TABLE_ROWS = employees
 
     const deleteEmployee = (id) => {
@@ -92,111 +92,62 @@ export function TableAdmin({ employees, getEmployees }) {
     }
 
     return (
-        <Card className="flex-1 h-full w-screen">
-            <table className="w-full min-w-max table-auto text-left">
-                <thead>
-                    <tr>
-                        {TABLE_HEAD.map((head) => (
-                            <th
-                                key={head}
-                                className="border-b border-blue-gray-100 bg-blue-gray-50 p-4"
-                            >
+        <Card className="flex-1 h-full w-screen p-4">
+            <div className='grid grid-cols-7 gap-2 mb-4'>
+                {TABLE_HEAD.map((head) => (
+                    <div
+                        key={head}
+                        className="bg-main_purple rounded-3xl text-white text-2xl font-extrabold flex items-center justify-center p-2"
+                    >
+                        {head}
+                    </div>
+                ))}
+            </div>
+            <div className='grid grid-cols-7 gap-2 auto-rows-max'>
+                {TABLE_ROWS.map(({ _id, name, username, email, role, createdAt, telephone }) => {
+                    return (
+                        <>
+                            <div className='bg-secondary_purple rounded-3xl p-2 flex justify-center text-main_purple font-bold'>
+                                {name}
+                            </div>
+                            <div className='bg-secondary_purple rounded-3xl p-2 flex justify-center text-main_purple font-bold'>
+                                {username}
+                            </div>
+                            <div className='bg-secondary_purple rounded-3xl p-2 flex justify-center text-main_purple font-bold'>
+                                {email}
+                            </div>
+                            <div className='bg-secondary_purple rounded-3xl p-2 flex justify-center text-main_purple font-bold'>
+                                {role}
+                            </div>
+                            <div className='bg-secondary_purple rounded-3xl p-2 flex justify-center text-main_purple font-bold'>
+                                {formatDate({ createdAt })}
+                            </div>
+                            <div className='bg-secondary_purple rounded-3xl p-2 flex justify-center text-main_purple font-bold'>
+                                {telephone}
+                            </div>
+                            <div className='bg-secondary_purple rounded-3xl p-2 flex justify-around'>
                                 <Typography
+                                    as="a"
                                     variant="small"
-                                    color="blue-gray"
-                                    className="font-normal leading-none opacity-70"
+                                    className="cursor-pointer"
                                 >
-                                    {head}
+                                    <XCircleIcon className="w-6 h-6 text-red-500" onClick={() => deleteEmployee(_id)} />
                                 </Typography>
-                            </th>
-                        ))}
-                    </tr>
-                </thead>
-                <tbody>
-                    {TABLE_ROWS.map(({ _id, name, username, email, role, createdAt, telephone }, index) => {
-                        const isLast = index === TABLE_ROWS.length - 1
-                        const classes = isLast ? "p-4" : "p-4 border-b border-blue-gray-50"
-
-                        return (
-                            <tr key={_id}>
-                                <td className={classes}>
-                                    <Typography
-                                        variant="small"
-                                        color="blue-gray"
-                                        className="font-normal"
-                                    >
-                                        {name}
-                                    </Typography>
-                                </td>
-                                <td className={classes}>
-                                    <Typography
-                                        variant="small"
-                                        color="blue-gray"
-                                        className="font-normal"
-                                    >
-                                        {username}
-                                    </Typography>
-                                </td>
-                                <td className={classes}>
-                                    <Typography
-                                        variant="small"
-                                        color="blue-gray"
-                                        className="font-normal"
-                                    >
-                                        {email}
-                                    </Typography>
-                                </td>
-                                <td className={classes}>
-                                    <Typography
-                                        variant="small"
-                                        color="blue-gray"
-                                        className="font-normal"
-                                    >
-                                        {role}
-                                    </Typography>
-                                </td>
-                                <td className={classes}>
-                                    <Typography
-                                        variant="small"
-                                        color="blue-gray"
-                                        className="font-normal"
-                                    >
-                                        {formatDate({ createdAt })}
-                                    </Typography>
-                                </td>
-                                <td className={classes}>
-                                    <Typography
-                                        variant="small"
-                                        color="blue-gray"
-                                        className="font-normal"
-                                    >
-                                        {telephone}
-                                    </Typography>
-                                </td>
-                                <td className={`${classes} h-full flex items-center justify-around`}>
-                                    <Typography
-                                        as="a"
-                                        variant="small"
-                                        className="cursor-pointer"
-                                    >
-                                        <XCircleIcon className="w-6 h-6 text-red-500" onClick={() => deleteEmployee(_id)} />
-                                    </Typography>
-                                    <Typography
-                                        as="a"
-                                        variant="small"
-                                        className="cursor-pointer"
-                                    >
-                                        <PencilSquareIcon
-                                            className="w-6 h-6 text-black"
-                                            onClick={() => handleOpen({ _id, name, username, email, role, telephone })}
-                                        />
-                                    </Typography>
-                                </td>
-                            </tr>
-                        )
-                    })}
-                </tbody>
-            </table>
+                                <Typography
+                                    as="a"
+                                    variant="small"
+                                    className="cursor-pointer"
+                                >
+                                    <PencilSquareIcon
+                                        className="w-6 h-6 text-main_purple"
+                                        onClick={() => handleOpen({ _id, name, username, email, role, telephone })}
+                                    />
+                                </Typography>
+                            </div>
+                        </>
+                    )
+                })}
+            </div>
             {open && <ModifyEmployeeModal open={open} setOpen={setOpen} employee={currentEmployee} updateEmployee={updateEmployee} />}
         </Card>
     )
