@@ -56,7 +56,7 @@ export function NavbarAdmin({ redirection, icon, iconText }) {
             <div className="w-full px-3 flex items-center justify-between">
                 <div className="hidden lg:flex lg:items-center lg:justify-center h-full w-2/3">{navList}</div>
                 <div className="flex items-center justify-end gap-10 w-1/3">
-                    <div className="hidden lg:flex lg:gap-3 lg:items-center lg:p-2 lg:border-secondary_purple lg:border-2 lg:rounded-md">
+                    <div className="hidden lg:flex lg:items-center">
                         <p className='font-bold text-main_purple'>{user.username} </p>
                         <UserIcon className='w-6 h-6 text-main_purple' />
                     </div>

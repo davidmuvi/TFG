@@ -113,7 +113,7 @@ const NavbarEmployees = () => {
             <div className="w-full px-3 flex items-center justify-between">
                 <div className="hidden lg:flex lg:items-center lg:justify-end h-full w-2/3">{navList}</div>
                 <div className="flex items-center justify-end gap-10 w-1/3">
-                    <div className="hidden lg:flex lg:gap-3 lg:items-center lg:p-2 lg:border-secondary_purple lg:border-2 lg:rounded-md">
+                    <div className="hidden lg:flex lg:gap-1 lg:items-center">
                         <p className='font-bold text-main_purple'>{user.username} </p>
                         <UserIcon className='w-6 h-6 text-main_purple' />
                     </div>
@@ -165,8 +165,8 @@ const NavbarEmployees = () => {
             <Collapse open={openNav}>
                 <div className="container mx-auto">
                     {navList}
-                    <div className="flex items-center justify-end gap-10 w-1/3">
-                        <div className="text-main_purple flex gap-3 items-center p-2 border-secondary_purple border-2 rounded-md">
+                    <div className="flex flex-col gap-3 w-1/3">
+                        <div className="text-main_purple flex gap-3 items-center justify-center p-2 border-secondary_purple border-2 rounded-md">
                             <p className='font-bold'>{user.username} </p>
                             <UserIcon className='w-6 h-6' />
                         </div>

@@ -130,7 +130,7 @@ function BookingsPage({ bookings, setBookings }) {
                     {TABLE_HEAD.map((head) => (
                         <div
                             key={head}
-                            className="bg-main_purple rounded-3xl text-white text-2xl font-extrabold flex items-center justify-center p-2"
+                            className="text-xs text-center font-medium bg-main_purple rounded-3xl text-white md:text-base lg:text-2xl md:font-extrabold flex items-center justify-center p-2"
                         >
                             {head}
                         </div>
@@ -146,29 +146,29 @@ function BookingsPage({ bookings, setBookings }) {
 
                         return (
                             <>
-                                <div className='bg-secondary_purple rounded-3xl p-2 flex justify-center text-main_purple font-bold'>
+                                <div className='text-xs md:text-base bg-secondary_purple rounded-3xl p-2 flex items-center justify-center text-main_purple font-bold'>
                                     {clientName}
                                 </div>
-                                <div className='bg-secondary_purple rounded-3xl p-2 flex justify-center text-main_purple font-bold'>
+                                <div className='text-xs md:text-base bg-secondary_purple rounded-3xl p-2 flex items-center justify-center text-main_purple font-bold'>
                                     {clientTelephone}
                                 </div>
-                                <div className='bg-secondary_purple rounded-3xl p-2 flex justify-center text-main_purple font-bold'>
+                                <div className='text-xs md:text-base bg-secondary_purple rounded-3xl p-2 flex items-center justify-center text-main_purple font-bold'>
                                     {formatDate({ date })}
                                 </div>
-                                <div className='bg-secondary_purple rounded-3xl p-2 flex justify-center text-main_purple font-bold'>
+                                <div className='text-xs md:text-base bg-secondary_purple text-center rounded-3xl p-2 flex items-center justify-center text-main_purple font-bold'>
                                     {tableNumber}
                                 </div>
-                                <div className='bg-secondary_purple rounded-3xl p-2 flex justify-around'>
+                                <div className='bg-secondary_purple rounded-3xl p-2 flex flex-col md:flex-row items-center justify-around'>
                                     <Typography className="font-medium w-6 h-6 cursor-pointer"
                                         onClick={() => handleOpen({ id: _id, date: new Date(date).toLocaleDateString })}
                                     >
-                                        <PencilSquareIcon className='w-6 h-6 text-main_purple' />
+                                        <PencilSquareIcon className='w-5 h-5 md:w-6 md:h-6 text-main_purple' />
                                     </Typography>
 
                                     <Typography className="font-medium w-6 h-6 cursor-pointer"
                                         onClick={() => handleOpenOrderModal(_id)}
                                     >
-                                        <ClipboardDocumentListIcon className='w-6 h-6 text-main_purple' />
+                                        <ClipboardDocumentListIcon className='w-5 h-5 md:w-6 md:h-6 text-main_purple' />
                                     </Typography>
 
                                     {user.userType !== 'admin' &&
@@ -183,14 +183,14 @@ function BookingsPage({ bookings, setBookings }) {
                                                     })
                                             }
                                         >
-                                            <CheckCircleIcon className='w-6 h-6 text-green-500' />
+                                            <CheckCircleIcon className='w-5 h-5 md:w-6 md:h-6 text-green-500' />
                                         </Typography>
                                     }
 
                                     <Typography className="font-medium w-6 h-6 cursor-pointer"
                                         onClick={() => deleteBooking(_id)}
                                     >
-                                        <XCircleIcon className='w-6 h-6 text-red-500' />
+                                        <XCircleIcon className='w-5 h-5 md:w-6 md:h-6 text-red-500' />
                                     </Typography>
                                 </div>
                             </>

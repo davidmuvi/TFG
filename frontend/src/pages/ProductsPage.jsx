@@ -83,7 +83,7 @@ function ProductPage() {
                     {TABLE_HEAD.map((head) => (
                         <div
                             key={head}
-                            className="bg-main_purple rounded-3xl text-white text-2xl font-extrabold flex items-center justify-center p-2"
+                            className="py-2 px-7 text-xs md:text-base bg-main_purple rounded-3xl text-white lg:text-2xl md:font-extrabold flex items-center justify-center md:p-2"
                         >
                             {head}
                         </div>
@@ -97,28 +97,28 @@ function ProductPage() {
 
                         return (
                             <>
-                                <div className='bg-secondary_purple rounded-3xl p-2 flex justify-center text-main_purple font-bold'>
+                                <div className='text-wrap text-xs md:text-base text-center bg-secondary_purple rounded-3xl p-2 flex items-center justify-center text-main_purple font-bold'>
                                     {name}
                                 </div>
-                                <div className='bg-secondary_purple rounded-3xl p-2 flex justify-center text-main_purple font-bold'>
+                                <div className='text-xs md:text-base bg-secondary_purple rounded-3xl p-2 flex items-center justify-center text-main_purple font-bold'>
                                     {category}
                                 </div>
-                                <div className='bg-secondary_purple rounded-3xl p-2 flex justify-center text-main_purple font-bold'>
+                                <div className='text-xs md:text-base bg-secondary_purple rounded-3xl p-2 flex items-center justify-center text-main_purple font-bold'>
                                     {price}
                                 </div>
-                                <div className='bg-secondary_purple rounded-3xl p-2 flex justify-center text-main_purple font-bold'>
+                                <div className='text-xs md:text-base bg-secondary_purple rounded-3xl p-2 flex items-center justify-center text-main_purple font-bold'>
                                     {quantity}
                                 </div>
-                                <div className='bg-secondary_purple rounded-3xl p-2 flex justify-center text-main_purple font-bold'>
+                                <div className='text-xs md:text-base bg-secondary_purple rounded-3xl p-2 flex items-center justify-center text-main_purple font-bold'>
                                     {providerName}
                                 </div>
-                                <div className='bg-secondary_purple rounded-3xl p-2 flex justify-around'>
+                                <div className='bg-secondary_purple rounded-3xl p-2 flex items-center justify-around'>
                                     <Typography variant="small" color="blue-gray" className="font-medium w-6 h-6 cursor-pointer" onClick={() => deleteProduct(_id)}>
-                                        <XCircleIcon className='w-6 h-6 text-red-500' />
+                                        <XCircleIcon className='w-4 h-4 md:w-6 md:h-6 text-red-500' />
                                     </Typography>
 
                                     <Typography variant="small" color="blue-gray" className="font-medium w-6 h-6 cursor-pointer" onClick={() => { handleOpen({ _id, name, category, price }) }}>
-                                        <PencilSquareIcon className='w-6 h-6 text-main_purple' />
+                                        <PencilSquareIcon className='w-4 h-4 md:w-6 md:h-6 text-main_purple' />
                                     </Typography>
                                 </div>
                             </>

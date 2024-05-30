@@ -93,36 +93,60 @@ export function TableAdmin({ employees, getEmployees }) {
 
     return (
         <Card className="flex-1 h-full w-screen p-4">
-            <div className='grid grid-cols-7 gap-2 mb-4'>
-                {TABLE_HEAD.map((head) => (
-                    <div
-                        key={head}
-                        className="bg-main_purple rounded-3xl text-white text-2xl font-extrabold flex items-center justify-center p-2"
-                    >
-                        {head}
-                    </div>
-                ))}
+            <div className='grid grid-cols-4 md:grid-cols-6 lg:grid-cols-7 gap-2 mb-4'>
+                {TABLE_HEAD.map((head) => {
+                    if (head === 'Username' || head === 'Contratación') {
+                        return (
+                            <div
+                                key={head}
+                                className="hidden
+                                bg-main_purple rounded-3xl text-white lg:text-2xl lg:font-extrabold lg:flex lg:items-center justify-center p-2
+                                "
+                            >
+                                {head}
+                            </div>
+                        )
+                    } else if (head === 'Email') {
+                        return (
+                            <div
+                                key={head}
+                                className="hidden bg-main_purple md:col-span-2 lg:col-span-1 rounded-3xl text-white lg:text-2xl lg:font-extrabold md:flex lg:items-center justify-center p-2"
+                            >
+                                {head}
+                            </div>
+                        )
+                    } else {
+                        return (
+                            <div
+                                key={head}
+                                className="bg-main_purple rounded-3xl text-white lg:text-2xl lg:font-extrabold flex items-center justify-center p-2"
+                            >
+                                {head}
+                            </div>
+                        )
+                    }
+                })}
             </div>
-            <div className='grid grid-cols-7 gap-2 auto-rows-max'>
+            <div className='grid grid-cols-4 md:grid-cols-6 lg:grid-cols-7 gap-2 auto-rows-max'>
                 {TABLE_ROWS.map(({ _id, name, username, email, role, createdAt, telephone }) => {
                     return (
                         <>
-                            <div className='bg-secondary_purple rounded-3xl p-2 flex justify-center text-main_purple font-bold'>
+                            <div className='text-sm md:text-base bg-secondary_purple rounded-3xl p-2 flex justify-center text-main_purple font-bold'>
                                 {name}
                             </div>
-                            <div className='bg-secondary_purple rounded-3xl p-2 flex justify-center text-main_purple font-bold'>
+                            <div className='hidden bg-secondary_purple rounded-3xl p-2 lg:flex lg:justify-center text-main_purple font-bold'>
                                 {username}
                             </div>
-                            <div className='bg-secondary_purple rounded-3xl p-2 flex justify-center text-main_purple font-bold'>
+                            <div className='hidden text-xs col-span-2 lg:col-span-1 lg:text-base bg-secondary_purple rounded-3xl p-2 md:flex justify-center text-main_purple font-bold'>
                                 {email}
                             </div>
                             <div className='bg-secondary_purple rounded-3xl p-2 flex justify-center text-main_purple font-bold'>
                                 {role}
                             </div>
-                            <div className='bg-secondary_purple rounded-3xl p-2 flex justify-center text-main_purple font-bold'>
+                            <div className='hidden bg-secondary_purple rounded-3xl p-2 lg:flex justify-center text-main_purple font-bold'>
                                 {formatDate({ createdAt })}
                             </div>
-                            <div className='bg-secondary_purple rounded-3xl p-2 flex justify-center text-main_purple font-bold'>
+                            <div className='text-sm md:text-base bg-secondary_purple rounded-3xl p-2 flex justify-center text-main_purple font-bold'>
                                 {telephone}
                             </div>
                             <div className='bg-secondary_purple rounded-3xl p-2 flex justify-around'>

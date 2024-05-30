@@ -108,7 +108,7 @@ function TablesPage({ bookings }) {
                     {TABLE_HEAD.map((head) => (
                         <div
                             key={head}
-                            className="bg-main_purple rounded-3xl text-white text-2xl font-extrabold flex items-center justify-center p-2"
+                            className="px-5 text-xs bg-main_purple rounded-3xl text-white lg:text-2xl md:font-extrabold flex items-center justify-center md:p-2"
                         >
                             {head}
                         </div>
@@ -118,32 +118,32 @@ function TablesPage({ bookings }) {
                         {TABLE_ROWS.map(({ _id, tableNumber, capacity, availability }) => {
                             return (
                                 <>
-                                    <div className='bg-secondary_purple rounded-3xl p-2 flex justify-center text-main_purple font-bold'>
+                                    <div className='bg-secondary_purple rounded-3xl p-2 flex items-center justify-center text-main_purple font-bold'>
                                             {tableNumber}
                                     </div>
-                                    <div className='bg-secondary_purple rounded-3xl p-2 flex justify-center text-main_purple font-bold'>
+                                    <div className='bg-secondary_purple rounded-3xl p-2 flex items-center justify-center text-main_purple font-bold'>
                                             {capacity}
                                     </div>
-                                    <div className='bg-secondary_purple rounded-3xl p-2 flex justify-center text-main_purple font-bold'>
+                                    <div className='text-sm text-center md:text-base bg-secondary_purple rounded-3xl p-2 flex justify-center text-main_purple font-bold'>
                                             {availability}
                                     </div>
-                                    <div className='bg-secondary_purple rounded-3xl p-2 flex justify-around'>
+                                    <div className='bg-secondary_purple rounded-3xl p-2 flex items-center justify-around'>
                                         <Typography as="a"
                                             variant="small"
                                             color="blue-gray"
-                                            className="font-medium w-6 h-6 cursor-pointer"
+                                            className="font-medium cursor-pointer"
                                             onClick={() => deleteTable(_id)}
                                         >
-                                            <XCircleIcon className='w-6 h-6 text-red-500' />
+                                            <XCircleIcon className='w-5 h-5 md:w-6 md:h-6 text-red-500' />
                                         </Typography>
 
                                         <Typography as="a"
                                             variant="small"
                                             color="blue-gray"
-                                            className="font-medium w-6 h-6 cursor-pointer"
+                                            className="font-medium cursor-pointer"
                                             onClick={() => handleOpen({ _id, tableNumber, capacity })}
                                         >
-                                            <PencilSquareIcon className='w-6 h-6 text-main_purple' />
+                                            <PencilSquareIcon className='w-5 h-5 md:w-6 md:h-6 text-main_purple' />
                                         </Typography>
                                     </div>
                                 </>

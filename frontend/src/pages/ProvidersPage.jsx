@@ -79,7 +79,7 @@ function ProductPage() {
                     {TABLE_HEAD.map((head) => (
                         <div
                             key={head}
-                            className="bg-main_purple rounded-3xl text-white text-2xl font-extrabold flex items-center justify-center p-2"
+                            className="bg-main_purple rounded-3xl text-white md:text-2xl font-extrabold flex items-center justify-center p-2"
                         >
                             {head}
                         </div>

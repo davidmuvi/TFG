@@ -100,7 +100,7 @@ function AddTablePage() {
                     {errors.capacity && <Typography className='text-red-500 text-sm'>{errors.capacity}</Typography>}
 
 
-                    <Button type="submit" className='w-full mt-4'>Añadir</Button>
+                    <Button type="submit" className='w-full mt-4 bg-main_purple'>Añadir</Button>
                 </form>
             </div>
         </Layout>

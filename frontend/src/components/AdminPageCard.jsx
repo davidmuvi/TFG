@@ -10,20 +10,24 @@ import PropTypes from "prop-types"
 
 export function AdminPageCard({ header, paragraph, icon, buttonText, redirection }) {
     return (
-        <Card className="sm:w-96 sm:h-64 w-80">
+        <Card className="sm:w-96 sm:h-64 w-80 bg-secondary_purple">
             <CardBody>
                 {icon}
-                <Typography variant="h5" color="blue-gray" className="mb-2 mt-3">
+                <Typography variant="h5" className="mb-2 mt-3 text-main_purple">
                     {header}
                 </Typography>
-                <Typography>
+                <Typography className="text-main_purple">
                     {paragraph}
                 </Typography>
             </CardBody>
             <CardFooter className="pt-0">
                 <Link to={redirection}>
                     <a className="inline-block cursor-pointer">
-                        <Button size="sm" variant="outlined" className="">
+                        <Button
+                            size="sm"
+                            variant="outlined"
+                            className="text-main_purple border-main_purple hover:scale-105 transition duration-300 ease-in-out"
+                        >
                             {buttonText}
                         </Button>
                     </a>
