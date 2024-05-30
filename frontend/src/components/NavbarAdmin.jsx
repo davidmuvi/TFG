@@ -7,13 +7,13 @@ import {
     Collapse,
 } from "@material-tailwind/react"
 import { Link } from "react-router-dom"
-import { ArrowRightCircleIcon } from "@heroicons/react/24/solid"
+import { ArrowRightCircleIcon, UserIcon } from "@heroicons/react/24/solid"
 import { useAuth } from "../context/AuthContext"
 import PropTypes from 'prop-types'
 
 export function NavbarAdmin({ redirection, icon, iconText }) {
     const [openNav, setOpenNav] = useState(false)
-    const { logout } = useAuth()
+    const { user, logout } = useAuth()
     useEffect(() => {
         window.addEventListener(
             "resize",
@@ -53,18 +53,16 @@ export function NavbarAdmin({ redirection, icon, iconText }) {
 
     return (
         <Navbar className="px-2 py-2 lg:px-8 lg:py-4 w-screen !max-w-full">
-            <div className="container mx-auto flex items-center justify-between text-blue-gray-900">
-                <Typography
-                    as="a"
-                    className="mr-4 cursor-pointer p-2 rounded-lg font-bold"
-                >
-                    EL SABOR DEL CHEF
-                </Typography>
-                <div className="hidden lg:block">{navList}</div>
-                <div className="flex items-center gap-x-1">
+            <div className="w-full px-3 flex items-center justify-between text-blue-gray-900">
+                <div className="hidden lg:flex lg:items-center lg:justify-center h-full w-2/3">{navList}</div>
+                <div className="flex items-center justify-end gap-10 w-1/3">
+                    <div className="hidden lg:flex lg:gap-3 lg:items-center lg:p-2 lg:border-black lg:border-2 lg:rounded-md">
+                        <p className='font-bold'>{user.username} </p>
+                        <UserIcon className='w-6 h-6 text-black' />
+                    </div>
                     <Button
                         color="red"
-                        className="hidden lg:inline-block"
+                        className="hidden lg:flex"
                         onClick={logout}
                     >
                         Logout
@@ -111,17 +109,19 @@ export function NavbarAdmin({ redirection, icon, iconText }) {
             <Collapse open={openNav}>
                 <div className="container mx-auto">
                     {navList}
-                    <div className="flex items-center gap-x-1">
-                        <Button
-                            variant="gradient"
-                            color="red"
-                            size="sm"
-                            className="lg:inline-block"
-                            onClick={logout}
-                        >
-                            <span>Logout</span>
-                        </Button>
+                    <div className="flex items-center justify-end gap-10 w-1/3">
+                    <div className="text-black flex gap-3 items-center p-2 border-black border-2 rounded-md">
+                        <p className='font-bold'>{user.username} </p>
+                        <UserIcon className='w-6 h-6' />
                     </div>
+                    <Button
+                        color="red"
+                        className="lg:flex"
+                        onClick={logout}
+                    >
+                        Logout
+                    </Button>
+                </div>
                 </div>
             </Collapse>
         </Navbar>

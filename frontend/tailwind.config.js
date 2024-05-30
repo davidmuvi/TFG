@@ -6,7 +6,13 @@ export default withMT({
     "./src/**/*.{js,ts,jsx,tsx}",
   ],
   theme: {
-    extend: {},
+    extend: {
+      colors: {
+        main_green: "#5CBF94",
+        main_purple: "#5C156B",
+        secondary_purple: "#CFCFFF"
+      }
+    },
   },
   plugins: [],
 })
