@@ -202,7 +202,7 @@ function BookingsPage({ bookings, setBookings }) {
                         TABLE_ROWS.length === 0 && (
                             <>
                                 <div className="p-4 col-span-5">
-                                    <Typography variant="h5" className="font-bold text-main_purple">
+                                    <Typography variant="h5" className="font-normal text-main_purple">
                                         NO HAY RESERVAS REGISTRADAS
                                     </Typography>
                                 </div>

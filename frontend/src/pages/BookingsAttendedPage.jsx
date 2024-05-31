@@ -102,8 +102,8 @@ function BookingsAttendedPage() {
                     {
                         TABLE_ROWS.length === 0 && (
                             <tr>
-                                <td colSpan={TABLE_HEAD.length} className="p-4">
-                                    <Typography variant="h5" color="blue-gray" className="font-normal">
+                                <td className="p-4 col-span-5">
+                                    <Typography variant="h5" className="font-normal text-main_purple">
                                         NO HAY RESERVAS ATENDIDAS
                                     </Typography>
                                 </td>

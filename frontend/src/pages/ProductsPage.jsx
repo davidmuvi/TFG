@@ -129,8 +129,8 @@ function ProductPage() {
                     {
                         TABLE_ROWS.length === 0 && (
                             <tr>
-                                <td colSpan={TABLE_HEAD.length} className="p-4">
-                                    <Typography variant="h5" color="blue-gray" className="font-normal">
+                                <td className="p-4 col-span-6">
+                                    <Typography variant="h5" className="font-bold text-main_purple">
                                         NO HAY PRODUCTOS REGISTRADOS
                                     </Typography>
                                 </td>

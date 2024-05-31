@@ -78,7 +78,7 @@ function LoginPage() {
             </div>
           </div>
           <Button type="submit"
-            className="flex w-2/3 justify-center bg-main_purple md:mt-10 lg:mt-0"
+            className="flex w-2/3 justify-center bg-main_purple md:mt-10"
           >
             Log In
           </Button>
