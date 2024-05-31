@@ -1,19 +1,16 @@
 import Client from '../models/client.js'
-import bcrypt from 'bcryptjs'
 
 class ClientController {
   async createClient(req, res) {
     // Obtengo los datos del cliente a guardar
-    const { name, telephone, email, username, password } = req.body
+    const { name, telephone, email } = req.body
 
     try {
-      // Hasheo la contraseña para guardarla hasheada en la base de datos
-      const passwordHash = await bcrypt.hash(password, 10)
-      const newClient = new Client({ name, telephone, email, username, password: passwordHash })
+      const newClient = new Client({ name, telephone, email })
       const clientSaved = await newClient.save()
       res.status(201).json(clientSaved)
     } catch (error) {
-      res.status(404).json({ message: 'Error creating client' })
+      res.status(404).json(error.message)
     }
   }
 

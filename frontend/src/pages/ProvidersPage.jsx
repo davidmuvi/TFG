@@ -111,13 +111,13 @@ function ProductPage() {
                     {/* Si no hay datos en la base de datos, mostramos un mensaje indicándolo.*/}
                     {
                         TABLE_ROWS.length === 0 && (
-                            <tr>
-                                <td className="p-4 col-span-3">
+                            <>
+                                <div className="p-4 col-span-3">
                                     <Typography variant="h5" className="font-normal text-main_purple">
                                         NO HAY PROVEEDORES REGISTRADOS
                                     </Typography>
-                                </td>
-                            </tr>
+                                </div>
+                            </>
                         )
                     }
                 </div>

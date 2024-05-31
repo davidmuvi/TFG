@@ -8,6 +8,15 @@ class ClientService {
         })
     }
 
+    async createClient(client) {
+        try {
+            const response = await this.api.post('/api/clients', client)
+            return response.data
+        } catch (error) {
+            throw new Error(error.message)
+        }
+    }
+
     async getClientByTelephone(telephone) {
         try {
             const response = await this.api.get(`/api/clients/${telephone}`)

@@ -7,7 +7,7 @@ const clientSchema = new mongoose.Schema({
     trim: true
   },
   telephone: {
-    type: Number,
+    type: String,
     required: true
   },
   email: {
@@ -15,16 +15,6 @@ const clientSchema = new mongoose.Schema({
     required: true,
     trim: true,
     unique: true
-  },
-  username: {
-    type: String,
-    required: true,
-    trim: true,
-    unique: true
-  },
-  password: {
-    type: String,
-    required: true
   }
 }, { timestamps: true })
 

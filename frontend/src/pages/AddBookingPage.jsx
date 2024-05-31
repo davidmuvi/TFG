@@ -9,6 +9,7 @@ function AddBookingPage() {
     const [formData, setFormData] = useState({
         name: '',
         telephone: '',
+        email: '',
         bookingDay: ''
     })
 
@@ -26,6 +27,7 @@ function AddBookingPage() {
         const newErrors = {}
         if (!formData.name) newErrors.name = 'El nombre del cliente es obligatorio'
         if (!formData.telephone) newErrors.telephone = 'El teléfono del cliente es obligatorio'
+        if (!formData.email) newErrors.email = 'El email del cliente es obligatorio'
         if (!formData.bookingDay) newErrors.bookingDay = 'El día de la reserva es obligatorio'
         setErrors(newErrors)
         return Object.keys(newErrors).length === 0
@@ -34,18 +36,44 @@ function AddBookingPage() {
     const createBooking = async () => {
         const { telephone, bookingDay } = formData
         const client = await clientService.getClientByTelephone(telephone)
-
-        if (!client) {
+        
+        // Consigo la fecha actual.
+        let actualDate = new Date()
+        const actualDay = String(actualDate.getDate()).padStart(2, '0')
+        const actualYear = actualDate.getFullYear()
+        const actualMonth = String(actualDate.getMonth() + 1).padStart(2, '0')
+        
+        actualDate = new Date(`${actualYear}-${actualMonth}-${actualDay}`)
+        const bookingDate = new Date(bookingDay)
+        
+        // Si la fecha de la reserva es anterior a la fecha actual, no se puede realizar la reserva.
+        if (bookingDate < actualDate){
             Swal.fire({
                 icon: 'error',
-                title: 'Usuario no existe',
-                text: 'No se encontró un cliente con el número de teléfono proporcionado.',
+                title: 'Reserva no creada',
+                text: 'La reserva no se ha podido crear. La fecha de la reserva debe ser posterior a la actual.',
             })
             return
         }
-
-        const newBooking = { clientId: client._id, date: bookingDay }
-        await bookingService.createBooking(newBooking)
+        
+        if (!client) {
+            try {
+                const newClient = { name: formData.name, telephone: formData.telephone, email: formData.email }
+                console.log(newClient)
+                const clientCreated = await clientService.createClient(newClient)
+                const newBooking = { clientId: clientCreated._id, date: bookingDay }
+                await bookingService.createBooking(newBooking)
+            } catch (error) { 
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Cliente no creado',
+                    text: 'No se ha podido crear el cliente.',
+                })
+            }
+        } else {
+            const newBooking = { clientId: client._id, date: bookingDay }
+            await bookingService.createBooking(newBooking)
+        }
     }
 
     const handleSubmit = (e) => {
@@ -53,7 +81,6 @@ function AddBookingPage() {
         if (validate()) {
             try {
                 createBooking()
-
                 Swal.fire({
                     icon: 'success',
                     title: 'Reserva creada',
@@ -63,6 +90,7 @@ function AddBookingPage() {
                 setFormData({
                     name: '',
                     telephone: '',
+                    email: '',
                     bookingDay: ''
                 })
             } catch (err) {
@@ -108,6 +136,20 @@ function AddBookingPage() {
                         className='text-main_purple border-main_purple placeholder-shown:border placeholder-shown:border-main_purple placeholder-shown:border-t-main_purple focus:border-main_purple'
                     />
                     {errors.telephone && <Typography className='text-red-500 text-sm'>{errors.telephone}</Typography>}
+                    
+                    <Input
+                        type="email"
+                        name="email"
+                        value={formData.email}
+                        onChange={handleChange}
+                        color="purple"
+                        label="Email del cliente"
+                        labelProps={{
+                            className: "!text-main_purple after:border-main_purple before:border-main_purple peer-focus:before:!border-main_purple peer-focus:after:!border-main_purple",
+                        }}
+                        className='text-main_purple border-main_purple placeholder-shown:border placeholder-shown:border-main_purple placeholder-shown:border-t-main_purple focus:border-main_purple'
+                    />
+                    {errors.email && <Typography className='text-red-500 text-sm'>{errors.email}</Typography>}
 
                     <Input
                         type="date"

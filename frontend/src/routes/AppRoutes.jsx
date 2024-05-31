@@ -13,12 +13,13 @@ import BookingsAttendedPage from '../pages/BookingsAttendedPage'
 import AdminPage from '../pages/AdminPage'
 import ManageEmployeesPage from '../pages/ManageEmployeesPage'
 import AddEmployeePage from '../pages/AddEmployeePage'
-
+import ErrorPage from '../pages/ErrorPage'
 const appRoutes = ({ bookings, setBookings }) => {
 
     return (
         <Routes>
             <Route path='/' element={<LoginPage />} />
+            <Route path='*' element={<ErrorPage />} />
             <Route element={<ProtectedRoute />}>
                 <Route path='/bookings' element={<BookingsPage bookings={bookings} setBookings={setBookings} />} />
                 <Route path='/bookings/add' element={<AddBookingPage />} />
@@ -32,7 +33,6 @@ const appRoutes = ({ bookings, setBookings }) => {
                 <Route path='/admin' element={<AdminPage />} />
                 <Route path='/admin/manage-employees' element={<ManageEmployeesPage />} />
                 <Route path='/admin/manage-employees/add' element={<AddEmployeePage />} />
-                {/* <Route path='*' element={<ErrorPage />} /> */}
             </Route>
         </Routes>
     )
