@@ -2,7 +2,7 @@ import Layout from '../layouts/LayoutPages.jsx'
 import { productService } from '../services/product.service.js'
 import { providerService } from '../services/provider.service.js'
 import { Input, Button, Typography } from '@material-tailwind/react'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import Swal from 'sweetalert2'
 import { stockService } from '../services/stock.service.js'
 
@@ -14,8 +14,12 @@ function AddProductPage() {
         providerName: '',
         quantity: ''
     })
-
     const [errors, setErrors] = useState({})
+    const [providers, setProviders] = useState([])
+
+    useEffect(() => { 
+        getProviders()
+    }, [])
 
     const handleChange = (e) => {
         const { name, value } = e.target
@@ -33,6 +37,11 @@ function AddProductPage() {
         if (!formData.providerName) newErrors.providerName = 'El nombre del proveedor es obligatorio'
         setErrors(newErrors)
         return Object.keys(newErrors).length === 0
+    }
+
+    const getProviders = async () => {
+        const providers = await providerService.getProviders()
+        setProviders(providers)
     }
 
     const createProduct = async () => {
@@ -137,18 +146,19 @@ function AddProductPage() {
                     />
                     {errors.price && <Typography className='text-red-500 text-sm'>{errors.price}</Typography>}
 
-                    <Input
-                        type="text"
+                    <select
                         name="providerName"
                         value={formData.providerName}
                         onChange={handleChange}
-                        color="purple"
-                        label="Nombre del proveedor"
-                        labelProps={{
-                            className: "!text-main_purple after:border-main_purple before:border-main_purple peer-focus:before:!border-main_purple peer-focus:after:!border-main_purple",
-                        }}
-                        className='text-main_purple border-main_purple placeholder-shown:border placeholder-shown:border-main_purple placeholder-shown:border-t-main_purple focus:border-main_purple'
-                    />
+                        className='bg-secondary_purple border border-main_purple p-2 rounded-md text-sm'
+                    >
+                        <option value=''>Seleccione un producto</option>
+                        {providers.map((provider) => (
+                            <option key={provider._id} value={provider.name}>
+                                {provider.name}
+                            </option>
+                        ))}
+                    </select>
                     {errors.providerName && <Typography className='text-red-500 text-sm'>{errors.providerName}</Typography>}
 
                     <Input
