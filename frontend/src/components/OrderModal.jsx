@@ -99,7 +99,7 @@ function OrderModal({ openOrderModal, setOpenOrderModal, bookingId }) {
                     <Typography variant="h4" className='text-center text-main_purple'>Pedido</Typography>
                     <XMarkIcon className='text-main_purple cursor-pointer w-6 h-6' onClick={() => setOpenOrderModal(false)} />
                 </div>
-                <div className='mb-3 border-2 border-blue-gray-100 p-1 rounded-lg break-words flex-1 overflow-y-auto max-h-full custom-scrollbar'>
+                <div className='mb-3 border-2 border-main_purple p-1 rounded-lg break-words flex-1 overflow-y-auto max-h-full custom-scrollbar'>
                     {order && order.products && order.products.length > 0 ? (
                         order.products.map((product, index) => (
                             <div key={index} className='mb-1 flex items-center justify-around text-main_purple'>
