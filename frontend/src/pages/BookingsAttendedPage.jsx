@@ -69,28 +69,28 @@ function BookingsAttendedPage() {
 
                         return (
                             <>
-                                <div className='bg-secondary_purple rounded-3xl p-2 flex justify-center text-main_purple font-bold'>
-                                    <Typography variant="small" color="blue-gray" className="font-normal">
+                                <div className='bg-secondary_purple rounded-3xl p-2 flex justify-center'>
+                                    <Typography variant="small" color="blue-gray" className="text-main_purple">
                                         {employeeName}
                                     </Typography>
                                 </div>
-                                <div className='bg-secondary_purple rounded-3xl p-2 flex justify-center text-main_purple font-bold'>
-                                    <Typography variant="small" color="blue-gray" className="font-normal">
+                                <div className='bg-secondary_purple rounded-3xl p-2 flex justify-center'>
+                                    <Typography variant="small" color="blue-gray" className="text-main_purple">
                                         {formatDate(bookingDate)}
                                     </Typography>
                                 </div>
-                                <div className='bg-secondary_purple rounded-3xl p-2 flex justify-center text-main_purple font-bold'>
-                                    <Typography variant="small" color="blue-gray" className="font-normal">
+                                <div className='bg-secondary_purple rounded-3xl p-2 flex justify-center'>
+                                    <Typography variant="small" color="blue-gray" className="text-main_purple">
                                         {clientInfo.name}
                                     </Typography>
                                 </div>
-                                <div className='bg-secondary_purple rounded-3xl p-2 flex justify-center text-main_purple font-bold'>
-                                    <Typography variant="small" color="blue-gray" className="font-normal">
+                                <div className='bg-secondary_purple rounded-3xl p-2 flex justify-center'>
+                                    <Typography variant="small" color="blue-gray" className="text-main_purple">
                                         {clientInfo.telephone}
                                     </Typography>
                                 </div>
-                                <div className='bg-secondary_purple rounded-3xl p-2 flex justify-center text-main_purple font-bold'>
-                                    <Typography variant="small" color="blue-gray" className="font-normal">
+                                <div className='bg-secondary_purple rounded-3xl p-2 flex justify-center'>
+                                    <Typography variant="small" color="blue-gray" className="text-main_purple">
                                         {clientInfo.email}
                                     </Typography>
                                 </div>
