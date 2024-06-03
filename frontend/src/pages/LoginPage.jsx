@@ -55,7 +55,7 @@ function LoginPage() {
   const { username, password } = loginData
 
   return (
-    <div className='h-screen w-screen flex items-center justify-center login'>
+    <div className='h-screen w-screen flex items-center justify-center login overflow-hidden'>
       <div className='lg:grid lg:grid-cols-2 sm:w-full sm:h-full px-44 py-24 backdrop-blur-sm'>
         <form onSubmit={handleSubmit}
           className="flex flex-col h-2/3 justify-center items-center text-main_purple bg-main_green shadow-lg rounded-lg p-10
