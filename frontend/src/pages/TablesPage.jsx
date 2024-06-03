@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 import { tableService } from '../services/table.service.js'
 import Layout from '../layouts/LayoutPages'
-import { Card, Typography } from "@material-tailwind/react"
+import { Card, Spinner, Typography } from "@material-tailwind/react"
 import { XCircleIcon, PencilSquareIcon } from '@heroicons/react/24/solid'
 import Swal from 'sweetalert2'
 import ModifyTableModal from '../components/ModifyTableModal.jsx'
@@ -11,6 +11,7 @@ function TablesPage({ bookings }) {
     const [tables, setTables] = useState([])
     const [currentTable, setCurrentTable] = useState({ _id: '', tableNumber: 0, capacity: 0 })
     const [open, setOpen] = useState(false)
+    const [loading, setLoading] = useState(true)
 
     const TABLE_HEAD = ["Numero de mesa", "Capacidad", "Disponibilidad", ""]
     const TABLE_ROWS = tables
@@ -30,6 +31,7 @@ function TablesPage({ bookings }) {
             }
 
             setTables(tablesWithAvailabilityField)
+            setLoading(false)
         } catch (error) {
             console.log(error.message)
         }
@@ -103,29 +105,33 @@ function TablesPage({ bookings }) {
 
     return (
         <Layout>
-            <Card className="flex-1 w-screen p-4">
-                <div className='grid grid-cols-4 gap-2 mb-4'>
-                    {TABLE_HEAD.map((head) => (
-                        <div
-                            key={head}
-                            className="px-5 text-xs bg-main_purple rounded-3xl text-white lg:text-2xl md:font-extrabold flex items-center justify-center md:p-2"
-                        >
-                            {head}
-                        </div>
-                    ))}
-                </div>
+            {loading ?
+                <div className='w-full flex-1 flex items-center justify-center'>
+                    <Spinner className='h-12 w-12' />
+                </div> :
+                <Card className="flex-1 w-screen p-4">
+                    <div className='grid grid-cols-4 gap-2 mb-4'>
+                        {TABLE_HEAD.map((head) => (
+                            <div
+                                key={head}
+                                className="px-5 text-xs bg-main_purple rounded-3xl text-white lg:text-2xl md:font-extrabold flex items-center justify-center md:p-2"
+                            >
+                                {head}
+                            </div>
+                        ))}
+                    </div>
                     <div className='grid grid-cols-4 gap-2 auto-rows-max'>
                         {TABLE_ROWS.map(({ _id, tableNumber, capacity, availability }) => {
                             return (
                                 <>
                                     <div className='bg-secondary_purple rounded-3xl p-2 flex items-center justify-center text-main_purple font-bold'>
-                                            {tableNumber}
+                                        {tableNumber}
                                     </div>
                                     <div className='bg-secondary_purple rounded-3xl p-2 flex items-center justify-center text-main_purple font-bold'>
-                                            {capacity}
+                                        {capacity}
                                     </div>
                                     <div className='text-sm text-center md:text-base bg-secondary_purple rounded-3xl p-2 flex justify-center text-main_purple font-bold'>
-                                            {availability}
+                                        {availability}
                                     </div>
                                     <div className='bg-secondary_purple rounded-3xl p-2 flex items-center justify-around'>
                                         <Typography as="a"
@@ -163,7 +169,8 @@ function TablesPage({ bookings }) {
                             )
                         }
                     </div>
-            </Card>
+                </Card>
+            }
             {open && <ModifyTableModal open={open} setOpen={setOpen} table={currentTable} updateTable={updateTable} />}
         </Layout>
     )

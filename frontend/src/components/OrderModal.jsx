@@ -130,7 +130,7 @@ function OrderModal({ openOrderModal, setOpenOrderModal, bookingId }) {
                         ))}
                     </select>
                     <PlusIcon
-                        className='h-6 w-6 text-main_purple'
+                        className='h-6 w-6 text-main_purple cursor-pointer'
                         onClick={() => updateOrderByBookingId(bookingId, formData.product)}
                     />
                 </div>

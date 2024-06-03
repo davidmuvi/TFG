@@ -5,7 +5,7 @@ import { useAuth } from '../context/AuthContext'
 import Layout from '../layouts/LayoutPages'
 import ModifyBookingModal from '../components/ModifyBookingModal'
 import OrderModal from '../components/OrderModal'
-import { Card, Typography } from "@material-tailwind/react"
+import { Card, Spinner, Typography } from "@material-tailwind/react"
 import { XCircleIcon, PencilSquareIcon, CheckCircleIcon, ClipboardDocumentListIcon } from '@heroicons/react/24/solid'
 import Swal from 'sweetalert2'
 import PropTypes from 'prop-types'
@@ -13,9 +13,9 @@ import PropTypes from 'prop-types'
 function BookingsPage({ bookings, setBookings }) {
     const [open, setOpen] = useState(false)
     const [openOrderModal, setOpenOrderModal] = useState(false)
-
     const [currentBooking, setCurrentBooking] = useState({ name: '', telephone: '', bookingDay: '' })
     const [currentBookingOrder, setCurrentBookingOrder] = useState('')
+    const [loading, setLoading] = useState(true)
 
     const { user } = useAuth()
     const TABLE_HEAD = ["Cliente", "Teléfono", "Fecha", "Numero de mesa", ""]
@@ -45,6 +45,7 @@ function BookingsPage({ bookings, setBookings }) {
                         const notAttendedBookings = bookings.filter(booking => !attendedBookingIds.includes(booking._id))
 
                         setBookings(notAttendedBookings)
+                        setLoading(false)
                     })
             })
             .catch(error => { console.error(error) })
@@ -113,92 +114,96 @@ function BookingsPage({ bookings, setBookings }) {
 
     return (
         <Layout>
-            <Card className="flex-1 w-screen p-4">
-                <div className='grid grid-cols-5 gap-2 mb-4'>
-                    {TABLE_HEAD.map((head) => (
-                        <div
-                            key={head}
-                            className="text-xs text-center font-medium bg-main_purple rounded-3xl text-white md:text-base lg:text-2xl md:font-extrabold flex items-center justify-center p-2"
-                        >
-                            {head}
-                        </div>
-                    ))}
-                </div>
+            {loading ?
+                <div className='w-full flex-1 flex items-center justify-center'>
+                    <Spinner className='h-12 w-12' />
+                </div> :
+                <Card className="flex-1 w-screen p-4">
+                    <div className='grid grid-cols-5 gap-2 mb-4'>
+                        {TABLE_HEAD.map((head) => (
+                            <div
+                                key={head}
+                                className="text-xs text-center font-medium bg-main_purple rounded-3xl text-white md:text-base lg:text-2xl md:font-extrabold flex items-center justify-center p-2"
+                            >
+                                {head}
+                            </div>
+                        ))}
+                    </div>
 
-                <div className='grid grid-cols-5 gap-2 auto-rows-max'>
-                    {TABLE_ROWS.map(({ _id, clientId, tableId, date }) => {
-                        {/* Compruebo que el cliente existe, si existe asigno sus datos sino un mensaje de error.*/ }
-                        const clientName = clientId && clientId.name ? clientId.name : 'No existe el cliente'
-                        const clientTelephone = clientId && clientId.telephone ? clientId.telephone : 'No existe el cliente'
-                        const tableNumber = tableId && tableId.tableNumber ? tableId.tableNumber : 'Mesa no asignada'
+                    <div className='grid grid-cols-5 gap-2 auto-rows-max'>
+                        {TABLE_ROWS.map(({ _id, clientId, tableId, date }) => {
+                            {/* Compruebo que el cliente existe, si existe asigno sus datos sino un mensaje de error.*/ }
+                            const clientName = clientId && clientId.name ? clientId.name : 'No existe el cliente'
+                            const clientTelephone = clientId && clientId.telephone ? clientId.telephone : 'No existe el cliente'
+                            const tableNumber = tableId && tableId.tableNumber ? tableId.tableNumber : 'Mesa no asignada'
 
-                        return (
-                            <>
-                                <div className='text-xs md:text-base bg-secondary_purple rounded-3xl p-2 flex items-center justify-center text-main_purple font-bold'>
-                                    {clientName}
-                                </div>
-                                <div className='text-xs md:text-base bg-secondary_purple rounded-3xl p-2 flex items-center justify-center text-main_purple font-bold'>
-                                    {clientTelephone}
-                                </div>
-                                <div className='text-xs md:text-base bg-secondary_purple rounded-3xl p-2 flex items-center justify-center text-main_purple font-bold'>
-                                    {formatDate({ date })}
-                                </div>
-                                <div className='text-xs md:text-base bg-secondary_purple text-center rounded-3xl p-2 flex items-center justify-center text-main_purple font-bold'>
-                                    {tableNumber}
-                                </div>
-                                <div className='bg-secondary_purple rounded-3xl p-2 flex flex-col md:flex-row items-center justify-around'>
-                                    <Typography className="font-medium w-6 h-6 cursor-pointer"
-                                        onClick={() => handleOpen({ id: _id, date: new Date(date).toLocaleDateString })}
-                                    >
-                                        <PencilSquareIcon className='w-5 h-5 md:w-6 md:h-6 text-main_purple' />
-                                    </Typography>
-
-                                    <Typography className="font-medium w-6 h-6 cursor-pointer"
-                                        onClick={() => handleOpenOrderModal(_id)}
-                                    >
-                                        <ClipboardDocumentListIcon className='w-5 h-5 md:w-6 md:h-6 text-main_purple' />
-                                    </Typography>
-
-                                    {user.userType !== 'admin' &&
+                            return (
+                                <>
+                                    <div className='text-xs md:text-base bg-secondary_purple rounded-3xl p-2 flex items-center justify-center text-main_purple font-bold'>
+                                        {clientName}
+                                    </div>
+                                    <div className='text-xs md:text-base bg-secondary_purple rounded-3xl p-2 flex items-center justify-center text-main_purple font-bold'>
+                                        {clientTelephone}
+                                    </div>
+                                    <div className='text-xs md:text-base bg-secondary_purple rounded-3xl p-2 flex items-center justify-center text-main_purple font-bold'>
+                                        {formatDate({ date })}
+                                    </div>
+                                    <div className='text-xs md:text-base bg-secondary_purple text-center rounded-3xl p-2 flex items-center justify-center text-main_purple font-bold'>
+                                        {tableNumber}
+                                    </div>
+                                    <div className='bg-secondary_purple rounded-3xl p-2 flex flex-col md:flex-row items-center justify-around'>
                                         <Typography className="font-medium w-6 h-6 cursor-pointer"
-                                            onClick={
-                                                () => tableId && tableId.tableNumber
-                                                    ? attendBooking(_id, user.id)
-                                                    : Swal.fire({
-                                                        icon: 'error',
-                                                        title: 'Reserva no atendida',
-                                                        text: 'La reserva debe tener una mesa asignada para poder atenderla.',
-                                                    })
-                                            }
+                                            onClick={() => handleOpen({ id: _id, date: new Date(date).toLocaleDateString })}
                                         >
-                                            <CheckCircleIcon className='w-5 h-5 md:w-6 md:h-6 text-green-500' />
+                                            <PencilSquareIcon className='w-5 h-5 md:w-6 md:h-6 text-main_purple' />
                                         </Typography>
-                                    }
 
-                                    <Typography className="font-medium w-6 h-6 cursor-pointer"
-                                        onClick={() => deleteBooking(_id)}
-                                    >
-                                        <XCircleIcon className='w-5 h-5 md:w-6 md:h-6 text-red-500' />
-                                    </Typography>
-                                </div>
-                            </>
-                        )
-                    })}
+                                        <Typography className="font-medium w-6 h-6 cursor-pointer"
+                                            onClick={() => handleOpenOrderModal(_id)}
+                                        >
+                                            <ClipboardDocumentListIcon className='w-5 h-5 md:w-6 md:h-6 text-main_purple' />
+                                        </Typography>
 
-                    {/* Si no hay datos en la base de datos, mostramos un mensaje indicándolo.*/}
-                    {
-                        TABLE_ROWS.length === 0 && (
-                            <>
-                                <div className="p-4 col-span-5">
-                                    <Typography variant="h5" className="font-normal text-main_purple">
-                                        NO HAY RESERVAS REGISTRADAS
-                                    </Typography>
-                                </div>
-                            </>
-                        )
-                    }
-                </div>
-            </Card>
+                                        {user.userType !== 'admin' &&
+                                            <Typography className="font-medium w-6 h-6 cursor-pointer"
+                                                onClick={
+                                                    () => tableId && tableId.tableNumber
+                                                        ? attendBooking(_id, user.id)
+                                                        : Swal.fire({
+                                                            icon: 'error',
+                                                            title: 'Reserva no atendida',
+                                                            text: 'La reserva debe tener una mesa asignada para poder atenderla.',
+                                                        })
+                                                }
+                                            >
+                                                <CheckCircleIcon className='w-5 h-5 md:w-6 md:h-6 text-green-500' />
+                                            </Typography>
+                                        }
+
+                                        <Typography className="font-medium w-6 h-6 cursor-pointer"
+                                            onClick={() => deleteBooking(_id)}
+                                        >
+                                            <XCircleIcon className='w-5 h-5 md:w-6 md:h-6 text-red-500' />
+                                        </Typography>
+                                    </div>
+                                </>
+                            )
+                        })}
+
+                        {/* Si no hay datos en la base de datos, mostramos un mensaje indicándolo.*/}
+                        {
+                            TABLE_ROWS.length === 0 && (
+                                <>
+                                    <div className="p-4 col-span-5">
+                                        <Typography variant="h5" className="font-normal text-main_purple">
+                                            NO HAY RESERVAS REGISTRADAS
+                                        </Typography>
+                                    </div>
+                                </>
+                            )
+                        }
+                    </div>
+                </Card>}
             {open && <ModifyBookingModal open={open} setOpen={setOpen} booking={currentBooking} updateBooking={updateBooking} />}
             {openOrderModal && <OrderModal openOrderModal={openOrderModal} setOpenOrderModal={setOpenOrderModal} bookingId={currentBookingOrder} />}
         </Layout>

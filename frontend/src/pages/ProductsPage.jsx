@@ -3,7 +3,7 @@ import { productService } from '../services/product.service.js'
 import { stockService } from '../services/stock.service.js'
 import Layout from '../layouts/LayoutPages'
 import ModifyProductModal from '../components/ModifyProductModal'
-import { Card, Typography } from "@material-tailwind/react"
+import { Card, Spinner, Typography } from "@material-tailwind/react"
 import { XCircleIcon, PencilSquareIcon } from '@heroicons/react/24/solid'
 import Swal from 'sweetalert2'
 
@@ -11,6 +11,7 @@ function ProductPage() {
     const [products, setProducts] = useState([])
     const [currentProduct, setCurrentProduct] = useState({ _id: '', name: '', category: '', price: '' })
     const [open, setOpen] = useState(false)
+    const [loading, setLoading] = useState(true)
 
     const TABLE_HEAD = ["Nombre", "Categoría", "Precio", "Cantidad", "Proveedor", ""]
     const TABLE_ROWS = products
@@ -31,6 +32,7 @@ function ProductPage() {
                 }
             }))
             setProducts(productsWithStock)
+            setLoading(false)
         } catch (error) {
             console.log(error.message)
         }
@@ -78,68 +80,72 @@ function ProductPage() {
 
     return (
         <Layout>
-            <Card className="flex-1 w-screen p-4">
-                <div className='grid grid-cols-6 gap-2 mb-4'>
-                    {TABLE_HEAD.map((head) => (
-                        <div
-                            key={head}
-                            className="py-2 px-7 text-xs md:text-base bg-main_purple rounded-3xl text-white lg:text-2xl md:font-extrabold flex items-center justify-center md:p-2"
-                        >
-                            {head}
-                        </div>
-                    ))}
-                </div>
+            {loading ?
+                <div className='w-full flex-1 flex items-center justify-center'>
+                    <Spinner className='h-12 w-12' />
+                </div> :
+                <Card className="flex-1 w-screen p-4">
+                    <div className='grid grid-cols-6 gap-2 mb-4'>
+                        {TABLE_HEAD.map((head) => (
+                            <div
+                                key={head}
+                                className="py-2 px-7 text-xs md:text-base bg-main_purple rounded-3xl text-white lg:text-2xl md:font-extrabold flex items-center justify-center md:p-2"
+                            >
+                                {head}
+                            </div>
+                        ))}
+                    </div>
 
-                <div className='grid grid-cols-6 gap-2 auto-rows-max'>
-                    {TABLE_ROWS.map(({ _id, name, category, price, providerId, quantity }) => {
-                        // Compruebo que el proveedor existe, si existe asigno su nombre sino un mensaje de error
-                        const providerName = providerId && providerId.name ? providerId.name : 'No existe el proveedor'
+                    <div className='grid grid-cols-6 gap-2 auto-rows-max'>
+                        {TABLE_ROWS.map(({ _id, name, category, price, providerId, quantity }) => {
+                            // Compruebo que el proveedor existe, si existe asigno su nombre sino un mensaje de error
+                            const providerName = providerId && providerId.name ? providerId.name : 'No existe el proveedor'
 
-                        return (
-                            <>
-                                <div className='text-wrap text-xs md:text-base text-center bg-secondary_purple rounded-3xl p-2 flex items-center justify-center text-main_purple font-bold'>
-                                    {name}
-                                </div>
-                                <div className='text-xs md:text-base bg-secondary_purple rounded-3xl p-2 flex items-center justify-center text-main_purple font-bold'>
-                                    {category}
-                                </div>
-                                <div className='text-xs md:text-base bg-secondary_purple rounded-3xl p-2 flex items-center justify-center text-main_purple font-bold'>
-                                    {price}
-                                </div>
-                                <div className='text-xs md:text-base bg-secondary_purple rounded-3xl p-2 flex items-center justify-center text-main_purple font-bold'>
-                                    {quantity}
-                                </div>
-                                <div className='text-xs md:text-base bg-secondary_purple rounded-3xl p-2 flex items-center justify-center text-main_purple font-bold'>
-                                    {providerName}
-                                </div>
-                                <div className='bg-secondary_purple rounded-3xl p-2 flex items-center justify-around'>
-                                    <Typography variant="small" color="blue-gray" className="font-medium w-6 h-6 cursor-pointer" onClick={() => deleteProduct(_id)}>
-                                        <XCircleIcon className='w-4 h-4 md:w-6 md:h-6 text-red-500' />
-                                    </Typography>
+                            return (
+                                <>
+                                    <div className='text-wrap text-xs md:text-base text-center bg-secondary_purple rounded-3xl p-2 flex items-center justify-center text-main_purple font-bold'>
+                                        {name}
+                                    </div>
+                                    <div className='text-xs md:text-base bg-secondary_purple rounded-3xl p-2 flex items-center justify-center text-main_purple font-bold'>
+                                        {category}
+                                    </div>
+                                    <div className='text-xs md:text-base bg-secondary_purple rounded-3xl p-2 flex items-center justify-center text-main_purple font-bold'>
+                                        {price}
+                                    </div>
+                                    <div className='text-xs md:text-base bg-secondary_purple rounded-3xl p-2 flex items-center justify-center text-main_purple font-bold'>
+                                        {quantity}
+                                    </div>
+                                    <div className='text-xs md:text-base bg-secondary_purple rounded-3xl p-2 flex items-center justify-center text-main_purple font-bold'>
+                                        {providerName}
+                                    </div>
+                                    <div className='bg-secondary_purple rounded-3xl p-2 flex items-center justify-around'>
+                                        <Typography variant="small" color="blue-gray" className="font-medium w-6 h-6 cursor-pointer" onClick={() => deleteProduct(_id)}>
+                                            <XCircleIcon className='w-4 h-4 md:w-6 md:h-6 text-red-500' />
+                                        </Typography>
 
-                                    <Typography variant="small" color="blue-gray" className="font-medium w-6 h-6 cursor-pointer" onClick={() => { handleOpen({ _id, name, category, price }) }}>
-                                        <PencilSquareIcon className='w-4 h-4 md:w-6 md:h-6 text-main_purple' />
-                                    </Typography>
-                                </div>
-                            </>
-                        )
-                    })}
+                                        <Typography variant="small" color="blue-gray" className="font-medium w-6 h-6 cursor-pointer" onClick={() => { handleOpen({ _id, name, category, price }) }}>
+                                            <PencilSquareIcon className='w-4 h-4 md:w-6 md:h-6 text-main_purple' />
+                                        </Typography>
+                                    </div>
+                                </>
+                            )
+                        })}
 
-                    {/* Si no hay datos en la base de datos, mostramos un mensaje indicándolo. */}
-                    {
-                        TABLE_ROWS.length === 0 && (
-                            <>
-                                <div className="p-4 col-span-6">
-                                    <Typography variant="h5" className="font-bold text-main_purple">
-                                        NO HAY PRODUCTOS REGISTRADOS
-                                    </Typography>
-                                </div>
-                            </>
-                        )
-                    }
-                </div>
-            </Card>
-
+                        {/* Si no hay datos en la base de datos, mostramos un mensaje indicándolo. */}
+                        {
+                            TABLE_ROWS.length === 0 && (
+                                <>
+                                    <div className="p-4 col-span-6">
+                                        <Typography variant="h5" className="font-bold text-main_purple">
+                                            NO HAY PRODUCTOS REGISTRADOS
+                                        </Typography>
+                                    </div>
+                                </>
+                            )
+                        }
+                    </div>
+                </Card>
+            }
             {/* Si el modal de modificar está abierto, le pasamos el producto desde el que se ha abierto y la función para modificar el producto. */}
             {open && <ModifyProductModal open={open} setOpen={setOpen} product={currentProduct} updateProduct={updateProduct} />}
         </Layout>

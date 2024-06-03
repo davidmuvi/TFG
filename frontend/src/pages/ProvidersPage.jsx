@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 import { providerService } from '../services/provider.service.js'
 import Layout from '../layouts/LayoutPages'
-import { Card, Typography } from "@material-tailwind/react"
+import { Card, Spinner, Typography } from "@material-tailwind/react"
 import { XCircleIcon, PencilSquareIcon } from '@heroicons/react/24/solid'
 import Swal from 'sweetalert2'
 import ModifyProviderModal from '../components/ModifyProviderModal.jsx'
@@ -10,6 +10,7 @@ function ProductPage() {
     const [providers, setProviders] = useState([])
     const [open, setOpen] = useState(false)
     const [currentProvider, setCurrentProvider] = useState({ _id: '', name: '' })
+    const [loading, setLoading] = useState(true)
 
     const TABLE_HEAD = ["Nombre", "Productos", ""]
     const TABLE_ROWS = providers
@@ -31,6 +32,7 @@ function ProductPage() {
         }))
 
         setProviders(providersWithProducts)
+        setLoading(false)
     }
 
     const deleteProvider = (providerId) => {
@@ -74,54 +76,59 @@ function ProductPage() {
 
     return (
         <Layout>
-            <Card className="flex-1 w-screen p-4">
-                <div className='grid grid-cols-3 gap-2 mb-4'>
-                    {TABLE_HEAD.map((head) => (
-                        <div
-                            key={head}
-                            className="bg-main_purple rounded-3xl text-white md:text-2xl font-extrabold flex items-center justify-center p-2"
-                        >
-                            {head}
-                        </div>
-                    ))}
-                </div>
-                <div className='grid grid-cols-3 gap-2 auto-rows-max'>
-                    {TABLE_ROWS.map(({ _id, name, products }) => {
-                        return (
-                            <>
-                                <div className='bg-secondary_purple rounded-3xl p-2 flex justify-center text-main_purple font-bold'>
-                                    {name}
-                                </div>
-                                <div className='bg-secondary_purple rounded-3xl p-2 flex justify-center text-main_purple font-bold'>
-                                    {products}
-                                </div>
-                                <div className='bg-secondary_purple rounded-3xl p-2 flex justify-around'>
-                                    <Typography as="a" href="#" variant="small" color="blue-gray" className="font-medium w-6 h-6" onClick={() => deleteProvider(_id)}>
-                                        <XCircleIcon className='w-6 h-6 text-red-500' />
-                                    </Typography>
+            {loading ?
+                <div className='w-full flex-1 flex items-center justify-center'>
+                    <Spinner className='h-12 w-12' />
+                </div> :
+                <Card className="flex-1 w-screen p-4">
+                    <div className='grid grid-cols-3 gap-2 mb-4'>
+                        {TABLE_HEAD.map((head) => (
+                            <div
+                                key={head}
+                                className="bg-main_purple rounded-3xl text-white md:text-2xl font-extrabold flex items-center justify-center p-2"
+                            >
+                                {head}
+                            </div>
+                        ))}
+                    </div>
+                    <div className='grid grid-cols-3 gap-2 auto-rows-max'>
+                        {TABLE_ROWS.map(({ _id, name, products }) => {
+                            return (
+                                <>
+                                    <div className='bg-secondary_purple rounded-3xl p-2 flex justify-center text-main_purple font-bold'>
+                                        {name}
+                                    </div>
+                                    <div className='bg-secondary_purple rounded-3xl p-2 flex justify-center text-main_purple font-bold'>
+                                        {products}
+                                    </div>
+                                    <div className='bg-secondary_purple rounded-3xl p-2 flex justify-around'>
+                                        <Typography as="a" href="#" variant="small" color="blue-gray" className="font-medium w-6 h-6" onClick={() => deleteProvider(_id)}>
+                                            <XCircleIcon className='w-6 h-6 text-red-500' />
+                                        </Typography>
 
-                                    <Typography as="a" href="#" variant="small" color="blue-gray" className="font-medium w-6 h-6" onClick={() => handleOpen({ _id, name })}>
-                                        <PencilSquareIcon className='w-6 h-6 text-main_purple' />
-                                    </Typography>
-                                </div>
-                            </>
-                        )
-                    })}
+                                        <Typography as="a" href="#" variant="small" color="blue-gray" className="font-medium w-6 h-6" onClick={() => handleOpen({ _id, name })}>
+                                            <PencilSquareIcon className='w-6 h-6 text-main_purple' />
+                                        </Typography>
+                                    </div>
+                                </>
+                            )
+                        })}
 
-                    {/* Si no hay datos en la base de datos, mostramos un mensaje indicándolo.*/}
-                    {
-                        TABLE_ROWS.length === 0 && (
-                            <>
-                                <div className="p-4 col-span-3">
-                                    <Typography variant="h5" className="font-normal text-main_purple">
-                                        NO HAY PROVEEDORES REGISTRADOS
-                                    </Typography>
-                                </div>
-                            </>
-                        )
-                    }
-                </div>
-            </Card>
+                        {/* Si no hay datos en la base de datos, mostramos un mensaje indicándolo.*/}
+                        {
+                            TABLE_ROWS.length === 0 && (
+                                <>
+                                    <div className="p-4 col-span-3">
+                                        <Typography variant="h5" className="font-normal text-main_purple">
+                                            NO HAY PROVEEDORES REGISTRADOS
+                                        </Typography>
+                                    </div>
+                                </>
+                            )
+                        }
+                    </div>
+                </Card>
+            }
             <ModifyProviderModal open={open} setOpen={setOpen} provider={currentProvider} updateProvider={updateProvider} />
         </Layout>
     )
