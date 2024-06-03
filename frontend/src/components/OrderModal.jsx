@@ -3,18 +3,20 @@ import { orderService } from '../services/order.service.js'
 import { productService } from '../services/product.service.js'
 import { Dialog, Typography } from '@material-tailwind/react'
 import { MinusIcon, PlusIcon, XMarkIcon } from '@heroicons/react/24/solid'
-import { Input } from '@material-tailwind/react'
 import PropTypes from 'prop-types'
+import { stockService } from '../services/stock.service.js'
 
 function OrderModal({ openOrderModal, setOpenOrderModal, bookingId }) {
     const [order, setOrder] = useState([])
+    const [productsWithStock, setProductsWithStock] = useState([])
     const [formData, setFormData] = useState({
         product: ''
     })
 
     useEffect(() => {
         getOrderByBookingId()
-    }, [bookingId])
+        getProductsWithStock()
+    }, [])
 
     const handleChange = (e) => {
         const { name, value } = e.target
@@ -22,6 +24,25 @@ function OrderModal({ openOrderModal, setOpenOrderModal, bookingId }) {
             ...formData,
             [name]: value
         })
+    }
+
+    const getProductsWithStock = async () => {
+        try {
+            const products = await productService.getProducts()
+            const productsWithStock = await Promise.all(products.map(async (product) => {
+                const stock = await stockService.getStockByProductId(product._id)
+                return {
+                    ...product,
+                    quantity: stock ? stock.quantity : 0
+                }
+            }))
+
+            // Filtramos los productos que están disponibles, ya que su stock es positivo.
+            const availableProducts = productsWithStock.filter(product => product.quantity > 0)
+            setProductsWithStock(availableProducts)
+        } catch (error) {
+            console.log(error.message)
+        }
     }
 
     const getOrderByBookingId = async () => {
@@ -43,7 +64,9 @@ function OrderModal({ openOrderModal, setOpenOrderModal, bookingId }) {
                     orderService.updateOrderByBookingId(bookingId, product._id)
                         .then(() => {
                             getOrderByBookingId()
+                            stockService.decreaseStockByProductId(product._id, 1)
                             setFormData({ product: '' })
+                            getProductsWithStock()
                         })
                         .catch((error) => {
                             console.log(error)
@@ -56,6 +79,8 @@ function OrderModal({ openOrderModal, setOpenOrderModal, bookingId }) {
         orderService.deleteProductInOrderByBookingId(bookingId, productId)
             .then(() => {
                 getOrderByBookingId()
+                stockService.increaseStockByProductId(productId, 1)
+                getProductsWithStock()
             })
             .catch((error) => {
                 console.log(error)
@@ -78,7 +103,7 @@ function OrderModal({ openOrderModal, setOpenOrderModal, bookingId }) {
                     {order && order.products && order.products.length > 0 ? (
                         order.products.map((product, index) => (
                             <div key={index} className='mb-1 flex items-center justify-around'>
-                                <p>{product.name}</p>
+                                <p className='w-60'>{product.name}</p>
                                 <p>{product.price}€</p>
                                 <MinusIcon
                                     className='w-6 h-6 text-red-700 font-extrabold cursor-pointer'
@@ -91,13 +116,19 @@ function OrderModal({ openOrderModal, setOpenOrderModal, bookingId }) {
                     )}
                 </div>
                 <div className='flex gap-4 items-center'>
-                    <Input
-                        type='text'
+                    <select
                         name='product'
                         value={formData.product}
                         onChange={handleChange}
-                        placeholder='Añadir producto'
-                    />
+                        className='w-full p-2 rounded border border-gray-500'
+                    >
+                        <option value=''>Seleccione un producto</option>
+                        {productsWithStock.map((product) => (
+                            <option key={product._id} value={product.name}>
+                                {product.name}
+                            </option>
+                        ))}
+                    </select>
                     <PlusIcon
                         className='h-6 w-6 text-black cursor-pointer'
                         onClick={() => updateOrderByBookingId(bookingId, formData.product)}

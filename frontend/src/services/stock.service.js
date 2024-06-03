@@ -28,7 +28,7 @@ class StockService {
 
     async increaseStockByProductId(productId, quantity) {
         try {
-            const response = await this.api.patch(`/api/stock/product/increase/${productId}`, quantity)
+            const response = await this.api.patch(`/api/stock/product/increase/${productId}`, { quantity: quantity })
             return response.data
         } catch (error) {
             throw new Error(error.message)
