@@ -152,7 +152,7 @@ function AddProductPage() {
                         onChange={handleChange}
                         className='bg-secondary_purple border border-main_purple p-2 rounded-md text-sm'
                     >
-                        <option value=''>Seleccione un producto</option>
+                        <option value=''>Seleccione un proveedor</option>
                         {providers.map((provider) => (
                             <option key={provider._id} value={provider.name}>
                                 {provider.name}
