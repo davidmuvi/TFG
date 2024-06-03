@@ -94,15 +94,15 @@ function OrderModal({ openOrderModal, setOpenOrderModal, bookingId }) {
             handler={() => setOpenOrderModal(!openOrderModal)}
             className='bg-transparent shadow-none flex items-center justify-center h-full'
         >
-            <div className='w-full h-2/3 max-w-md bg-gray-200 p-6 rounded-lg shadow-lg flex flex-col justify-between'>
+            <div className='w-full h-2/3 max-w-md bg-secondary_purple p-6 rounded-lg shadow-lg flex flex-col justify-between'>
                 <div className='flex justify-between items-center mb-6'>
-                    <Typography variant="h4" className='text-center text-gray-900'>Pedido</Typography>
-                    <XMarkIcon className='text-black cursor-pointer w-6 h-6' onClick={() => setOpenOrderModal(false)} />
+                    <Typography variant="h4" className='text-center text-main_purple'>Pedido</Typography>
+                    <XMarkIcon className='text-main_purple cursor-pointer w-6 h-6' onClick={() => setOpenOrderModal(false)} />
                 </div>
                 <div className='mb-3 border-2 border-blue-gray-100 p-1 rounded-lg break-words flex-1 overflow-y-auto max-h-full custom-scrollbar'>
                     {order && order.products && order.products.length > 0 ? (
                         order.products.map((product, index) => (
-                            <div key={index} className='mb-1 flex items-center justify-around'>
+                            <div key={index} className='mb-1 flex items-center justify-around text-main_purple'>
                                 <p className='w-60'>{product.name}</p>
                                 <p>{product.price}€</p>
                                 <MinusIcon
@@ -120,7 +120,7 @@ function OrderModal({ openOrderModal, setOpenOrderModal, bookingId }) {
                         name='product'
                         value={formData.product}
                         onChange={handleChange}
-                        className='w-full p-2 rounded border border-gray-500'
+                        className='w-full p-2 rounded border text-main_purple border-main_purple'
                     >
                         <option value=''>Seleccione un producto</option>
                         {productsWithStock.map((product) => (
@@ -130,7 +130,7 @@ function OrderModal({ openOrderModal, setOpenOrderModal, bookingId }) {
                         ))}
                     </select>
                     <PlusIcon
-                        className='h-6 w-6 text-black cursor-pointer'
+                        className='h-6 w-6 text-main_purple'
                         onClick={() => updateOrderByBookingId(bookingId, formData.product)}
                     />
                 </div>
