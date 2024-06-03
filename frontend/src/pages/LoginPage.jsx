@@ -62,8 +62,8 @@ function LoginPage() {
                      lg:rounded-tl-lg lg:rounded-bl-lg lg:rounded-tr-none lg:rounded-br-none lg:h-auto lg:w-auto lg:mt-0
                      md:mt-20"
         >
-          <Typography variant='h2' className='mb-10'> Bienvenido! </Typography>
-          <div className="flex flex-col gap-8 justify-center w-2/3 h-1/3 mb-5">
+          <Typography variant='h2' className='mb-8 md:mb-10 w-full md:w-2/3'> Bienvenido! </Typography>
+          <div className="flex flex-col gap-8 justify-center w-full md:w-2/3 h-1/3 mb-5">
             <div className="flex flex-col gap-2">
               <label className="text-md font-bold">Username</label>
               <input type="text" name="username" value={username} onChange={handleInputChange}
@@ -78,7 +78,7 @@ function LoginPage() {
             </div>
           </div>
           <Button type="submit"
-            className="flex w-2/3 justify-center bg-main_purple md:mt-10"
+            className="flex w-full justify-center mt-4 bg-main_purple md:mt-10 md:w-2/3"
           >
             Log In
           </Button>

@@ -14,8 +14,18 @@ function AddEmployeePage() {
         role: '',
         telephone: ''
     })
-
     const [errors, setErrors] = useState({})
+
+    const ROLES = [
+        {
+            _id: crypto.randomUUID(),
+            name: 'manager'
+        },
+        {
+            _id: crypto.randomUUID(),
+            name: 'normal'
+        }
+    ]
 
     const handleChange = (e) => {
         const { name, value } = e.target
@@ -141,17 +151,19 @@ function AddEmployeePage() {
                     />
                     {errors.email && <Typography className='text-red-500 text-sm'>{errors.email}</Typography>}
 
-                    <Input
+                    <select
                         name="role"
                         value={formData.role}
                         onChange={handleChange}
-                        color="purple"
-                        label="Puesto del empleado"
-                        labelProps={{
-                            className: "!text-main_purple after:border-main_purple before:border-main_purple peer-focus:before:!border-main_purple peer-focus:after:!border-main_purple",
-                        }}
-                        className='text-main_purple border-main_purple placeholder-shown:border placeholder-shown:border-main_purple placeholder-shown:border-t-main_purple focus:border-main_purple'
-                    />
+                        className='bg-secondary_purple border border-main_purple p-2 rounded-md text-sm'
+                    >
+                        <option value=''>Seleccione un puesto</option>
+                        {ROLES.map((role) => (
+                            <option key={role._id} value={role.name}>
+                                {role.name}
+                            </option>
+                        ))}
+                    </select>
                     {errors.role && <Typography className='text-red-500 text-sm'>{errors.role}</Typography>}
 
                     <Input
