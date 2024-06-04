@@ -120,7 +120,7 @@ function OrderModal({ openOrderModal, setOpenOrderModal, bookingId }) {
                         name='product'
                         value={formData.product}
                         onChange={handleChange}
-                        className='w-full p-2 rounded border text-secondary_purple border-secondary_purple bg-main_purple'
+                        className='w-full p-2 rounded border text-main_purple border-main_purple bg-secondary_purple'
                     >
                         <option value=''>Seleccione un producto</option>
                         {productsWithStock.map((product) => (

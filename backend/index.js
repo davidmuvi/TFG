@@ -9,9 +9,13 @@ const port = process.env.PORT || 3000
 app.listen(port, () => {
   console.log(`Server is running http://localhost:${port}`)
 
+  const timezone = 'Europe/Madrid'
+
   // Programo la tarea para que revise las reservas y envíe el email todos los días a las 09:00
   cron.schedule('0 9 * * *', () => {
+    console.log('Checking bookings and sending emails...')
     checkBookingsAndSendEmail()
+  }, {
+    timezone: timezone
   })
-
 })
