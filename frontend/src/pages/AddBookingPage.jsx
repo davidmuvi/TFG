@@ -2,7 +2,7 @@ import Layout from '../layouts/LayoutPages.jsx'
 import { bookingService } from '../services/booking.service.js'
 import { clientService } from '../services/client.service.js'
 import { Input, Button, Typography } from '@material-tailwind/react'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import Swal from 'sweetalert2'
 
 function AddBookingPage() {
@@ -12,8 +12,11 @@ function AddBookingPage() {
         email: '',
         bookingDay: ''
     })
-
     const [errors, setErrors] = useState({})
+
+    useEffect(() => {
+        autocompleteWithTelephone()
+    }, [formData.telephone])
 
     const handleChange = (e) => {
         const { name, value } = e.target
@@ -31,6 +34,23 @@ function AddBookingPage() {
         if (!formData.bookingDay) newErrors.bookingDay = 'El día de la reserva es obligatorio'
         setErrors(newErrors)
         return Object.keys(newErrors).length === 0
+    }
+
+    const autocompleteWithTelephone = async () => {
+        if (formData.telephone) {
+            try {
+                const client = await clientService.getClientByTelephone(formData.telephone)
+                if (client) {
+                    setFormData({
+                       ...formData,
+                        name: client.name,
+                        email: client.email
+                    })
+                }
+            } catch (error) {
+                console.log('No client with this telephone')
+            }   
+        }
     }
 
     const createBooking = async () => {
