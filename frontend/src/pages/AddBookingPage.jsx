@@ -36,6 +36,7 @@ function AddBookingPage() {
         return Object.keys(newErrors).length === 0
     }
 
+    // Si existe un cliente con ese teléfono, se autocompletará el nombre y el email con los datos correspondientes.
     const autocompleteWithTelephone = async () => {
         if (formData.telephone) {
             try {

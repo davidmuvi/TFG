@@ -15,7 +15,7 @@ function LoginPage() {
   const navigate = useNavigate()
   const { authUser, storeToken, user } = useAuth()
 
-  const handleInputChange = (e) => {
+  const handleChange = (e) => {
     const { name, value } = e.target
     setLoginData({
       ...loginData,
@@ -66,13 +66,13 @@ function LoginPage() {
           <div className="flex flex-col gap-8 justify-center w-full md:w-2/3 h-1/3 mb-5">
             <div className="flex flex-col gap-2">
               <label className="text-md font-bold">Username</label>
-              <input type="text" name="username" value={username} onChange={handleInputChange}
+              <input type="text" name="username" value={username} onChange={handleChange}
                 className="rounded-md px-3 py-2 leading-6 text-main_purple bg-secondary_purple focus:outline-none focus:ring-2 focus:ring-main_purple focus:border-transparent"
               />
             </div>
             <div className="flex flex-col gap-2">
               <label className="text-md font-bold">Password</label>
-              <input type="password" name="password" value={password} onChange={handleInputChange}
+              <input type="password" name="password" value={password} onChange={handleChange}
                 className="rounded-md px-3 py-2 leading-6 text-main_purple bg-secondary_purple focus:outline-none focus:ring-2 focus:ring-main_purple focus:border-transparent"
               />
             </div>

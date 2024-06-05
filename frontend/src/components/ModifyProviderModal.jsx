@@ -8,6 +8,7 @@ function ModifyProviderModal({ open, setOpen, provider, updateProvider }) {
         name: ''
     })
 
+    // Cuando cargamos el modal, ponemos en el formulario los datos del proveedor que queremos modificar
     useEffect(() => {
         if (provider) {
             setFormData({
@@ -60,7 +61,7 @@ function ModifyProviderModal({ open, setOpen, provider, updateProvider }) {
     )
 }
 
-{/* Declaramos los tipos de las propiedades que le pasan al componente */ }
+// Declaramos los tipos de las propiedades que le pasan al componente
 ModifyProviderModal.propTypes = {
     open: PropTypes.bool.isRequired,
     setOpen: PropTypes.func.isRequired,

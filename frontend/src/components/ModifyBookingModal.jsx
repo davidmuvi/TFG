@@ -97,7 +97,7 @@ function ModifyBookingModal({ open, setOpen, booking, updateBooking }) {
     )
 }
 
-{/* Declaramos los tipos de las propiedades que le pasan al componente */ }
+// Declaramos los tipos de las propiedades que le pasan al componente
 ModifyBookingModal.propTypes = {
     open: PropTypes.bool.isRequired,
     setOpen: PropTypes.func.isRequired,

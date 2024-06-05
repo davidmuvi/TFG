@@ -1,5 +1,6 @@
 import { createContext, useState, useContext, useEffect } from 'react'
 import { authService } from '../services/auth.service.js'
+import PropTypes from 'prop-types'
 
 export const AuthContext = createContext()
 
@@ -56,4 +57,8 @@ export const AuthProvider = ({ children }) => {
             {children}
         </AuthContext.Provider>
     )
+}
+
+AuthProvider.propTypes = {
+    children: PropTypes.node.isRequired
 }

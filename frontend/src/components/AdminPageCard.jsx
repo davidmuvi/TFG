@@ -37,6 +37,7 @@ export function AdminPageCard({ header, paragraph, icon, buttonText, redirection
     );
 }
 
+// Declaramos los tipos de las propiedades que le pasan al componente
 AdminPageCard.propTypes = {
     header: PropTypes.string.isRequired,
     paragraph: PropTypes.string.isRequired,

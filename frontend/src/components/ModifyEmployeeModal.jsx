@@ -12,7 +12,7 @@ function ModifyEmployeeModal({ open, setOpen, employee, updateEmployee }) {
         telephone: ''
     })
 
-    // Cuando cargamos el modal, ponemos en el formulario los datos de la reserva que queremos modificar.
+    // Cuando cargamos el modal, ponemos en el formulario los datos del empleado que queremos modificar.
     useEffect(() => {
         if (employee) {
             setFormData({
@@ -124,7 +124,7 @@ function ModifyEmployeeModal({ open, setOpen, employee, updateEmployee }) {
     )
 }
 
-{/* Declaramos los tipos de las propiedades que le pasan al componente */ }
+// Declaramos los tipos de las propiedades que le pasan al componente
 ModifyEmployeeModal.propTypes = {
     open: PropTypes.bool.isRequired,
     setOpen: PropTypes.func.isRequired,

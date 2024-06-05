@@ -10,6 +10,7 @@ const Layout = ({ navbarBackgroundColor, children }) => {
   )
 }
 
+// Declaramos los tipos de las propiedades que le pasan al componente
 Layout.propTypes = {
   children: PropTypes.node.isRequired,
   navbarBackgroundColor: PropTypes.string,

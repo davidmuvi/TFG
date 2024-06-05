@@ -16,6 +16,7 @@ function AddEmployeePage() {
     })
     const [errors, setErrors] = useState({})
 
+    // Aquí van los puestos de los empleados que saldrán en el desplegable para poder ser seleccionados.
     const ROLES = [
         {
             _id: crypto.randomUUID(),

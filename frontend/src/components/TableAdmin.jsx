@@ -177,6 +177,7 @@ export function TableAdmin({ employees, getEmployees }) {
     )
 }
 
+// Declaramos los tipos de las propiedades que le pasan al componente
 TableAdmin.propTypes = {
     employees: PropTypes.array.isRequired,
     getEmployees: PropTypes.func.isRequired,

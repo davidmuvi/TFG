@@ -14,8 +14,8 @@ import AdminPage from '../pages/AdminPage'
 import ManageEmployeesPage from '../pages/ManageEmployeesPage'
 import AddEmployeePage from '../pages/AddEmployeePage'
 import ErrorPage from '../pages/ErrorPage'
-const appRoutes = ({ bookings, setBookings }) => {
 
+const appRoutes = ({ bookings, setBookings }) => {
     return (
         <Routes>
             <Route path='/' element={<LoginPage />} />

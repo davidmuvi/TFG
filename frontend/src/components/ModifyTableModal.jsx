@@ -8,6 +8,7 @@ function ModifyTableModal({ open, setOpen, table, updateTable }) {
         name: ''
     })
 
+    // Cuando cargamos el modal, ponemos en el formulario los datos de la mesa que queremos modificar
     useEffect(() => {
         if (table) {
             setFormData({
@@ -77,7 +78,7 @@ function ModifyTableModal({ open, setOpen, table, updateTable }) {
     )
 }
 
-{/* Declaramos los tipos de las propiedades que le pasan al componente */ }
+// Declaramos los tipos de las propiedades que le pasan al componente
 ModifyTableModal.propTypes = {
     open: PropTypes.bool.isRequired,
     setOpen: PropTypes.func.isRequired,

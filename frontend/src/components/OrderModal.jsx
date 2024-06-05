@@ -26,6 +26,7 @@ function OrderModal({ openOrderModal, setOpenOrderModal, bookingId }) {
         })
     }
 
+    // Recupero los productos con stock en el momento de abrir el modal del pedido.
     const getProductsWithStock = async () => {
         try {
             const products = await productService.getProducts()
@@ -45,6 +46,7 @@ function OrderModal({ openOrderModal, setOpenOrderModal, bookingId }) {
         }
     }
 
+    // Recupero el pedido de la reserva correspondiente, si no tiene pedido se crea uno nuevo.
     const getOrderByBookingId = async () => {
         try {
             let order = await orderService.getOrderByBookingId(bookingId)
@@ -57,6 +59,7 @@ function OrderModal({ openOrderModal, setOpenOrderModal, bookingId }) {
         }
     }
 
+    // Añade un producto al pedido y resta uno a la cantidad del stock.
     const updateOrderByBookingId = (bookingId, productName) => {
         productService.getProductByName(productName)
             .then((product) => {
@@ -75,6 +78,7 @@ function OrderModal({ openOrderModal, setOpenOrderModal, bookingId }) {
             })
     }
 
+    // Elimina un producto del pedido y suma uno a la cantidad del stock.
     const deleteProductInOrderByBookingId = (bookingId, productId) => {
         orderService.deleteProductInOrderByBookingId(bookingId, productId)
             .then(() => {
@@ -139,6 +143,7 @@ function OrderModal({ openOrderModal, setOpenOrderModal, bookingId }) {
     )
 }
 
+// Declaramos los tipos de las propiedades que le pasan al componente
 OrderModal.propTypes = {
     openOrderModal: PropTypes.bool.isRequired,
     setOpenOrderModal: PropTypes.func.isRequired,

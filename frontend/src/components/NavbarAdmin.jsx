@@ -14,6 +14,8 @@ import PropTypes from 'prop-types'
 export function NavbarAdmin({ redirection, icon, iconText }) {
     const [openNav, setOpenNav] = useState(false)
     const { user, logout } = useAuth()
+
+    // Añado un listener para hacer el navbar responsive. 
     useEffect(() => {
         window.addEventListener(
             "resize",
@@ -21,6 +23,7 @@ export function NavbarAdmin({ redirection, icon, iconText }) {
         )
     }, [])
 
+    // En esta lista se ponen los componentes que queremos imprimir en el navbar.
     const navList = (
         <ul className="mt-2 mb-4 flex flex-col gap-2 lg:mb-0 lg:mt-0 lg:flex-row lg:items-center lg:gap-40 text-main_purple font-bold">
             <Typography
@@ -126,6 +129,7 @@ export function NavbarAdmin({ redirection, icon, iconText }) {
     )
 }
 
+// Declaramos los tipos de las propiedades que le pasan al componente
 NavbarAdmin.propTypes = {
     redirection: PropTypes.string.isRequired,
     icon: PropTypes.element.isRequired,

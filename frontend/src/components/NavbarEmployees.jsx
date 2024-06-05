@@ -16,6 +16,7 @@ const NavbarEmployees = () => {
     const [openNav, setOpenNav] = useState(false)
     const { user, logout } = useAuth()
 
+    // Añado un listener para hacer el navbar responsive. 
     useEffect(() => {
         window.addEventListener(
             "resize",
@@ -23,6 +24,7 @@ const NavbarEmployees = () => {
         )
     }, [])
 
+    // En esta lista se ponen los componentes que queremos imprimir en el navbar.
     const navList = (
         user.userType === 'admin' ?
             <ul className="mt-2 mb-4 flex flex-col gap-2 lg:mb-0 lg:mt-0 lg:flex-row lg:items-center lg:gap-20 text-main_purple font-bold">
@@ -183,6 +185,7 @@ const NavbarEmployees = () => {
     )
 }
 
+// Declaramos los tipos de las propiedades que le pasan al componente
 NavbarEmployees.propTypes = {
     backgroundColor: PropTypes.string.isRequired,
 }
