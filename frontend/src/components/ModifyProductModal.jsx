@@ -2,6 +2,7 @@ import { Dialog, Input, Button, Typography } from '@material-tailwind/react'
 import { useState, useEffect } from 'react'
 import { XMarkIcon } from '@heroicons/react/24/solid'
 import PropTypes from 'prop-types'
+import Swal from 'sweetalert2'
 
 function ModifyProductModal({ open, setOpen, product, updateProduct }) {
     const [formData, setFormData] = useState({
@@ -31,11 +32,19 @@ function ModifyProductModal({ open, setOpen, product, updateProduct }) {
 
     const handleSubmit = (e) => {
         e.preventDefault()
-        updateProduct(product._id, {
-            name: formData.name,
-            category: formData.category,
-            price: formData.price
-        })
+        if (formData.price > 0){
+            updateProduct(product._id, {
+                name: formData.name,
+                category: formData.category,
+                price: formData.price
+            })
+        } else {
+            Swal.fire({
+                icon: 'error',
+                title: 'Precio incorrecto',
+                text: 'El precio debe ser mayor que 0.',
+            })
+        }
         setOpen(false)
     }
 

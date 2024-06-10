@@ -54,6 +54,23 @@ function AddBookingPage() {
         }
     }
 
+    const showMessageBookingCreated = () => {
+        Swal.fire({
+            icon: 'success',
+            title: 'Reserva creada',
+            text: 'La reserva se ha creado correctamente.',
+        })
+    }
+    
+    const resetDataOfForm = () => {
+        setFormData({
+            name: '',
+            telephone: '',
+            email: '',
+            bookingDay: ''
+        })
+    }
+
     const createBooking = async () => {
         const { telephone, bookingDay } = formData
         const client = await clientService.getClientByTelephone(telephone)
@@ -80,10 +97,14 @@ function AddBookingPage() {
         if (!client) {
             try {
                 const newClient = { name: formData.name, telephone: formData.telephone, email: formData.email }
-                console.log(newClient)
                 const clientCreated = await clientService.createClient(newClient)
                 const newBooking = { clientId: clientCreated._id, date: bookingDay }
+
                 await bookingService.createBooking(newBooking)
+
+                showMessageBookingCreated()
+                resetDataOfForm()
+
             } catch (error) { 
                 Swal.fire({
                     icon: 'error',
@@ -93,7 +114,11 @@ function AddBookingPage() {
             }
         } else {
             const newBooking = { clientId: client._id, date: bookingDay }
+
             await bookingService.createBooking(newBooking)
+
+            showMessageBookingCreated()
+            resetDataOfForm()
         }
     }
 
@@ -102,18 +127,6 @@ function AddBookingPage() {
         if (validate()) {
             try {
                 createBooking()
-                Swal.fire({
-                    icon: 'success',
-                    title: 'Reserva creada',
-                    text: 'La reserva se ha creado correctamente.',
-                })
-
-                setFormData({
-                    name: '',
-                    telephone: '',
-                    email: '',
-                    bookingDay: ''
-                })
             } catch (err) {
                 Swal.fire({
                     icon: 'error',

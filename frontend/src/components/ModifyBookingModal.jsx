@@ -33,11 +33,18 @@ function ModifyBookingModal({ open, setOpen, booking, updateBooking }) {
         if (formData.tableNumber) {
             tableService.getTableByTableNumber(formData.tableNumber)
                 .then((table) => {
-                    updateBooking(booking.id, {
-                        date: formData.bookingDay,
-                        tableId: table._id
-                    })
-                    setOpen(false)
+                    if (table) {
+                        updateBooking(booking.id, {
+                            date: formData.bookingDay,
+                            tableId: table._id
+                        })
+                    } else {
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Reserva no modificada',
+                            text: 'La mesa asignada no existe',
+                        })
+                    }
                 })
                 .catch(() => {
                     Swal.fire({
@@ -45,9 +52,29 @@ function ModifyBookingModal({ open, setOpen, booking, updateBooking }) {
                         title: 'Reserva no modificada',
                         text: 'La mesa asignada no existe',
                     })
-                    setOpen(false)
                 })
+            setOpen(false)
         } else {
+            // Consigo la fecha actual.
+            let actualDate = new Date()
+            const actualDay = String(actualDate.getDate()).padStart(2, '0')
+            const actualYear = actualDate.getFullYear()
+            const actualMonth = String(actualDate.getMonth() + 1).padStart(2, '0')
+
+            actualDate = new Date(`${actualYear}-${actualMonth}-${actualDay}`)
+            const bookingDate = new Date(formData.bookingDay)
+
+            // Si la fecha de la reserva es anterior a la fecha actual, no se puede realizar la reserva.
+            if (bookingDate < actualDate) {
+                setOpen(false)
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Reserva no modificada',
+                    text: 'La reserva no se ha podido modificar. La fecha de la reserva debe ser posterior a la actual.',
+                })
+                return
+            }
+
             updateBooking(booking.id, {
                 date: formData.bookingDay
             })

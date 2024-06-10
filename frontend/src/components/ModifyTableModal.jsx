@@ -2,6 +2,7 @@ import { Dialog, Input, Button, Typography } from '@material-tailwind/react'
 import { useEffect, useState } from 'react'
 import { XMarkIcon } from '@heroicons/react/24/solid'
 import PropTypes from 'prop-types'
+import Swal from 'sweetalert2'
 
 function ModifyTableModal({ open, setOpen, table, updateTable }) {
     const [formData, setFormData] = useState({
@@ -28,10 +29,26 @@ function ModifyTableModal({ open, setOpen, table, updateTable }) {
 
     const handleSubmit = (e) => {
         e.preventDefault()
-        updateTable(table._id, {
-            tableNumber: formData.tableNumber,
-            capacity: formData.capacity
-        })
+        if (formData.tableNumber < 0) { 
+            Swal.fire({
+                icon: 'error',
+                title: 'Número de mesa incorrecto',
+                text: 'El número de la mesa debe ser mayor que 0.'
+            })
+        }
+        else if (formData.capacity < 0) {
+            Swal.fire({
+                icon: 'error',
+                title: 'Capacidad incorrecta',
+                text: 'La capacidad de la mesa debe ser mayor que 0.'
+            })
+        }
+        else {
+            updateTable(table._id, {
+                tableNumber: formData.tableNumber,
+                capacity: formData.capacity
+            })
+        }
         setOpen(false)
     }
 

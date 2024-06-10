@@ -66,6 +66,22 @@ function BookingsPage({ bookings, setBookings }) {
     }
 
     const updateBooking = (id, updatedBooking) => {
+        let tableNotAvailable = false
+
+        // Compruebo que la mesa que se está intentando asignar a la reserva no esté ya asignada a otra reserva.
+        if (updatedBooking.tableId) {
+            tableNotAvailable = bookings.some(booking => booking.tableId && booking.tableId._id === updatedBooking.tableId)
+        }
+
+        if (tableNotAvailable) { 
+            Swal.fire({
+                icon: 'error',
+                title: 'Mesa no disponible',
+                text: 'La mesa seleccionada está ocupada.',
+            })
+            return
+        }
+
         bookingService.updateBooking(id, updatedBooking)
             .then(() => {
                 Swal.fire({

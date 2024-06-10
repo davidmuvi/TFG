@@ -29,35 +29,32 @@ function AddProviderPage() {
 
     const createProvider = async () => {
         const { name } = formData
-
-        const newProvider = { name: name }
-        await providerService.createProvider(newProvider)
+        try {
+            const newProvider = { name: name }
+            await providerService.createProvider(newProvider)
+            Swal.fire({
+                icon: 'success',
+                title: 'Proveedor creado',
+                text: 'El proveedor se ha creado correctamente.',
+            })
+    
+            setFormData({
+                name: '',
+            })
+        } catch (error) {
+            Swal.fire({
+                icon: 'error',
+                title: 'Proveedor no creado',
+                text: 'El proveedor ya existe.',
+            })
+        }
     }
 
     const handleSubmit = (e) => {
         e.preventDefault()
 
         if (validate()) {
-            try {
-                createProvider()
-
-                Swal.fire({
-                    icon: 'success',
-                    title: 'Proveedor creado',
-                    text: 'El proveedor se ha creado correctamente.',
-                })
-
-                setFormData({
-                    name: '',
-                })
-
-            } catch (err) {
-                Swal.fire({
-                    icon: 'error',
-                    title: 'Proveedor no creado',
-                    text: 'No se ha podido crear el proveedor.',
-                })
-            }
+            createProvider()
         }
     }
 

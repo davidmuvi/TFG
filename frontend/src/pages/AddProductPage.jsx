@@ -58,6 +58,24 @@ function AddProductPage() {
                 return
             }
 
+            if (price < 0) {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Precio incorrecto',
+                    text: 'El precio del producto debe ser mayor que 0.',
+                })
+                return
+            }
+
+            if (quantity < 0) {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Cantidad incorrecta',
+                    text: 'La cantidad del producto debe ser mayor que 0.',
+                })
+                return
+            }
+
             const newProduct = { name: name, category: category, price: Number(price), providerId: provider._id }
             const product = await productService.createProduct(newProduct)
 

@@ -32,8 +32,47 @@ function AddTablePage() {
     const createTable = async () => {
         const { tableNumber, capacity } = formData
 
-        const newProvider = { tableNumber: Number(tableNumber), capacity: Number(capacity) }
-        await tableService.createTable(newProvider)
+        try {
+            if (tableNumber < 0) {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Mesa no creada',
+                    text: 'El número de la mesa debe ser mayor que 0.',
+                })
+                return
+            }
+
+            if (capacity < 0) {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Mesa no creada',
+                    text: 'La capacidad de la mesa debe ser mayor que 0.',
+                })
+                return
+            }
+
+            const newProvider = { tableNumber: Number(tableNumber), capacity: Number(capacity) }
+            await tableService.createTable(newProvider)
+
+            Swal.fire({
+                icon: 'success',
+                title: 'Mesa creada',
+                text: 'La mesa se ha creado correctamente.',
+            })
+
+            setFormData({
+                tableNumber: '',
+                capacity: ''
+            })
+
+        } catch (error) {
+            Swal.fire({
+                icon: 'error',
+                title: 'Mesa no creada',
+                text: 'El número de mesa ya está asignado.',
+            })
+        }
+
     }
 
     const handleSubmit = (e) => {
@@ -41,27 +80,6 @@ function AddTablePage() {
 
         if (validate()) {
             createTable()
-                .then(() => {
-                    Swal.fire({
-                        icon: 'success',
-                        title: 'Mesa creada',
-                        text: 'La mesa se ha creado correctamente.',
-                    })
-                }
-                )
-                .catch(() => {
-                    Swal.fire({
-                        icon: 'error',
-                        title: 'Mesa no creada',
-                        text: 'No se ha podido crear la mesa.',
-                    })
-                }
-                )
-
-            setFormData({
-                tableNumber: '',
-                capacity: ''
-            })
         }
     }
 
