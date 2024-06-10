@@ -22,14 +22,14 @@ function TablesPage({ bookings }) {
 
     const getTables = async () => {
         try {
-            // Recuperamos todos las tablas sin el campo availability y creamos un array vació donde meteremos las tablas y le añadiremos el campo.
+            // Recuperamos todos las mesas sin el campo availability.
             const tables = await tableService.getTables()
-            const tablesWithAvailabilityField = []
-            for (const table of tables) {
-                const availability = await getAvailability(table)
-                tablesWithAvailabilityField.push({ ...table, availability })
-            }
 
+            // Recuperamos la disponibilidad de cada una de las mesas y creamos un array con las mesas y el campo para la disponibilidad.
+            const tablesWithAvailabilityField = await Promise.all(tables.map(async (table) => {
+                const availability = await getAvailability(table)
+                return {...table, availability }
+            }))
             setTables(tablesWithAvailabilityField)
             setLoading(false)
         } catch (error) {
@@ -75,30 +75,13 @@ function TablesPage({ bookings }) {
         setOpen(true)
     }
 
-    // Esta función se encarga de obtener las mesas que no tienen disponibilidad, 
-    // y luego compara con la lista de todas las mesas para ver cuáles están disponibles.
+    // Esta función se encarga de asignar la disponibilidad de las mesas.
     const getAvailability = async (table) => {
         try {
-            // El método some recorre el array y comprueba que al menos un elemento cumpla la condición.
-            // En este caso, si cumple la condición, devolvería true y lo revertimos porque si hay una coincidencia no está disponible.
-            let isAvailable
-            if (bookings.length > 0) {
-                bookings.forEach((booking) => {
-                    if (booking.tableId && booking.tableId._id === table._id) {
-                        isAvailable = false
-                        return
-                    } else {
-                        isAvailable = true
-                        return
-                    }
-                })
-            }
-            else {
-                isAvailable = true
-            }
-
+            // Si alguna reserva coincide con la mesa, se le asignará No disponible.
+            const isAvailable = !bookings.some((booking) => booking.tableId && booking.tableId._id === table._id)
             return isAvailable ? 'Disponible' : 'No disponible'
-        } catch (error) {
+        } catch(error) {
             console.log(error)
         }
     }

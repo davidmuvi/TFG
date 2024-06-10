@@ -25,6 +25,18 @@ function ModifyEmployeeModal({ open, setOpen, employee, updateEmployee }) {
         }
     }, [])
 
+    // Aquí van los puestos de los empleados que saldrán en el desplegable para poder ser seleccionados.
+    const ROLES = [
+        {
+            _id: crypto.randomUUID(),
+            name: 'manager'
+        },
+        {
+            _id: crypto.randomUUID(),
+            name: 'normal'
+        }
+    ]
+
     const handleChange = (e) => {
         const { name, value } = e.target
         setFormData({
@@ -40,7 +52,7 @@ function ModifyEmployeeModal({ open, setOpen, employee, updateEmployee }) {
             username: formData.username,
             email: formData.email,
             role: formData.role,
-            telephone: formData.telephone
+            telephone: formData.telephone.toString()
         })
         setOpen(false)
     }
@@ -93,15 +105,19 @@ function ModifyEmployeeModal({ open, setOpen, employee, updateEmployee }) {
 
                     <div className='mb-4'>
                         <Typography variant="h6" className='mb-2 text-main_purple'> Puesto del empleado </Typography>
-                        <Input
+                        <select
                             name="role"
                             value={formData.role}
                             onChange={handleChange}
-                            labelProps={{
-                                className: "!text-main_purple after:border-main_purple before:border-main_purple peer-focus:before:!border-main_purple peer-focus:after:!border-main_purple",
-                            }}
-                            className='w-full text-main_purple border-main_purple focus:border-main_purple'
-                        />
+                            className='bg-secondary_purple border border-main_purple p-2 rounded-md text-sm text-main_purple w-full'
+                        >
+                            <option value=''>Seleccione un puesto</option>
+                            {ROLES.map((role) => (
+                                <option key={role._id} value={role.name}>
+                                    {role.name}
+                                </option>
+                            ))}
+                        </select>
                     </div>
 
                     <div className='mb-4'>
