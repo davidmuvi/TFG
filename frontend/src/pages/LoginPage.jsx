@@ -84,7 +84,9 @@ function LoginPage() {
           </Button>
           {loginError && (<p className="text-red-500 font-bold">{loginError}</p>)}
         </form>
-        <div className='lg:block lg:rounded-tr-lg lg:rounded-br-lg lg:bg-secondary_purple'></div>
+        <div className='hidden lg:block lg:rounded-tr-lg lg:rounded-br-lg lg:bg-secondary_purple'>
+          <div className='bg-login-image w-full h-full'></div>
+        </div>
       </div>
     </div>
   )

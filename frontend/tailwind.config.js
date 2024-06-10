@@ -11,6 +11,9 @@ export default withMT({
         main_green: "#5CBF94",
         main_purple: "#2f156b",
         secondary_purple: "#e6e6fc"
+      },
+      backgroundImage: {
+        'login-image': "url('assets/mmmotif.svg')"
       }
     },
   },
