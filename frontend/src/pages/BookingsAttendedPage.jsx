@@ -49,17 +49,26 @@ function BookingsAttendedPage() {
                     <Spinner className='h-12 w-12' />
                 </div> :
                 <Card className="flex-1 w-screen p-4">
-                    <div className='grid grid-cols-5 gap-2 mb-4'>
-                        {TABLE_HEAD.map((head) => (
-                            <div
-                                key={head}
-                                className="bg-main_purple rounded-3xl text-white text-2xl font-extrabold flex items-center justify-center p-2"
-                            >
-                                {head}
-                            </div>
-                        ))}
+                    <div className='grid grid-cols-4 lg:grid-cols-5 gap-2 mb-4'>
+                        {TABLE_HEAD.map((head) => {
+                            if (head != 'Email cliente') {
+                                return <div
+                                    key={head}
+                                    className="bg-main_purple rounded-3xl text-white text-sm text-center md:text-2xl md:font-extrabold flex items-center justify-center p-2"
+                                >
+                                    {head}
+                                </div>
+                            } else {
+                                return <div
+                                    key={head}
+                                    className="bg-main_purple rounded-3xl text-white text-sm text-center md:text-2xl md:font-extrabold hidden lg:flex items-center justify-center p-2"
+                                >
+                                    {head}
+                                </div>
+                            }
+                        })}
                     </div>
-                    <div className='grid grid-cols-5 gap-2 auto-rows-max'>
+                    <div className='grid grid-cols-4 lg:grid-cols-5 gap-2 auto-rows-max'>
                         {TABLE_ROWS.map(({ employeeId, bookingId, client }) => {
                             const employeeName = employeeId && employeeId.name ? employeeId.name : 'Empleado borrado'
                             const bookingDate = bookingId && bookingId.date ? bookingId.date : 'No existe la fecha'
@@ -75,27 +84,27 @@ function BookingsAttendedPage() {
 
                             return (
                                 <>
-                                    <div className='bg-secondary_purple rounded-3xl p-2 flex justify-center'>
+                                    <div className='bg-secondary_purple rounded-3xl p-2 flex justify-center items-center'>
                                         <Typography variant="small" color="blue-gray" className="text-main_purple">
                                             {employeeName}
                                         </Typography>
                                     </div>
-                                    <div className='bg-secondary_purple rounded-3xl p-2 flex justify-center'>
+                                    <div className='bg-secondary_purple rounded-3xl p-2 flex justify-center items-center'>
                                         <Typography variant="small" color="blue-gray" className="text-main_purple">
                                             {formatDate(bookingDate)}
                                         </Typography>
                                     </div>
-                                    <div className='bg-secondary_purple rounded-3xl p-2 flex justify-center'>
+                                    <div className='bg-secondary_purple rounded-3xl p-2 flex justify-center items-center text-center'>
                                         <Typography variant="small" color="blue-gray" className="text-main_purple">
                                             {clientInfo.name}
                                         </Typography>
                                     </div>
-                                    <div className='bg-secondary_purple rounded-3xl p-2 flex justify-center'>
+                                    <div className='bg-secondary_purple rounded-3xl p-2 flex justify-center items-center text-center'>
                                         <Typography variant="small" color="blue-gray" className="text-main_purple">
                                             {clientInfo.telephone}
                                         </Typography>
                                     </div>
-                                    <div className='bg-secondary_purple rounded-3xl p-2 flex justify-center'>
+                                    <div className='bg-secondary_purple rounded-3xl p-2 hidden lg:flex justify-center items-center'>
                                         <Typography variant="small" color="blue-gray" className="text-main_purple">
                                             {clientInfo.email}
                                         </Typography>
